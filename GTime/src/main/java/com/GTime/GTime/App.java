@@ -1,13 +1,16 @@
 package com.GTime.GTime;
 
 import javafx.application.Application;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
+import utilidades.DatabaseConnector;
 /**
  * JavaFX App
  */
@@ -32,7 +35,27 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+    
+    	// Test
+    	testConexion();
+        
+    	launch();
+    }
+    
+    public static void testConexion() {
+    	
+    	DatabaseConnector conexion = new DatabaseConnector();
+    	
+    	try (Connection conexionLoggin = conexion.iniciarConexion();){
+    		
+			conexion.cerrarConexion(conexionLoggin);
+					
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ConexionFallida");
+		}
+    	
+    	
     }
 
 }

@@ -19,7 +19,7 @@ public boolean inicioSesionScrud(String usuario,String contrasenia) {
 
 	Connection conexionDeDatos = alumnosGestion.iniciarConexion();
 
-	String sql = "SELECT nombreusuario,contrasenia FROM alumnos WHERE usuario = ? && contrasenia = ?";
+	String sql = "SELECT nombreUsuario,contrasenia FROM usuarioslista WHERE nombreUsuario = ? && contrasenia = ?";
 	
 	try (PreparedStatement StatementInicio = conexionDeDatos.prepareStatement(sql)){
 		

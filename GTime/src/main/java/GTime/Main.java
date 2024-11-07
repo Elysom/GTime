@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-
 import utilidades.DatabaseConnector;
+
 /**
  * JavaFX App
  */
@@ -19,7 +19,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/InterfazLogin.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/loggin.fxml"));
 			AnchorPane root = loader.load();
 			
 			//BorderPane root = new BorderPane();
@@ -31,11 +31,12 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
     public static void main(String[] args) {
     
     	// Test
     	
-    	testConexion();
+    	//testConexion();
         
     	launch();
     }

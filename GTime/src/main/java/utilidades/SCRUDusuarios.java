@@ -54,7 +54,9 @@ public void loginSCRUD(String usuario,String contrasenia) {
 	
 	
 }
-public void registerSCRUD
+public void registerSCRUD(){
+	
+}
 
 
 

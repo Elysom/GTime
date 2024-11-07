@@ -13,7 +13,7 @@ public class SCRUDusuarios {
 
 //Método para loggear a un usario a partir del usuarfio y password
 
-public boolean inicioSesionScrud(String usuario,String contrasenia) {
+public void loginSCRUD(String usuario,String contrasenia) {
 	
 	Connection cn= utilidades.DatabaseConnector.dameConexion();
 	
@@ -35,13 +35,12 @@ public boolean inicioSesionScrud(String usuario,String contrasenia) {
 				
 				utilidades.DatabaseConnector.cerrarConexion(cn);
 				
-				return true;
+				
 			
 			} else {
 				
 				System.out.println("Nombre de usuario y contrasenia invalido");
 				
-				return false;
 				
 			}
 			
@@ -53,7 +52,11 @@ public boolean inicioSesionScrud(String usuario,String contrasenia) {
 
 	}
 	
-	return false;
 	
 }
+public void registerSCRUD
+
+
+
+
 }

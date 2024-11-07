@@ -6,14 +6,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="425.0" prefWidth="434.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="425.0" prefWidth="434.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorRegister">
    <children>
       <AnchorPane layoutY="-13.0" prefHeight="442.0" prefWidth="434.0">
          <children>
-            <TextField fx:id="nombreUsuario" layoutX="189.0" layoutY="114.0" />
-            <TextField fx:id="mailUsuario" layoutX="189.0" layoutY="153.0" />
-            <TextField fx:id="nombreReal" layoutX="189.0" layoutY="194.0" />
-            <Text layoutX="72.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre ususario">
+            <TextField fx:id="txtNombre" layoutX="189.0" layoutY="114.0" />
+            <TextField fx:id="txtMail" layoutX="189.0" layoutY="153.0" />
+            <TextField fx:id="txtNombreReal" layoutX="189.0" layoutY="194.0" />
+            <Text layoutX="78.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre usuario">
                <font>
                   <Font size="14.0" />
                </font>
@@ -28,19 +28,19 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="189.0" layoutY="230.0" />
+            <TextField fx:id="txtApellidos" layoutX="189.0" layoutY="230.0" />
             <Text layoutX="122.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="190.0" layoutY="272.0" />
+            <TextField fx:id="txtContrasenia" layoutX="190.0" layoutY="272.0" />
             <Text layoutX="108.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="189.0" layoutY="313.0" />
+            <TextField fx:id="txtConfContrasenia" layoutX="189.0" layoutY="313.0" />
             <Text layoutX="55.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar contraseña">
                <font>
                   <Font size="14.0" />
@@ -51,7 +51,7 @@
                   <Font size="25.0" />
                </font>
             </Text>
-            <Button layoutX="164.0" layoutY="371.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Registrarse" />
+            <Button fx:id="btnRegister" layoutX="164.0" layoutY="371.0" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="89.0" text="Registrarse" />
          </children>
       </AnchorPane>
    </children>

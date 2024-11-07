@@ -18,16 +18,16 @@ import javafx.scene.control.Button;
 public class controladorLoggin implements Initializable {
 
 @FXML
-private TextField usuarioLogin;
+private TextField txtUsuario;
 
 @FXML
-private TextField contraseniaLogin;
+private TextField txtContrasenia;
 
 @FXML
-private Button botonLogin;
+private Button btnLogin;
 
 @FXML
-private Button botonRegister;
+private Button btnRegistrar;
 
 @Override
 public void initialize(URL arg0, ResourceBundle arg1) {
@@ -39,19 +39,14 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 private void loggin(ActionEvent event) {
 	
 	
-	String usuario = usuarioLogin.getText();
+	String usuario = txtUsuario.getText();
 	
-	String pass = contraseniaLogin.getText();
+	String pass = txtContrasenia.getText();
 	
 	SCRUDusuarios loggin = new SCRUDusuarios();
 	
 	System.out.println("ejemplo");
-	if (loggin.inicioSesionScrud(usuario, pass)) {
-		System.out.println("Se inicio sesion con exito");
-	} else {
-		System.out.println("valores incrrectos");
-	}
-
+	loggin.loginSCRUD(usuario, pass);//Llama a la funcion
 }
 
 

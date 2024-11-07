@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="201.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorLoggin">
+<AnchorPane prefHeight="201.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorLoggin">
    <children>
       <Pane layoutX="-10.0" prefHeight="237.0" prefWidth="378.0">
          <children>
@@ -26,11 +26,11 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="usuarioLogin" layoutX="148.0" layoutY="77.0" />
-            <TextField fx:id="contraseniaLogin" layoutX="148.0" layoutY="113.0" />
-            <Button fx:id="botonLogin" layoutX="144.0" layoutY="154.0" mnemonicParsing="false" onAction="#loggin" prefHeight="24.0" prefWidth="72.0" text="Login" />
+            <TextField fx:id="txtUsuario" layoutX="148.0" layoutY="77.0" />
+            <TextField fx:id="txtContrasenia" layoutX="148.0" layoutY="113.0" />
+            <Button fx:id="btnLogin" layoutX="144.0" layoutY="154.0" mnemonicParsing="false" onAction="#loggin" prefHeight="24.0" prefWidth="72.0" text="Login" />
             <Text layoutX="113.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No estas?" wrappingWidth="56.68359375" />
-            <Button fx:id="botonRegistrar" layoutX="180.0" layoutY="195.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Registrate" />
+            <Button fx:id="btnRegistrar" layoutX="180.0" layoutY="195.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Registrate" />
          </children>
       </Pane>
    </children>

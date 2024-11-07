@@ -15,13 +15,12 @@ public class SCRUDusuarios {
 
 public boolean inicioSesionScrud(String usuario,String contrasenia) {
 	
-	DatabaseConnector alumnosGestion = new DatabaseConnector();
-
-	Connection conexionDeDatos = alumnosGestion.iniciarConexion();
-
+	
+	Connection cn= utilidades.DatabaseConnector.dameConexion();
+	
 	String sql = "SELECT nombreUsuario,contrasenia FROM usuarioslista WHERE nombreUsuario = ? && contrasenia = ?";
 	
-	try (PreparedStatement StatementInicio = conexionDeDatos.prepareStatement(sql)){
+	try (PreparedStatement StatementInicio = cn.prepareStatement(sql)){
 		
 		StatementInicio.setString(1, usuario);
 		
@@ -35,7 +34,7 @@ public boolean inicioSesionScrud(String usuario,String contrasenia) {
 				
 				System.out.println("Inicio de sesión exitoso");
 				
-				alumnosGestion.cerrarConexion(conexionDeDatos);
+				utilidades.DatabaseConnector.cerrarConexion(cn);
 				
 				return true;
 			

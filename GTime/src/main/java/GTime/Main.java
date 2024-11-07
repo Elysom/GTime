@@ -43,11 +43,9 @@ public class Main extends Application {
     
     public static void testConexion() {
     	
-    	DatabaseConnector conexion = new DatabaseConnector();
-    	
-    	try (Connection conexionLoggin = conexion.iniciarConexion();){
+    	try (Connection conexionLoggin = utilidades.DatabaseConnector.dameConexion();){
     		
-			conexion.cerrarConexion(conexionLoggin);
+			utilidades.DatabaseConnector.cerrarConexion(conexionLoggin);
 					
 			
 		} catch (Exception e) {

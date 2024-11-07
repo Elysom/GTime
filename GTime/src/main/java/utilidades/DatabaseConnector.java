@@ -11,25 +11,33 @@ import java.sql.Statement;
 
 public class DatabaseConnector {
 	
-	// Variables para iniciar la conexion
+
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/listausuarios";
-	private static final String USER = "root";
-	private static final String PASSWORD = "";
 	
     // Método para conectar con la base de datos
     
-    public static Connection iniciarConexion() {
-        Connection conexion = null;
-        try {
-            conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Se realizo la conexion con exito " +conexion.getCatalog()+ " = " +conexion);
-        } catch (SQLException e) {
-            System.out.println("Error en la conexión: " + e.getMessage());
-        }
-        return conexion;
-    }
-    
+	public static Connection dameConexion() {
+		Connection conn = null;
+		
+				try { // registro el driver de connection
+					Class.forName("com.mysql.jdbc.Driver");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			// Establezco la conexion con la BBDD
+	    try {
+	    
+	        conn = DriverManager.getConnection
+	        		("jdbc:mysql://localhost:3306/listausuarios?useSSL=false","root","");
+	  
+	    } catch (SQLException ex) {
+	        ex.printStackTrace() ;
+	        System.out.println("SQLException : " + ex.getMessage());
+	    }
+		return conn;
+	}
     // Funcion para cerrar la conexion
     
     public static void cerrarConexion(Connection connection) {

@@ -13,6 +13,7 @@ public class DatabaseConnector {
 	
 
 	
+	
     // Método para conectar con la base de datos
     
 	public static Connection dameConexion() {

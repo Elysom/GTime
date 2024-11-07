@@ -15,6 +15,7 @@ public class SCRUDusuarios {
 
 public boolean inicioSesionScrud(String usuario,String contrasenia) {
 	
+	
 	Connection cn= utilidades.DatabaseConnector.dameConexion();
 	
 	String sql = "SELECT nombreUsuario,contrasenia FROM usuarioslista WHERE nombreUsuario = ? && contrasenia = ?";

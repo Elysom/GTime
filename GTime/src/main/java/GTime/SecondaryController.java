@@ -1,4 +1,4 @@
-package com.GTime.GTime;
+package GTime;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

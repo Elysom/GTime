@@ -14,6 +14,27 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- Volcando estructura de base de datos para listausuarios
+CREATE DATABASE IF NOT EXISTS `listausuarios` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `listausuarios`;
+
+-- Volcando estructura para tabla listausuarios.usuarioslista
+CREATE TABLE IF NOT EXISTS `usuarioslista` (
+  `IDusuario` int(11) NOT NULL AUTO_INCREMENT,
+  `mail` varchar(40) NOT NULL,
+  `nombreReal` varchar(40) NOT NULL,
+  `apellidos` varchar(90) NOT NULL,
+  `contrasenia` varchar(30) NOT NULL,
+  `nombreUsuario` varchar(90) NOT NULL,
+  `tipo` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`IDusuario`),
+  UNIQUE KEY `nombreUsuario` (`nombreUsuario`),
+  CONSTRAINT `chk_tipo` CHECK (`tipo` in ('Administrador','Usuario')),
+  CONSTRAINT `chk_mail` CHECK (`mail` like '%@gtime.com'),
+  CONSTRAINT `chk_contrasenia` CHECK (octet_length(`contrasenia`) >= 8 and `contrasenia` regexp '[A-Z]' and `contrasenia` regexp '[a-z]' and `contrasenia` regexp '[0-9]' and `contrasenia` regexp '[^A-Za-z0-9]')
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- La exportación de datos fue deseleccionada.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;

@@ -35,7 +35,9 @@ CREATE TABLE IF NOT EXISTS `usuarioslista` (
   CONSTRAINT `chk_contrasenia` CHECK (octet_length(`contrasenia`) >= 8 and `contrasenia` regexp '[A-Z]' and `contrasenia` regexp '[a-z]' and `contrasenia` regexp '[0-9]' and `contrasenia` regexp '[^A-Za-z0-9]')
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Volcando datos para la tabla listausuarios.usuarioslista: ~0 rows (aproximadamente)
+REPLACE INTO `usuarioslista` (`IDusuario`, `mail`, `nombreReal`, `apellidos`, `contrasenia`, `nombreUsuario`, `tipo`) VALUES
+	(1, 'profesor@gtime.com', 'Tony', 'Stark', 'Contrasenia12.', 'admin', 'Administrador');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

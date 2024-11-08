@@ -30,12 +30,15 @@ public class controladorRegister {
 		String nombreReal=txtNombreReal.getText();
 		String contrasenia=txtContrasenia.getText();
 		String confContrasenia=txtContrasenia.getText();
-		SCRUDusuarios loggin = new SCRUDusuarios();
-		loggin.registerSCRUD(nombre, apellidos, mail, nombreReal, confContrasenia);
+		SCRUDusuarios register = new SCRUDusuarios();
+		register.registerSCRUD(nombre, apellidos, mail, nombreReal, confContrasenia);
 		
 		
 		
 	
+	}
+	private void volverLogin() {
+		Main.setRoot("/vista/loggin");
 	}
 
 }

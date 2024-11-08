@@ -30,7 +30,7 @@
             <TextField fx:id="txtContrasenia" layoutX="148.0" layoutY="113.0" />
             <Button fx:id="btnLogin" layoutX="144.0" layoutY="154.0" mnemonicParsing="false" onAction="#loggin" prefHeight="24.0" prefWidth="72.0" text="Login" />
             <Text layoutX="113.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No estas?" wrappingWidth="56.68359375" />
-            <Button fx:id="btnRegistrar" layoutX="180.0" layoutY="195.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Registrate" />
+            <Button fx:id="btnRegistrar" layoutX="180.0" layoutY="195.0" mnemonicParsing="false" onAction="#lanzarVentanaRegistro" prefHeight="31.0" prefWidth="90.0" text="Registrate" />
          </children>
       </Pane>
    </children>

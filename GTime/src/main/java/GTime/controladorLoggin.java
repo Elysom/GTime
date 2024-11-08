@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import utilidades.SCRUDusuarios;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 
@@ -52,14 +53,8 @@ private void loggin(ActionEvent event) {
 
 @FXML
 private void lanzarVentanaRegistro(ActionEvent event) throws IOException {
-	// Obtener la referencia del controlador de la nueva pestaña
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/register.fxml"));
-    Parent root = loader.load();
-    
-    /*
-    // Obtener la instancia del controlador de la nueva pestaña
-    controladorNuevaPestaña controladorNueva = loader.getController(); // esta linea es IMPORTANTE, Al obtener el controlador podremos iniciar las funciones del segundo controlador y cambiarla
-    */
+	Main.setRoot("/vista/register");
+
 }
 
 }

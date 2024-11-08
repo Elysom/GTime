@@ -51,7 +51,7 @@
                   <Font size="25.0" />
                </font>
             </Text>
-            <Button fx:id="btnRegister" layoutX="164.0" layoutY="371.0" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="89.0" text="Registrarse" />
+            <Button fx:id="btnRegister" layoutX="164.0" layoutY="371.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Registrarse" />
          </children>
       </AnchorPane>
    </children>

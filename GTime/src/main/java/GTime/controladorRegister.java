@@ -3,6 +3,7 @@ package GTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import utilidades.SCRUDusuarios;
 
 public class controladorRegister {
 	@FXML
@@ -29,6 +30,9 @@ public class controladorRegister {
 		String nombreReal=txtNombreReal.getText();
 		String contrasenia=txtContrasenia.getText();
 		String confContrasenia=txtContrasenia.getText();
+		SCRUDusuarios loggin = new SCRUDusuarios();
+		loggin.registerSCRUD(nombre, apellidos, mail, nombreReal, confContrasenia);
+		
 		
 		
 	

@@ -10,29 +10,46 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+
 import utilidades.DatabaseConnector;
 
 /**
  * JavaFX App
  */
 public class Main extends Application {
+	  private static Scene scene;
+	  private static Parent root;
 	@Override
 	public void start(Stage primaryStage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/loggin.fxml"));
-			AnchorPane root = loader.load();
-			
-			//BorderPane root = new BorderPane();
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+			try {
+
+				scene = new Scene(loadFXML("/vista/loggin"));
+				primaryStage.sizeToScene();
+		        primaryStage.setScene(scene);
+		        primaryStage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 	}
 	
-    public static void main(String[] args) {
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        
+        return fxmlLoader.load();
+    }
+    static void setRoot(String fxml) throws IOException {
+        // Cargar el nuevo contenido
+        Parent newRoot = loadFXML(fxml);
+        scene.setRoot(newRoot);
+        
+        // Ajustar el tamaño de la escena al contenido
+        Stage stage = (Stage) scene.getWindow();
+        stage.sizeToScene();
+    }
+    
+	public static void main(String[] args) {
     
     	// Test
     	

@@ -17,6 +17,9 @@ import javafx.scene.control.Button;
 
 public class controladorLoggin implements Initializable {
 
+private static final String pwdVerify = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
+private static final int MAX_INPUT = 20;
+
 @FXML
 private TextField usuarioLogin;
 
@@ -66,5 +69,7 @@ private void lanzarVentanaRegistro(ActionEvent event) throws IOException {
     controladorNuevaPestaña controladorNueva = loader.getController(); // esta linea es IMPORTANTE, Al obtener el controlador podremos iniciar las funciones del segundo controlador y cambiarla
     */
 }
+
+
 
 }

@@ -47,5 +47,14 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Trabajo/.m2/repository/commons-validator/commons-validator/1.9.0/commons-validator-1.9.0.jar" sourcepath="C:/Users/Trabajo/.m2/repository/commons-validator/commons-validator/1.9.0/commons-validator-1.9.0-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="commons-validator"/>
+			<attribute name="maven.artifactId" value="commons-validator"/>
+			<attribute name="maven.version" value="1.9.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

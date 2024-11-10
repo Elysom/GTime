@@ -61,7 +61,7 @@ public void loginSCRUD(String usuario,String contrasenia) {
 	
 	
 }
-public void registerSCRUD(String nombre,String apellidos,String mail,String nombreReal,String contrasenia){
+public static void registerSCRUD(String nombre,String apellidos,String mail,String nombreReal,String contrasenia){
 	
 	Connection cn= utilidades.DatabaseConnector.dameConexion();
 	//Logica para la insercion del usuario  en la base de datos
@@ -121,7 +121,7 @@ public static String validacionFormulario(String nombreUsuario, String apellidos
 	        return "Registro exitoso.";
 	    }
 
-public static void verificarNombreUsusario(String NombreUsuario) {
+public static String verificarNombreUsusario(String NombreUsuario) {
 	
 	Connection cn = DatabaseConnector.dameConexion();
 	
@@ -134,12 +134,13 @@ public static void verificarNombreUsusario(String NombreUsuario) {
 		if (rs.next()) {
 			if (rs.getString("nombreUsuario").equals(NombreUsuario)) {
 				
-				controladorRegister.txtValidacion.setText("El Usuario ya existe, ingrese otro distinto");
-				
 				utilidades.DatabaseConnector.cerrarConexion(cn);
+				
+				return("El Usuario ya existe, ingrese otro distinto");
+				
 			} else {
 				
-				controladorRegister.txtValidacion.setText("El Usuario esta disponible");
+				return("");
 
 			}
 		}
@@ -147,6 +148,7 @@ public static void verificarNombreUsusario(String NombreUsuario) {
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
+	return "error, no se ha podido ejecutar la setencia";
 	
 }
 

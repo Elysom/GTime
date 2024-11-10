@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="425.0" prefWidth="434.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorRegister">
+<AnchorPane prefHeight="425.0" prefWidth="434.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorRegister">
    <children>
       <AnchorPane layoutY="-13.0" prefHeight="442.0" prefWidth="434.0">
          <children>
@@ -52,6 +52,7 @@
                </font>
             </Text>
             <Button fx:id="btnRegister" layoutX="164.0" layoutY="371.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Registrarse" />
+            <Text fx:id="txtValidacion" fill="RED" layoutX="242.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
       </AnchorPane>
    </children>

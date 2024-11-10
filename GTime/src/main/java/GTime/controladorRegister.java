@@ -1,13 +1,21 @@
 package GTime;
 
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 import javafx.scene.text.Text;
 import utilidades.SCRUDusuarios;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.RegexValidator;
+
+
+import utilidades.SCRUDusuarios;
 
 
 public class controladorRegister {
@@ -36,11 +44,15 @@ public class controladorRegister {
 		String nombreReal=txtNombreReal.getText();
 		String contrasenia=txtContrasenia.getText();
 		String confContrasenia=txtContrasenia.getText();
+		SCRUDusuarios register = new SCRUDusuarios();
+		register.registerSCRUD(nombre, apellidos, mail, nombreReal, confContrasenia);
+		
 		
 		validacionRegister(nombre, apellidos, mail, nombreReal, contrasenia, confContrasenia);
 		
 		
 	}
+
 	//SEPARAR LOS METODOS DE LA VALIDACION POR CAMPOS(UN METODO PARA EL NOMBRE, OTRO PARA EL APELLIDO ETC)
 	
 	
@@ -79,6 +91,25 @@ public class controladorRegister {
 
 		     
 		    }
+	
+	@FXML
+	private void mostrarAlertaError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setTitle("Error");
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+	
+	@FXML 
+	private void iniciarRegistro(ActionEvent event) { 
+		SCRUD
+	}
+
+
+	private void volverLogin() throws IOException {
+		Main.setRoot("/vista/loggin");
+	}
 
 
 }

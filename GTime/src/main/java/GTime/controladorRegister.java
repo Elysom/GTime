@@ -36,7 +36,8 @@ public class controladorRegister {
 		String confContrasenia=txtContrasenia.getText();
 		
 		String resultadoValidacion = SCRUDusuarios.validacionFormulario(nombre, apellidos, mail, nombreReal, contrasenia, confContrasenia);
-			
+		
+		
 	}
 	
 

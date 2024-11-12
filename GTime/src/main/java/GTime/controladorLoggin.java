@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 
 
 public class controladorLoggin implements Initializable {
@@ -26,7 +27,7 @@ private static final int MAX_INPUT = 20;
 private TextField txtUsuario;
 
 @FXML
-private TextField txtContrasenia;
+private PasswordField txtContrasenia;
 
 @FXML
 private Button btnLogin;
@@ -56,7 +57,21 @@ private void loggin(ActionEvent event) {
 	
 	System.out.println(resultado);
 	
-	txtayuda.setText(resultado);
+	if (resultado.equals("Inicio de sesión exitoso")) {
+		
+		txtayuda.setText(resultado);
+		
+		txtayuda.setStyle("-fx-text-fill: green;");
+	} else {
+		
+		txtayuda.setStyle("-fx-text-fill: red;");
+		
+		txtayuda.setText(resultado);
+		
+	}
+	
+	
+	
 }
 
 

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javafx.scene.text.Text;
@@ -30,9 +31,9 @@ public class controladorRegister {
 	@FXML
 	TextField txtApellidos;
 	@FXML
-	TextField txtContrasenia;
+	PasswordField txtContrasenia;
 	@FXML
-	TextField txtConfContrasenia;
+	PasswordField txtConfContrasenia;
 	@FXML
 	Label txtValidation;
 	
@@ -47,27 +48,35 @@ public class controladorRegister {
 	    String contrasenia = txtContrasenia.getText();
 	    String confContrasenia = txtConfContrasenia.getText();
 	    
-		// Indicar validacion
-		
+	    // Verificamos si el usuario existe
 	    
+	    String usu_compatible = SCRUDusuarios.verificarNombreUsusario(nombreUsuario);
 	    
-		String resultado = SCRUDusuarios.validacionFormulario(nombreUsuario, apellidos, mail, nombreReal, contrasenia, confContrasenia);
-		
-		System.out.println(resultado);
-		
-		txtValidation.setText(resultado);
-		
-		
-		
-		if (txtValidation.getText().equals("Registro exitoso.")) {
+	    if (usu_compatible.equals("Nombre Usuario Disponible")) {
+	    	
+	    	// Indicar validacion
+		    
+			String resultado = SCRUDusuarios.validacionFormulario(nombreUsuario, apellidos, mail, nombreReal, contrasenia, confContrasenia);
 			
-			SCRUDusuarios.registerSCRUD(nombreUsuario, apellidos, mail, nombreReal, confContrasenia);
-			
-			SCRUDusuarios.agregarEsquemaDatos(nombreUsuario);
-			
-		} else {
 			System.out.println(resultado);
+			
+			txtValidation.setText(resultado);
+			
+			if (txtValidation.getText().equals("Registro exitoso.")) {
+				
+				txtValidation.setStyle("-fx-text-fill: green;");
+				
+				SCRUDusuarios.registerSCRUD(nombreUsuario, apellidos, mail, nombreReal, confContrasenia);
+				
+				SCRUDusuarios.agregarEsquemaDatos(nombreUsuario);
+				
+			} else {
+				System.out.println(resultado);
+			}
+		} else {
+			txtValidation.setText("El nombre de usuario " +nombreUsuario+ " no esta disponible, igrese otro");
 		}
+		
 		
 	}
 

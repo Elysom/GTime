@@ -50,6 +50,7 @@ public class controladorRegister {
 		// Indicar validacion
 		
 	    
+	    
 		String resultado = SCRUDusuarios.validacionFormulario(nombreUsuario, apellidos, mail, nombreReal, contrasenia, confContrasenia);
 		
 		System.out.println(resultado);
@@ -61,6 +62,9 @@ public class controladorRegister {
 		if (txtValidation.getText().equals("Registro exitoso.")) {
 			
 			SCRUDusuarios.registerSCRUD(nombreUsuario, apellidos, mail, nombreReal, confContrasenia);
+			
+			SCRUDusuarios.agregarEsquemaDatos(nombreUsuario);
+			
 		} else {
 			System.out.println(resultado);
 		}

@@ -14,13 +14,13 @@ public class DatabaseConnector {
 
 	
 	
-    // Método para conectar con la base de datos
+    // Método para conectar con la base de datos 
     
 	public static Connection dameConexion() {
 		Connection conn = null;
 		
 				try { // registro el driver de connection
-					Class.forName("com.mysql.jdbc.Driver");
+					Class.forName("com.mysql.cj.jdbc.Driver");
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -38,6 +38,33 @@ public class DatabaseConnector {
 	    }
 		return conn;
 	}
+	
+	// Funcion para conectar a la conexion rama principal
+	
+	public static Connection dameConexionRamaPrincipal() {
+		Connection conn = null;
+		
+				try { // registro el driver de connection
+					Class.forName("com.mysql.cj.jdbc.Driver");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			// Establezco la conexion con la BBDD
+	    try {
+	    
+	        conn = DriverManager.getConnection
+	        		("jdbc:mysql://localhost:3306/?useSSL=false", "root", "");
+	  
+	    } catch (SQLException ex) {
+	        ex.printStackTrace() ;
+	        System.out.println("SQLException : " + ex.getMessage());
+	    }
+		return conn;
+	}
+	
+	
     // Funcion para cerrar la conexion
     
     public static void cerrarConexion(Connection connection) {

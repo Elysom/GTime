@@ -14,6 +14,7 @@ import utilidades.SCRUDusuarios;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 
 public class controladorLoggin implements Initializable {
@@ -33,6 +34,9 @@ private Button btnLogin;
 @FXML
 private Button btnRegistrar;
 
+@FXML
+Label txtayuda;
+
 @Override
 public void initialize(URL arg0, ResourceBundle arg1) {
 	// TODO Auto-generated method stub
@@ -42,15 +46,17 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 @FXML
 private void loggin(ActionEvent event) {
 	
+	System.out.println("hola");
 	
 	String usuario = txtUsuario.getText();
 	
 	String pass = txtContrasenia.getText();
 	
-	SCRUDusuarios loggin = new SCRUDusuarios();
+	String resultado = SCRUDusuarios.loginSCRUD(usuario, pass); //Llama a la funcion
 	
-	System.out.println("ejemplo");
-	loggin.loginSCRUD(usuario, pass);//Llama a la funcion
+	System.out.println(resultado);
+	
+	txtayuda.setText(resultado);
 }
 
 

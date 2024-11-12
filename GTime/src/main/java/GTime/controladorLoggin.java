@@ -58,10 +58,15 @@ private void loggin(ActionEvent event) {
 	System.out.println(resultado);
 	
 	if (resultado.equals("Inicio de sesión exitoso")) {
-		
+		controladorPrincipal.nombreUsuario=usuario;
 		txtayuda.setText(resultado);
-		
 		txtayuda.setStyle("-fx-text-fill: green;");
+		try {
+			Main.setRoot("/vista/principal");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	} else {
 		
 		txtayuda.setStyle("-fx-text-fill: red;");

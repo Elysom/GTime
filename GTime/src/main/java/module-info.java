@@ -1,10 +1,12 @@
 module com.GTime.GTime {
-    requires javafx.controls;
-    requires javafx.fxml;
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
 	requires java.sql;
 	requires java.desktop;
 	requires commons.validator;
+	requires javafx.graphics;
+	
 
-    opens GTime to javafx.fxml;
-    exports GTime;
+    opens com.GTime.GTime to javafx.fxml;
+    exports com.GTime.GTime;
 }

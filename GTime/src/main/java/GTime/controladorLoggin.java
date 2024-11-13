@@ -45,7 +45,7 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 }
 
 @FXML
-private void loggin(ActionEvent event) {
+private void loggin(ActionEvent event) throws IOException {
 	
 	System.out.println("hola");
 	
@@ -62,6 +62,19 @@ private void loggin(ActionEvent event) {
 		txtayuda.setText(resultado);
 		
 		txtayuda.setStyle("-fx-text-fill: green;");
+		
+		try {
+			Thread.sleep(2000);
+			
+			
+			lanzarVentanaCrearPlan();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	} else {
 		
 		txtayuda.setStyle("-fx-text-fill: red;");
@@ -79,6 +92,13 @@ private void loggin(ActionEvent event) {
 private void lanzarVentanaRegistro(ActionEvent event) throws IOException {
 	Main.setRoot("/vista/register");
 
+}
+
+// PRUEBAS 
+
+@FXML 
+	private void lanzarVentanaCrearPlan() throws IOException {
+	Main.setRoot("/vista/formularioCurso");
 }
 
 

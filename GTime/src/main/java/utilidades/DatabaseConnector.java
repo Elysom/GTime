@@ -76,6 +76,31 @@ public class DatabaseConnector {
                 System.out.println("Error al cerrar la conexión: " + e.getMessage());
             }
     }
-
-    }
+    	 
+}
+    
+    public static Connection dameConexionDatabaseEspecifica(String nombreBD) {
+		 Connection conn = null;
+			
+			try { // registro el driver de connection
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		// Establezco la conexion con la BBDD
+   try {
+   
+       conn = DriverManager.getConnection
+       		("jdbc:mysql://localhost:3306/listausuarios/" +nombreBD+ "?useSSL=false","root","");
+ 
+   } catch (SQLException ex) {
+       ex.printStackTrace() ;
+       System.out.println("SQLException : " + ex.getMessage());
+   }
+	return conn;
+}
+    
+    
 }

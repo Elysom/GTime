@@ -12,6 +12,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.RegexValidator;
 
 import GTime.controladorRegister;
+import modelo.Usuarios;
 
 
 
@@ -56,11 +57,11 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 	return "Usuario o contrasenia invalido";
 	
 }
-public static void registerSCRUD(String nombre,String apellidos,String mail,String nombreReal,String contrasenia){
+public static void registerSCRUD(String nombre,String apellidos,String mail,String nombreReal,String contrasenia,String curso){
 	
 	Connection cn= utilidades.DatabaseConnector.dameConexion();
 	//Logica para la insercion del usuario  en la base de datos
-	String sql = "INSERT INTO usuarioslista (nombreUsuario, apellidos, mail, nombreReal, contrasenia) VALUES (?, ?, ?, ?, ?)";
+	String sql = "INSERT INTO usuarioslista (nombreUsuario, apellidos, mail, nombreReal, contrasenia,curso) VALUES (?, ?, ?, ?, ?, ?)";
 	
 	try (PreparedStatement StatementRegister = cn.prepareStatement(sql)){
 		
@@ -69,6 +70,7 @@ public static void registerSCRUD(String nombre,String apellidos,String mail,Stri
 		StatementRegister.setString(3, mail);
 		StatementRegister.setString(4, nombreReal);
 		StatementRegister.setString(5, contrasenia);
+		StatementRegister.setString(6, curso);
 		StatementRegister.executeUpdate();
 		System.out.println("Usuario  registrado");
 		StatementRegister.close();
@@ -80,7 +82,7 @@ public static void registerSCRUD(String nombre,String apellidos,String mail,Stri
 }
 
 
-public static String validacionFormulario(String nombreUsuario, String apellidos, String mail, String nombreReal, String contrasenia, String confContrasenia)  {
+public static String validacionFormulario(String nombreUsuario, String apellidos, String mail, String nombreReal, String contrasenia, String confContrasenia, String curso)  {
 	
 	// Validacion de correo electrónico (funcion de commons validator)
 	
@@ -111,9 +113,11 @@ public static String validacionFormulario(String nombreUsuario, String apellidos
 	            return "La contraseña debe contener al menos un número, además de una mayúscula, una minúscula y un carácter especial.";
 	        } else if (!especialValidator.isValid(confContrasenia)) {
 	            return "La contraseña debe contener al menos un carácter especial, además de una mayúscula, una minúscula y un número.";
-	        }
+	        } else if (curso == null) {
+				return "Debes seleccionar un curso";
+			}
 
-	        return "Registro exitoso.";
+	        return "¡Registro exitoso!";
 	    }
 
 public static String verificarNombreUsusario(String NombreUsuario) {
@@ -143,7 +147,7 @@ public static String verificarNombreUsusario(String NombreUsuario) {
 	
 }
 
-public static void agregarEsquemaDatos(String nombre_usuario) {
+public static void agregarEsquemaDatos(String nombreUsuario, String apellidos, String mail, String nombreReal, String contrasenia, String confContrasenia, String curso) {
 	
 	// Iniciamos conexion 
 	
@@ -160,31 +164,48 @@ public static void agregarEsquemaDatos(String nombre_usuario) {
 		
 		// declarar las tablas
 		
-		String createTableNormal = "CREATE TABLE IF NOT EXISTS normal (IDusuario INT AUTO_INCREMENT PRIMARY KEY, mail VARCHAR(40) NOT NULL, nombreReal VARCHAR(40) NOT NULL, apellidos VARCHAR(90) NOT NULL, contrasenia VARCHAR(30) NOT NULL, nombreUsario VARCHAR(90) NOT NULL UNIQUE, fotoPerfil BLOB, CONSTRAINT chk_mail CHECK (mail LIKE '%@gtime.com'), CONSTRAINT chk_contrasenia CHECK (LENGTH(contrasenia) >= 8 AND contrasenia REGEXP '[A-Z]' AND contrasenia REGEXP '[a-z]' AND contrasenia REGEXP '[0-9]' AND contrasenia REGEXP '[^A-Za-z0-9]'))";
-
-		String createTableEducacion = "CREATE TABLE IF NOT EXISTS EDUCACION (IDeducacion INT AUTO_INCREMENT PRIMARY KEY, FKusuario INT NOT NULL, CONSTRAINT fk_educacion_usuario FOREIGN KEY (FKusuario) REFERENCES normal(IDusuario))";
-
-		String createTablePlanAcademico = "CREATE TABLE IF NOT EXISTS plan_academico (IDPlan INT NOT NULL AUTO_INCREMENT, IDCalendareducacion INT NOT NULL, nombrePlan VARCHAR(200) DEFAULT NULL, horasPlanInicio VARCHAR(7) DEFAULT NULL, horasPlanFin VARCHAR(7) DEFAULT NULL, diasSemanas VARCHAR(20) DEFAULT NULL, color VARCHAR(7) NOT NULL, tipo VARCHAR(20) DEFAULT NULL, PRIMARY KEY (IDPlan), CONSTRAINT fk_calendar_educacion FOREIGN KEY (IDCalendareducacion) REFERENCES EDUCACION(IDeducacion))";
-
-		String createTablePersonal = "CREATE TABLE IF NOT EXISTS PERSONAL (IDPersonal INT NOT NULL AUTO_INCREMENT, IDUsuario INT NOT NULL, PRIMARY KEY (IDPersonal), CONSTRAINT fk_personal_normal FOREIGN KEY (IDUsuario) REFERENCES normal(IDusuario))";
-
-		String createTableRutina = "CREATE TABLE IF NOT EXISTS RUTINA (IDrutina INT NOT NULL AUTO_INCREMENT, nombreRutina VARCHAR(100) NOT NULL, diasSemanas VARCHAR(20) NOT NULL, horasRutinaInicio TIME NOT NULL, horasRutinaFin TIME NOT NULL, color VARCHAR(20), IDPersonal INT, PRIMARY KEY (IDrutina), CONSTRAINT fk_calendario_personal FOREIGN KEY (IDPersonal) REFERENCES PERSONAL(IDPersonal), CONSTRAINT chk_dias_semana_rutina CHECK (diasSemanas IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo')))";
-
-		String createTableTarea = "CREATE TABLE IF NOT EXISTS TAREA (IDTarea INT NOT NULL AUTO_INCREMENT, nombreTarea VARCHAR(100) NOT NULL, diasSemanas VARCHAR(20) NOT NULL, color VARCHAR(20), IDPersonal INT, PRIMARY KEY (IDTarea), CONSTRAINT fk_calendario_personal2 FOREIGN KEY (IDPersonal) REFERENCES PERSONAL(IDPersonal), CONSTRAINT chk_dias_semana_tarea CHECK (diasSemanas IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo')))";		
+		String crearTablaUsuario = 
+		        "CREATE TABLE USUARIO (" +
+		        "  IDusuario INT AUTO_INCREMENT PRIMARY KEY," +
+		        "  mail VARCHAR(40) NOT NULL," +
+		        "  nombreReal VARCHAR(40) NOT NULL," +
+		        "  apellidos VARCHAR(90) NOT NULL," +
+		        "  contrasenia VARCHAR(30) NOT NULL," +
+		        "  curso VARCHAR(20) NOT NULL," +
+		        "  fotoPerfil BLOB," +
+		        "  nombreUsuario VARCHAR(90) NOT NULL UNIQUE" +
+		        ");";
 		
+
+		String crearTablaPlanAcademico = 
+		        "CREATE TABLE PLAN_ACADEMICO (" +
+		        "  IDPlan INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+		        "  IDUsuario INT NOT NULL," +
+		        "  nombrePlan VARCHAR(200) DEFAULT NULL," +
+		        "  fecha DATETIME NOT NULL," +
+		        "  color VARCHAR(7) NOT NULL," +
+		        "  tipo VARCHAR(20) DEFAULT NULL," +
+		        "  asignatura VARCHAR(20) NOT NULL," +
+		        "  curso VARCHAR(20) NOT NULL," +
+		        "  CONSTRAINT fk_PLANACADEMICO_USUARIO FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
+		        ");";
+		
+		String crearTablaTarea = 
+		        "CREATE TABLE TAREA (" +
+		        "  IDTarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+		        "  IDUsuario INT NOT NULL," +
+		        "  nombreTarea VARCHAR(100) NOT NULL," +
+		        "  fecha DATETIME NOT NULL," +
+		        "  color VARCHAR(20)," +
+		        "  CONSTRAINT fk_tarea_usuario FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
+		        ");";
 		// ejecutar el statement
 		
-		st.executeUpdate(createTableNormal);
+		st.executeUpdate(crearTablaUsuario);
 		
-		st.executeUpdate(createTableEducacion);
+		st.executeUpdate(crearTablaPlanAcademico);
 		
-		st.executeUpdate(createTablePlanAcademico);
-		
-		st.executeUpdate(createTablePersonal);
-		
-		st.executeUpdate(createTableRutina);
-		
-		st.executeUpdate(createTableTarea);
+		st.executeUpdate(crearTablaTarea);
 		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -192,6 +213,20 @@ public static void agregarEsquemaDatos(String nombre_usuario) {
 	}
 	
 	
+	
+}
+
+public static Usuarios rellenarPooUsu(String nombreUsu) {
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsu);
+	
+	String sql
+	
+	try (PreparedStatement cargarDatos =  cn.prepareStatement(nombreUsu)){
+		
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
 	
 }
 

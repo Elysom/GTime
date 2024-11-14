@@ -6,6 +6,6 @@ module com.GTime.GTime {
 	requires commons.validator;
 	requires transitive javafx.graphics;
 
-    opens GTime to javafx.fxml;
-    exports GTime;
+    opens com.GTime.GTime to javafx.fxml;
+    exports com.GTime.GTime;
 }

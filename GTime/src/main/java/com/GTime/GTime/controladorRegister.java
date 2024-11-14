@@ -1,4 +1,4 @@
-package GTime;
+package com.GTime.GTime;
 
 
 import java.io.IOException;

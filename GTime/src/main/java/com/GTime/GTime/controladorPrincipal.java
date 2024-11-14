@@ -70,7 +70,20 @@ public class controladorPrincipal implements Initializable{
     private void updateCalendar() {
         // Actualiza el mes y año en la interfaz
         YearMonth currentMonth = calendarioMetodos.getCurrentYearMonth();
-        month.setText(currentMonth.getMonth().name());
+        switch (currentMonth.getMonth()) {
+        case JANUARY : month.setText("Enero"); break;
+        case FEBRUARY: month.setText("Febrero");break;
+        case MARCH: month.setText("Marzo");break;
+        case APRIL: month.setText("Abril");break;
+        case MAY: month.setText("Mayo");break;
+        case JUNE:month.setText("Junio");break;
+        case JULY:month.setText("Julio");break;
+        case AUGUST: month.setText("Agosto");break;
+        case SEPTEMBER: month.setText("Septiembre");break;
+        case OCTOBER: month.setText("Octubre");break;
+        case NOVEMBER: month.setText("Noviembre");break;
+        case DECEMBER: month.setText("Diciembre");break;
+        }// SWITCH PARA CAMBIAR EL NOMBRE DEL MES AL ESPAÑOL
         year.setText(String.valueOf(currentMonth.getYear()));
 
         // Limpiar el GridPane antes de actualizarlo
@@ -149,12 +162,6 @@ public class controladorPrincipal implements Initializable{
     }
 
 
-  /*
-    private void showTasksForDay(CalendarioDias day) {
-        taskList.getItems().clear();
-        taskList.getItems().addAll(day.getTasks());
-    }
-*/
 
 
 	public String getNombreUsuario() {

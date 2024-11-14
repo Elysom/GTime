@@ -65,7 +65,7 @@ public class controladorPrincipal implements Initializable{
         System.out.println("Se ejecuta siguiente");
         updateCalendar();
     }
-
+    //Funcion para actualizar el calendario
     @FXML
     private void updateCalendar() {
         // Actualiza el mes y año en la interfaz

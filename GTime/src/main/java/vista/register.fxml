@@ -6,7 +6,6 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?wimport javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="425.0" prefWidth="434.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorRegister">
@@ -16,53 +15,20 @@
             <TextField fx:id="txtNombre" layoutX="189.0" layoutY="98.0" />
             <TextField fx:id="txtMail" layoutX="189.0" layoutY="153.0" />
             <TextField fx:id="txtNombreReal" layoutX="189.0" layoutY="194.0" />
-            <Text layoutX="75.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre usuario">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="151.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="125.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
             <TextField fx:id="txtApellidos" layoutX="189.0" layoutY="230.0" />
-            <Text layoutX="122.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="108.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="55.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar contraseña">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="107.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a GTime">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Text>
             <Button fx:id="btnRegister" layoutX="164.0" layoutY="412.0" mnemonicParsing="false" onAction="#registrer" prefHeight="26.0" prefWidth="89.0" text="Registrarse" />
-            <Text fx:id="txtValidacion" fill="RED" layoutX="242.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Label fx:id="txtValidation" layoutX="98.0" layoutY="452.0" text="  " textFill="#00ff10" />
             <PasswordField fx:id="txtContrasenia" layoutX="189.0" layoutY="269.0" />
             <PasswordField fx:id="txtConfContrasenia" layoutX="189.0" layoutY="310.0" />
-            <Text layoutX="143.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Curso">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
             <ComboBox fx:id="txtCurso" layoutX="188.0" layoutY="347.0" prefWidth="150.0" promptText="(curso)" />
+            <Label layoutX="20.0" layoutY="315.0" prefHeight="21.0" prefWidth="157.0" text="Confirmar contraseña" />
+            <Label layoutX="20.0" layoutY="103.0" prefHeight="21.0" prefWidth="157.0" text="Usuario" />
+            <Label layoutX="20.0" layoutY="158.0" prefHeight="21.0" prefWidth="157.0" text=" Mail" />
+            <Label layoutX="20.0" layoutY="199.0" prefHeight="21.0" prefWidth="157.0" text="Nombre Real" />
+            <Label layoutX="20.0" layoutY="239.0" prefHeight="21.0" prefWidth="157.0" text="Apellidos" />
+            <Label layoutX="20.0" layoutY="274.0" prefHeight="21.0" prefWidth="157.0" text="Contraseña" />
+            <Label layoutX="160.0" layoutY="60.0" prefHeight="21.0" prefWidth="157.0" text="Bienvenido a GTime" />
+            <Label layoutX="20.0" layoutY="352.0" prefHeight="21.0" prefWidth="157.0" text="Seleccionar Curso" />
          </children>
       </AnchorPane>
    </children>

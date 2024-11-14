@@ -20,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import utilidades.SCRUDusuarios;
 
 
 public class controladorFormularioPlan implements Initializable{
@@ -53,6 +55,7 @@ public class controladorFormularioPlan implements Initializable{
 
 	   @FXML
 	   private Label txtValidacion;
+	   
 @Override
 public void initialize(URL arg0, ResourceBundle arg1) {
 	
@@ -97,27 +100,14 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	
 	
 }
-
-	public void crearPlan(ActionEvent event) {
+	@FXML
+	public void crearPlan(ActionEvent event)  {
 		
-		// Obtenemos el nombre del Plan
-		String nombrePlan = txtPlan.getText();
-	
-		// Obtenemos el nombre de la asignatura
-		String asignatura = txtAsignatura.getValue();
-		
-		// Obtenemos el tipo de curso seleccionado
-		String curso = txtCurso.getValue();
-		
-		// Obtenemos el tipo de plan seleccionado
-		String tipo = txtTipo.getValue();
-		
-		// Obtenemos el color usado
-		String color = txtColor.getValue().toString();
-		
+		SCRUDusuarios.agregarPlan(controladorLoggin.nombreUsuGlobal, txtPlan.getText(), obtenerFechaHoraSQL(), txtTipo.getValue(), txtCurso.getValue(), txtAsignatura.getValue(), transformarColor());
 		
 	}
 	
+	@FXML
 	public Timestamp obtenerFechaHoraSQL() {
 		
 		// Obtenemos la fecha y hora y lo convertimos en LocalDataTime
@@ -132,6 +122,19 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 				
 				return Timestamp.valueOf(fechaHorayMinutos);
 				
+	}
+	
+	@FXML
+	public String transformarColor() {
+		
+		Color colorSeleccionado = txtColor.getValue();
+		
+		String colorHex = String.format("#%02X%02X%02X", (int)(colorSeleccionado.getRed() * 255), 
+		                                (int)(colorSeleccionado.getGreen() * 255), 
+		                                (int)(colorSeleccionado.getBlue() * 255));
+		
+		return colorHex;
+
 	}
 
 }

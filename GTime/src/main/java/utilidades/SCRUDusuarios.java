@@ -240,7 +240,32 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 
 // Solo los admin pueden usar esta funcion
 
-public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fechaHoraMinutos, String tipo, String Curso, String Asignatura,String Color) {
+public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fechaHoraMinutos, String tipo, String curso, String asignatura,String color) {
+	
+	System.out.println("holaaaaaaa");
+	// nos conectamos a la esquema de datos del usuario admin que nos hayamos loggeado
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(usuActual);
+	
+	String introducirPlan = "INSERT INTO plan_academico (IDUsuario,nombrePlan,fecha,color,tipo,curso,asignatura) VALUES (1, ?, ?, ?, ?, ?, ?)";
+	
+	try (PreparedStatement stm = cn.prepareStatement(introducirPlan) ){
+		
+		stm.setString(1, nombrePlan);
+		stm.setTimestamp(2,fechaHoraMinutos);
+		stm.setString(3, color);
+		stm.setString(4, tipo);
+		stm.setString(5, curso);
+		stm.setString(6, asignatura);
+		
+		stm.executeUpdate();
+		
+		System.out.println("hola");
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+	}
 	
 }
 

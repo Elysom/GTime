@@ -40,7 +40,7 @@
             <Label layoutX="20.0" layoutY="280.0" text="Curso" />
             <Label layoutX="79.0" layoutY="314.0" text="Asignatura" />
             <ColorPicker fx:id="txtColor" layoutX="35.0" layoutY="388.0" prefHeight="31.0" prefWidth="165.0" />
-            <Button fx:id="btnCrear" layoutX="91.0" layoutY="430.0" mnemonicParsing="false" text="Crear" />
+            <Button fx:id="btnCrear" layoutX="91.0" layoutY="430.0" mnemonicParsing="false" onAction="#crearPlan" text="Crear" />
             <Label fx:id="txtValidacion" layoutX="54.0" layoutY="465.0" text="Rellena la informacion" />
             <ComboBox fx:id="txtAsignatura" layoutX="44.0" layoutY="342.0" prefWidth="150.0" />
          </children>

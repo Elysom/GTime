@@ -93,7 +93,7 @@ public class DatabaseConnector {
    try {
    
        conn = DriverManager.getConnection
-       		("jdbc:mysql://localhost:3306/listausuarios/" +nombreBD+ "?useSSL=false","root","");
+       		("jdbc:mysql://localhost:3306/" +nombreBD+ "?useSSL=false","root","");
  
    } catch (SQLException ex) {
        ex.printStackTrace() ;

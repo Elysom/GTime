@@ -5,7 +5,7 @@ module com.GTime.GTime {
 	requires java.desktop;
 	requires commons.validator;
 	requires javafx.graphics;
-	
+
 
     opens com.GTime.GTime to javafx.fxml;
     exports com.GTime.GTime;

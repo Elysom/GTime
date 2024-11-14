@@ -23,6 +23,8 @@ public class controladorLoggin implements Initializable {
 private static final String pwdVerify = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
 private static final int MAX_INPUT = 20;
 
+static String nombreUsuGlobal;//Se puede llamar desde cualquier clase para obtener el nombre de usuario
+
 @FXML
 private TextField txtUsuario;
 
@@ -45,28 +47,37 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 }
 
 @FXML
-private void loggin(ActionEvent event) {
+private void loggin(ActionEvent event) throws IOException {
+	
 	
 	System.out.println("hola");
 	
-	String usuario = txtUsuario.getText();
+	nombreUsuGlobal = txtUsuario.getText();
 	
 	String pass = txtContrasenia.getText();
 	
-	String resultado = SCRUDusuarios.loginSCRUD(usuario, pass); //Llama a la funcion
+	String resultado = SCRUDusuarios.loginSCRUD(nombreUsuGlobal, pass); //Llama a la funcion
 	
 	System.out.println(resultado);
 	
 	if (resultado.equals("Inicio de sesión exitoso")) {
-		controladorPrincipal.nombreUsuario=usuario;
+		
 		txtayuda.setText(resultado);
+		
 		txtayuda.setStyle("-fx-text-fill: green;");
+		
 		try {
+			Thread.sleep(1000);
+			
 			Main.setRoot("/vista/principal");
-		} catch (IOException e) {
+			
+			
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	} else {
 		
 		txtayuda.setStyle("-fx-text-fill: red;");
@@ -83,6 +94,14 @@ private void loggin(ActionEvent event) {
 @FXML
 private void lanzarVentanaRegistro(ActionEvent event) throws IOException {
 	Main.setRoot("/vista/register");
+
+}
+
+// PRUEBAS 
+
+@FXML 
+	private void lanzarVentanaCrearPlan() throws IOException {
+	Main.setRoot("/vista/formularioCurso");
 
 }
 

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class controladorPrincipal implements Initializable{
-	static String nombreUsuario;
 	@FXML
 	public GridPane calendarGrid;
 	@FXML
@@ -45,7 +44,7 @@ public class controladorPrincipal implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		lblNUsuario.setText(nombreUsuario);
+		lblNUsuario.setText(controladorLoggin.nombreUsuGlobal);
         calendarioMetodos = new CalendarioMetodos();
 
         updateCalendar();
@@ -162,11 +161,6 @@ public class controladorPrincipal implements Initializable{
     }
 
 
-
-
-	public String getNombreUsuario() {
-		return nombreUsuario;
-	}
 
 
 	

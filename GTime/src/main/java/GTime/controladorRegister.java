@@ -79,7 +79,7 @@ public class controladorRegister implements Initializable {
 				
 				SCRUDusuarios.registerSCRUD(nombreUsuario, apellidos, mail, nombreReal, confContrasenia, curso);
 				
-				SCRUDusuarios.agregarEsquemaDatos(nombreUsuario);
+				SCRUDusuarios.agregarEsquemaDatos(nombreUsuario,apellidos,mail,nombreReal,contrasenia,confContrasenia,curso);
 				
 			} else {
 				

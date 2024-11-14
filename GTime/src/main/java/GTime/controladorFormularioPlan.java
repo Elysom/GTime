@@ -2,15 +2,21 @@ package GTime;
 
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -37,7 +43,7 @@ public class controladorFormularioPlan implements Initializable{
 	   private ComboBox<String> txtCurso;  // ComboBox para el curso
 	    
 	   @FXML 
-	   private TextField txtAsignatura;    // Asignatura
+	   private ComboBox<String> txtAsignatura;    // Asignatura
 	    
 	   @FXML 
 	   private ColorPicker txtColor;       // Color del plan
@@ -45,7 +51,8 @@ public class controladorFormularioPlan implements Initializable{
 	   @FXML 
 	   private Button btnCrear;            // Botón para crear el plan
 
-	   
+	   @FXML
+	   private Label txtValidacion;
 @Override
 public void initialize(URL arg0, ResourceBundle arg1) {
 	
@@ -65,7 +72,67 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	SpinnerValueFactory<Integer> minutos = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
 	txtMinutos.setValueFactory(minutos);
 	
+	txtValidacion.setText(controladorLoggin.nombreUsuGlobal);
+	
+	// Configuracion de asignatura depende de lo seleccionado
+
+	// Añadimos una funcion de listener a la variable combobox txtCurso
+	
+	txtCurso.valueProperty().addListener((observable, oldValue, newValue) -> {
+        if (newValue != null) {  // Verificar que newValue no sea null
+            if ("1.º SMR".equals(newValue)) {
+                txtAsignatura.setItems(FXCollections.observableArrayList("MOMAE", "APLOF", "SIOP", "RL", "FOL"));
+            } else if ("2.º SMR".equals(newValue)) {
+                txtAsignatura.setItems(FXCollections.observableArrayList("SOM", "EOI", "ASO", "RL", "SEG"));
+            } else if ("1.º DAM".equals(newValue)) {
+                txtAsignatura.setItems(FXCollections.observableArrayList("PRO", "BD", "LMSGI", "ED", "FOL"));
+            } else if ("2.º DAM".equals(newValue)) {
+                txtAsignatura.setItems(FXCollections.observableArrayList("PSP", "AD", "PMDM", "SGE", "EIE"));
+            } else {
+                txtAsignatura.setItems(FXCollections.observableArrayList());  // Limpiar si no hay curso seleccionado
+            }
+        }
+    });
+	
+	
+	
 }
+
+	public void crearPlan(ActionEvent event) {
+		
+		// Obtenemos el nombre del Plan
+		String nombrePlan = txtPlan.getText();
+	
+		// Obtenemos el nombre de la asignatura
+		String asignatura = txtAsignatura.getValue();
+		
+		// Obtenemos el tipo de curso seleccionado
+		String curso = txtCurso.getValue();
+		
+		// Obtenemos el tipo de plan seleccionado
+		String tipo = txtTipo.getValue();
+		
+		// Obtenemos el color usado
+		String color = txtColor.getValue().toString();
+		
+		
+	}
+	
+	public Timestamp obtenerFechaHoraSQL() {
+		
+		// Obtenemos la fecha y hora y lo convertimos en LocalDataTime
+		
+				LocalDate fecha = txtFecha.getValue();
+				
+				int horas = txtHoras.getValue();
+				
+				int minutos = txtMinutos.getValue();
+				
+				LocalDateTime fechaHorayMinutos = LocalDateTime.of(fecha, LocalTime.of(horas, minutos));
+				
+				return Timestamp.valueOf(fechaHorayMinutos);
+				
+	}
 
 }
 

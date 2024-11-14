@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -147,7 +148,7 @@ public static String verificarNombreUsusario(String NombreUsuario) {
 	
 }
 
-public static void agregarEsquemaDatos(String nombreUsuario, String apellidos, String mail, String nombreReal, String contrasenia, String confContrasenia, String curso) {
+public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, String mail, String nombreReal, String contrasenia, String confContrasenia, String curso) {
 	
 	// Iniciamos conexion 
 	
@@ -207,6 +208,27 @@ public static void agregarEsquemaDatos(String nombreUsuario, String apellidos, S
 		
 		st.executeUpdate(crearTablaTarea);
 		
+		// Insertar los datos del usuario en la tabla USUARIO
+        String insertUsuario = 
+            "INSERT INTO USUARIO (mail, nombreReal, apellidos, contrasenia, curso, nombreUsuario) " +
+            "VALUES (?, ?, ?, ?, ?, ?)";
+        
+        try (PreparedStatement pst = cn.prepareStatement(insertUsuario)) {
+            pst.setString(1, mail);
+            pst.setString(2, nombreReal);
+            pst.setString(3, apellidos);
+            pst.setString(4, contrasenia);
+            pst.setString(5, curso);
+            pst.setString(6, nombre_usuario);
+            
+            pst.executeUpdate();
+            
+        } catch (SQLException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    		System.out.println("Error al ingresar la informacion");
+    	}        
+		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -216,21 +238,10 @@ public static void agregarEsquemaDatos(String nombreUsuario, String apellidos, S
 	
 }
 
-public static Usuarios rellenarPooUsu(String nombreUsu) {
-	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsu);
-	
-	String sql
-	
-	try (PreparedStatement cargarDatos =  cn.prepareStatement(nombreUsu)){
-		
-	} catch (Exception e) {
-		// TODO: handle exception
-	}
+// Solo los admin pueden usar esta funcion
+
+public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fechaHoraMinutos, String tipo, String Curso, String Asignatura,String Color) {
 	
 }
-
-
-
 
 }

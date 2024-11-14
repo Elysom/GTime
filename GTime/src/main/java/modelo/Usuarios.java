@@ -4,18 +4,29 @@ public class Usuarios {
 
     // Atributos
     private int id;                   // ID único del alumno
-    private String nombre;            // Nombre del alumno
-    private String apellido;          // Apellido del alumno
-    private int edad;                 // Edad del alumno
+    private String mail;              // Correo del alumno
+    private String nombreReal;        // Nombre real del alumno
+    private int apellidos;            // Apellidos (aparentemente este debe ser una cadena)
+    private String contasenia;        // Contraseña del alumno
     private String curso;             // Curso en el que está inscrito el alumno
+    private String nombreUsuario;     // Nombre de usuario
 
-    // Constructor
-    public Usuarios(int id, String nombre, String apellido, int edad, String curso) {
+    // Constructor vacío
+    public Usuarios() {
+        super();
+    }
+
+    // Constructor con parámetros
+    public Usuarios(int id, String mail, String nombreReal, int apellidos, String contasenia, String curso,
+                    String nombreUsuario) {
+        super();
         this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
+        this.mail = mail;
+        this.nombreReal = nombreReal;
+        this.apellidos = apellidos;
+        this.contasenia = contasenia;
         this.curso = curso;
+        this.nombreUsuario = nombreUsuario;
     }
 
     // Getters y Setters
@@ -27,28 +38,36 @@ public class Usuarios {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getMail() {
+        return mail;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getNombreReal() {
+        return nombreReal;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setNombreReal(String nombreReal) {
+        this.nombreReal = nombreReal;
     }
 
-    public int getEdad() {
-        return edad;
+    public int getApellidos() {
+        return apellidos;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setApellidos(int apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getContasenia() {
+        return contasenia;
+    }
+
+    public void setContasenia(String contasenia) {
+        this.contasenia = contasenia;
     }
 
     public String getCurso() {
@@ -59,24 +78,11 @@ public class Usuarios {
         this.curso = curso;
     }
 
-    // Método toString para representar el objeto en formato String
-    @Override
-    public String toString() {
-        return "Alumno{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
-                ", curso='" + curso + '\'' +
-                '}';
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    // Otros métodos opcionales
-    // Método para mostrar la información del alumno
-    public void mostrarInformacion() {
-        System.out.println("ID: " + id);
-        System.out.println("Nombre: " + nombre + " " + apellido);
-        System.out.println("Edad: " + edad);
-        System.out.println("Curso: " + curso);
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 }

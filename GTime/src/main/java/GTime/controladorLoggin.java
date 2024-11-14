@@ -22,6 +22,7 @@ public class controladorLoggin implements Initializable {
 
 private static final String pwdVerify = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
 private static final int MAX_INPUT = 20;
+static String nombreUsuGlobal;
 
 @FXML
 private TextField txtUsuario;
@@ -47,13 +48,14 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 @FXML
 private void loggin(ActionEvent event) throws IOException {
 	
+	
 	System.out.println("hola");
 	
-	String usuario = txtUsuario.getText();
+	nombreUsuGlobal = txtUsuario.getText();
 	
 	String pass = txtContrasenia.getText();
 	
-	String resultado = SCRUDusuarios.loginSCRUD(usuario, pass); //Llama a la funcion
+	String resultado = SCRUDusuarios.loginSCRUD(nombreUsuGlobal, pass); //Llama a la funcion
 	
 	System.out.println(resultado);
 	
@@ -64,7 +66,7 @@ private void loggin(ActionEvent event) throws IOException {
 		txtayuda.setStyle("-fx-text-fill: green;");
 		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			
 			
 			lanzarVentanaCrearPlan();

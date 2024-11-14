@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="201.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorLoggin">
+<AnchorPane prefHeight="201.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorLoggin">
    <children>
       <Pane layoutX="-10.0" prefHeight="292.0" prefWidth="378.0">
          <children>
@@ -29,12 +29,12 @@
                </font>
             </Text>
             <TextField fx:id="txtUsuario" layoutX="148.0" layoutY="77.0" />
-            <Button fx:id="btnLogin" layoutX="142.0" layoutY="167.0" mnemonicParsing="false" onAction="#loggin" prefHeight="24.0" prefWidth="72.0" text="Login" />
-            <Text layoutX="111.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No estas?" wrappingWidth="56.68359375" />
-            <Button fx:id="btnRegistrar" layoutX="178.0" layoutY="208.0" mnemonicParsing="false" onAction="#lanzarVentanaRegistro" prefHeight="31.0" prefWidth="90.0" text="Registrate" />
-            <Label fx:id="txtayuda" layoutX="113.0" layoutY="249.0" prefHeight="31.0" prefWidth="203.0">
+            <Button fx:id="btnLogin" layoutX="189.0" layoutY="146.0" mnemonicParsing="false" onAction="#loggin" prefHeight="24.0" prefWidth="72.0" text="Login" />
+            <Text layoutX="110.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No estas?" wrappingWidth="56.68359375" />
+            <Button fx:id="btnRegistrar" layoutX="177.0" layoutY="234.0" mnemonicParsing="false" onAction="#lanzarVentanaRegistro" prefHeight="25.0" prefWidth="72.0" text="Registrate" />
+            <Label fx:id="txtayuda" layoutX="94.0" layoutY="180.0" prefHeight="46.0" prefWidth="203.0">
                <font>
-                  <Font size="19.0" />
+                  <Font size="9.0" />
                </font></Label>
             <PasswordField fx:id="txtContrasenia" layoutX="148.0" layoutY="109.0" />
          </children>

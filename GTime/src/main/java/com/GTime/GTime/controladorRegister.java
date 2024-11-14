@@ -1,4 +1,4 @@
-package GTime;
+package com.GTime.GTime;
 
 import java.io.IOException;
 
@@ -83,7 +83,7 @@ public class controladorRegister {
 	//SEPARAR LOS METODOS DE LA VALIDACION POR CAMPOS(UN METODO PARA EL NOMBRE, OTRO PARA EL APELLIDO ETC)
 	
 
-
+	@FXML
 	private void volverLogin() throws IOException {
 		Main.setRoot("/vista/loggin");
 	}

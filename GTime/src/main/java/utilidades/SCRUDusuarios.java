@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.RegexValidator;
 
-import GTime.controladorRegister;
+import com.GTime.GTime.controladorRegister;
 
 
 

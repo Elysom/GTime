@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTime.controladorFormularioPlan">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioPlan">
    <children>
-      <AnchorPane prefHeight="500.0" prefWidth="238.0">
+      <AnchorPane prefHeight="657.0" prefWidth="238.0">
          <children>
             <Label layoutX="25.0" layoutY="14.0" text="Crear Plan Academico">
                <font>
@@ -40,9 +40,11 @@
             <Label layoutX="20.0" layoutY="280.0" text="Curso" />
             <Label layoutX="79.0" layoutY="314.0" text="Asignatura" />
             <ColorPicker fx:id="txtColor" layoutX="35.0" layoutY="388.0" prefHeight="31.0" prefWidth="165.0" />
-            <Button fx:id="btnCrear" layoutX="91.0" layoutY="430.0" mnemonicParsing="false" onAction="#crearPlan" text="Crear" />
-            <Label fx:id="txtValidacion" layoutX="54.0" layoutY="465.0" text="Rellena la informacion" />
+            <Button fx:id="btnCrear" layoutX="91.0" layoutY="574.0" mnemonicParsing="false" onAction="#crearPlan" text="Crear" />
+            <Label fx:id="txtValidacion" layoutX="54.0" layoutY="609.0" text="Rellena la informacion" />
             <ComboBox fx:id="txtAsignatura" layoutX="44.0" layoutY="342.0" prefWidth="150.0" />
+            <Label layoutX="81.0" layoutY="436.0" text="Descripcion" />
+            <TextField fx:id="txtDescripcion" layoutX="34.0" layoutY="466.0" prefHeight="99.0" prefWidth="177.0" />
          </children>
       </AnchorPane>
    </children>

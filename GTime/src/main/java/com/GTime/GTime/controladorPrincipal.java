@@ -1,5 +1,6 @@
 package com.GTime.GTime;
 import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,7 +16,7 @@ import utilidades.CalendarioTareas;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -37,6 +38,9 @@ public class controladorPrincipal implements Initializable{
     private TextField searchBox;
     @FXML
     private ListView<String> taskList;
+    
+    @FXML
+    private Button btnCrearCurso;
     
     CalendarioDias calendarioDias;
 
@@ -159,6 +163,14 @@ public class controladorPrincipal implements Initializable{
             calendarGrid.getRowConstraints().add(row);
         }
     }
+    
+    // lanzar formulario
+    
+    @FXML 
+	private void lanzarVentanaCrearPlan(ActionEvent event) throws IOException {
+	Main.setRoot("/vista/formularioCurso");
+
+}
 
 
 

@@ -8,13 +8,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.RegexValidator;
 
 import com.GTime.GTime.controladorRegister;
 
+import modelo.PlanAcademico;
 import modelo.Usuarios;
+//import src.sql.alumnos;
 
 
 
@@ -190,6 +194,7 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 		        "  tipo VARCHAR(20) DEFAULT NULL," +
 		        "  asignatura VARCHAR(20) NOT NULL," +
 		        "  curso VARCHAR(20) NOT NULL," +
+		        "  descripcion VARCHAR(20)" +
 		        "  CONSTRAINT fk_PLANACADEMICO_USUARIO FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
 		        ");";
 		
@@ -242,14 +247,13 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 
 // Solo los admin pueden usar esta funcion
 
-public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fechaHoraMinutos, String tipo, String curso, String asignatura,String color) {
-	
-	System.out.println("holaaaaaaa");
+public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fechaHoraMinutos, String tipo, String curso, String asignatura,String color,String descripcion) {
+
 	// nos conectamos a la esquema de datos del usuario admin que nos hayamos loggeado
 	
 	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(usuActual);
 	
-	String introducirPlan = "INSERT INTO plan_academico (IDUsuario,nombrePlan,fecha,color,tipo,curso,asignatura) VALUES (1, ?, ?, ?, ?, ?, ?)";
+	String introducirPlan = "INSERT INTO plan_academico (IDUsuario,nombrePlan,fecha,color,tipo,curso,asignatura,descripcion) VALUES (1, ?, ?, ?, ?, ?, ?, ?)";
 	
 	try (PreparedStatement stm = cn.prepareStatement(introducirPlan) ){
 		
@@ -259,16 +263,71 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 		stm.setString(4, tipo);
 		stm.setString(5, curso);
 		stm.setString(6, asignatura);
+		stm.setString(7, descripcion);
 		
 		stm.executeUpdate();
+			
+		System.out.println("Se agrego con exito");
 		
-		System.out.println("hola");
+		DatabaseConnector.cerrarConexion(cn);
 		
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
 	}
 	
+	// Ahora agregaremos el plan a la tabla general de todos los planes
+	
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
+	
+	introducirPlan = "INSERT INTO plan_academico (nombrePlan,fecha,color,tipo,curso,asignatura,descripcion) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	try (PreparedStatement stm = cnn.prepareStatement(introducirPlan) ){
+		
+		stm.setString(1, nombrePlan);
+		stm.setTimestamp(2,fechaHoraMinutos);
+		stm.setString(3, color);
+		stm.setString(4, tipo);
+		stm.setString(5, curso);
+		stm.setString(6, asignatura);
+		stm.setString(7, descripcion);
+		
+		stm.executeUpdate();
+				
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+	}
+	
+	
 }
 
+/*
+public List<Usuarios> rellanarListaAdminEspecifico (String nombreUsuGlobal) {
+	
+	List<PlanAcademico> listaAlumnos = new ArrayList<>();
+
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
+	
+    String sql = "Select IDPlan,IDUsuario,nombrePlan,fecha,color,tipo,asignatura,curso from plan_academico order by fecha desc";
+
+	
+	// preparamos el statement
+	
+	try (PreparedStatement stm = cn.prepareStatement(sql)) {
+		
+		ResultSet rs = stm.executeQuery(sql);
+		
+		while (rs.next()) {
+			
+			// PlanAcademico objetoPlan = new PlanAcademico(rs.getInt("IDPlan"), rs.getInt("IDUsuario") , rs.getString("nombrePlan"), rs., sql, null, sql, sql, nombreUsuGlobal, sql)
+			
+			
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+	
+	
+}
+*/
 }

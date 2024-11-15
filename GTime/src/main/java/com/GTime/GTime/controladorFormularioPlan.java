@@ -54,7 +54,12 @@ public class controladorFormularioPlan implements Initializable{
 	   private Button btnCrear;            // Botón para crear el plan
 
 	   @FXML
+	   private TextField txtDescripcion;
+	   
+	   @FXML
 	   private Label txtValidacion;
+	   
+	   
 	   
 @Override
 public void initialize(URL arg0, ResourceBundle arg1) {
@@ -103,7 +108,7 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	@FXML
 	public void crearPlan(ActionEvent event)  {
 		
-		SCRUDusuarios.agregarPlan(controladorLoggin.nombreUsuGlobal, txtPlan.getText(), obtenerFechaHoraSQL(), txtTipo.getValue(), txtCurso.getValue(), txtAsignatura.getValue(), transformarColor());
+		SCRUDusuarios.agregarPlan(controladorLoggin.nombreUsuGlobal, txtPlan.getText(), obtenerFechaHoraSQL(), txtTipo.getValue(), txtCurso.getValue(), txtAsignatura.getValue(), transformarColor(), txtDescripcion.getText());
 		
 	}
 	

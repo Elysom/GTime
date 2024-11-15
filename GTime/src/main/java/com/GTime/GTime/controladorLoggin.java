@@ -99,11 +99,7 @@ private void lanzarVentanaRegistro(ActionEvent event) throws IOException {
 
 // PRUEBAS 
 
-@FXML 
-	private void lanzarVentanaCrearPlan() throws IOException {
-	Main.setRoot("/vista/formularioCurso");
 
-}
 
 
 

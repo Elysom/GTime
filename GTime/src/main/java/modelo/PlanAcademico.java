@@ -6,23 +6,20 @@ public class PlanAcademico {
     private int idPlan;           // ID único para el plan académico
     private int idUsuario;        // ID del usuario al que pertenece el plan académico
     private String nombrePlan;    // Nombre del plan académico
-    private String horasPlan;     // Horas del plan académico
-    private String diasSemanas;   // Días de la semana en que se imparte el plan
-    private LocalDateTime fecha;  // Fecha y hora en la que se crea o actualiza el plan
+    private LocalDateTime fechahorasPlan;  // Fecha y hora en la que se crea o actualiza el plan
     private String color;         // Color asociado al plan académico (para representaciones visuales)
     private String tipo;          // Tipo de plan (opcional)
     private String asignatura;    // Asignatura relacionada al plan académico
     private String curso;         // Curso o nivel educativo asociado
 
+
     // Constructor con los identificadores incluidos
-    public PlanAcademico(int idPlan, int idUsuario, String nombrePlan, String horasPlan, String diasSemanas,
+   public PlanAcademico(int idPlan, int idUsuario, String nombrePlan, String horasPlan, String diasSemanas,
                          LocalDateTime fecha, String color, String tipo, String asignatura, String curso) {
         this.idPlan = idPlan;
         this.idUsuario = idUsuario;
         this.nombrePlan = nombrePlan;
-        this.horasPlan = horasPlan;
-        this.diasSemanas = diasSemanas;
-        this.fecha = fecha;
+        this.fechahorasPlan = fechahorasPlan;
         this.color = color;
         this.tipo = tipo;
         this.asignatura = asignatura;
@@ -54,28 +51,13 @@ public class PlanAcademico {
         this.nombrePlan = nombrePlan;
     }
 
-    public String getHorasPlan() {
-        return horasPlan;
-    }
-
-    public void setHorasPlan(String horasPlan) {
-        this.horasPlan = horasPlan;
-    }
-
-    public String getDiasSemanas() {
-        return diasSemanas;
-    }
-
-    public void setDiasSemanas(String diasSemanas) {
-        this.diasSemanas = diasSemanas;
-    }
 
     public LocalDateTime getFecha() {
-        return fecha;
+        return fechahorasPlan;
     }
 
     public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+        this.fechahorasPlan = fechahorasPlan;
     }
 
     public String getColor() {

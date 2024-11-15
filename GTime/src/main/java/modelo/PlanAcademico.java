@@ -11,85 +11,125 @@ public class PlanAcademico {
     private String tipo;          // Tipo de plan (opcional)
     private String asignatura;    // Asignatura relacionada al plan académico
     private String curso;         // Curso o nivel educativo asociado
-
+    private String descripcion;
 
     // Constructor con los identificadores incluidos
-   public PlanAcademico(int idPlan, int idUsuario, String nombrePlan, String horasPlan, String diasSemanas,
-                         LocalDateTime fecha, String color, String tipo, String asignatura, String curso) {
-        this.idPlan = idPlan;
-        this.idUsuario = idUsuario;
-        this.nombrePlan = nombrePlan;
-        this.fechahorasPlan = fechahorasPlan;
-        this.color = color;
-        this.tipo = tipo;
-        this.asignatura = asignatura;
-        this.curso = curso;
-    }
 
-    // Getters y Setters
-    public int getIdPlan() {
-        return idPlan;
-    }
+	public PlanAcademico(int idPlan, int idUsuario, String nombrePlan, LocalDateTime fechahorasPlan, String color,
+			String tipo, String asignatura, String curso, String descripcion) {
+		super();
+		this.idPlan = idPlan;
+		this.idUsuario = idUsuario;
+		this.nombrePlan = nombrePlan;
+		this.fechahorasPlan = fechahorasPlan;
+		this.color = color;
+		this.tipo = tipo;
+		this.asignatura = asignatura;
+		this.curso = curso;
+		this.descripcion = descripcion;
+	}
 
-    public void setIdPlan(int idPlan) {
-        this.idPlan = idPlan;
-    }
+	public PlanAcademico() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
+	public int getIdPlan() {
+		return idPlan;
+	}
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+	public void setIdPlan(int idPlan) {
+		this.idPlan = idPlan;
+	}
 
-    public String getNombrePlan() {
-        return nombrePlan;
-    }
+	public int getIdUsuario() {
+		return idUsuario;
+	}
 
-    public void setNombrePlan(String nombrePlan) {
-        this.nombrePlan = nombrePlan;
-    }
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 
+	public String getNombrePlan() {
+		return nombrePlan;
+	}
 
-    public LocalDateTime getFecha() {
-        return fechahorasPlan;
-    }
+	public void setNombrePlan(String nombrePlan) {
+		this.nombrePlan = nombrePlan;
+	}
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fechahorasPlan = fechahorasPlan;
-    }
+	public LocalDateTime getFechahorasPlan() {
+		return fechahorasPlan;
+	}
 
-    public String getColor() {
-        return color;
-    }
+	public void setFechahorasPlan(LocalDateTime fechahorasPlan) {
+		this.fechahorasPlan = fechahorasPlan;
+	}
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+	public String getColor() {
+		return color;
+	}
 
-    public String getTipo() {
-        return tipo;
-    }
+	public void setColor(String color) {
+		this.color = color;
+	}
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+	public String getTipo() {
+		return tipo;
+	}
 
-    public String getAsignatura() {
-        return asignatura;
-    }
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
-    public void setAsignatura(String asignatura) {
-        this.asignatura = asignatura;
-    }
+	public String getAsignatura() {
+		return asignatura;
+	}
 
-    public String getCurso() {
-        return curso;
-    }
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
+	}
 
-    public void setCurso(String curso) {
-        this.curso = curso;
-    }
+	public String getCurso() {
+		return curso;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	@Override
+	
+	public String toString() {
+	    return String.format(
+	        "Plan Académico:\n" +
+	        "- Nombre: %s\n" +
+	        "- Fecha y Hora: %s\n" +
+	        "- Color: %s\n" +
+	        "- Tipo: %s\n" +
+	        "- Asignatura: %s\n" +
+	        "- Curso: %s\n" +
+	        "- Descripción: %s",
+	        nombrePlan != null ? nombrePlan : "N/A",
+	        fechahorasPlan != null ? fechahorasPlan : "N/A",
+	        color != null ? color : "N/A",
+	        tipo != null ? tipo : "N/A",
+	        asignatura != null ? asignatura : "N/A",
+	        curso != null ? curso : "N/A",
+	        descripcion != null ? descripcion : "N/A"
+	    );
+	}
+
+	
+
+   
 }
 

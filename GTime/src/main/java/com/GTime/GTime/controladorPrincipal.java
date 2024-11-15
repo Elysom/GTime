@@ -1,5 +1,6 @@
 package com.GTime.GTime;
 import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,14 +11,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
+import modelo.PlanAcademico;
 import utilidades.CalendarioDias;
 import utilidades.CalendarioMetodos;
 import utilidades.CalendarioTareas;
+import utilidades.SCRUDusuarios;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -46,12 +51,19 @@ public class controladorPrincipal implements Initializable{
 
     private CalendarioMetodos calendarioMetodos;
     
+    public List<String> colores = new ArrayList<>();
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		lblNUsuario.setText(controladorLoggin.nombreUsuGlobal);
         calendarioMetodos = new CalendarioMetodos();
 
         updateCalendar();
+        
+        List<String> listaTareas = agregarPlanesLista();
+        
+        taskList.setItems(FXCollections.observableArrayList(listaTareas));
+       
         
 	}
 
@@ -162,6 +174,25 @@ public class controladorPrincipal implements Initializable{
             row.setPercentHeight(100.0 / 6);  // Cada fila ocupa el 16.67% del espacio disponible
             calendarGrid.getRowConstraints().add(row);
         }
+    }
+    
+    @FXML
+    private List<String> agregarPlanesLista() {
+    	
+    	
+    	List<PlanAcademico> listaAlumnos = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
+    	
+    	List<String> listaTareas = new ArrayList<>();
+    	
+    	for (PlanAcademico planAcademico : listaAlumnos) {
+			
+			listaTareas.add(planAcademico.toString());
+			
+			colores.add(planAcademico.getColor());
+		}
+    	
+    	return listaTareas;
+    	
     }
     
     // lanzar formulario

@@ -301,14 +301,14 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 	
 }
 
-/*
-public List<Usuarios> rellanarListaAdminEspecifico (String nombreUsuGlobal) {
+
+public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsuGlobal) {
 	
 	List<PlanAcademico> listaAlumnos = new ArrayList<>();
 
 	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
 	
-    String sql = "Select IDPlan,IDUsuario,nombrePlan,fecha,color,tipo,asignatura,curso from plan_academico order by fecha desc";
+    String sql = "Select IDPlan,IDUsuario,nombrePlan,fecha,color,tipo,asignatura,curso,descripcion from plan_academico WHERE fecha >= NOW() order by fecha asc";
 
 	
 	// preparamos el statement
@@ -319,15 +319,18 @@ public List<Usuarios> rellanarListaAdminEspecifico (String nombreUsuGlobal) {
 		
 		while (rs.next()) {
 			
-			// PlanAcademico objetoPlan = new PlanAcademico(rs.getInt("IDPlan"), rs.getInt("IDUsuario") , rs.getString("nombrePlan"), rs., sql, null, sql, sql, nombreUsuGlobal, sql)
+			 PlanAcademico objetoPlan = new PlanAcademico(rs.getInt("IDPlan"), rs.getInt("IDUsuario") , rs.getString("nombrePlan"), rs.getTimestamp("fecha").toLocalDateTime(), rs.getString("color"), rs.getString("tipo"), rs.getString("asignatura"), rs.getString("curso"), rs.getString("descripcion"));
 			
+			listaAlumnos.add(objetoPlan);
 			
 		}
-	} catch (Exception e) {
+		
+	} catch (SQLException e) {
 		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
 	}
 	
-	
+	return listaAlumnos;
 }
-*/
+
 }

@@ -110,21 +110,12 @@ public class PlanAcademico {
 	
 	public String toString() {
 	    return String.format(
-	        "Plan Académico:\n" +
-	        "- Nombre: %s\n" +
-	        "- Fecha y Hora: %s\n" +
-	        "- Color: %s\n" +
-	        "- Tipo: %s\n" +
-	        "- Asignatura: %s\n" +
-	        "- Curso: %s\n" +
-	        "- Descripción: %s",
+	        
+	        "- Nombre: %s\n- Fecha y Hora: %s\n" +
+	       
 	        nombrePlan != null ? nombrePlan : "N/A",
-	        fechahorasPlan != null ? fechahorasPlan : "N/A",
-	        color != null ? color : "N/A",
-	        tipo != null ? tipo : "N/A",
-	        asignatura != null ? asignatura : "N/A",
-	        curso != null ? curso : "N/A",
-	        descripcion != null ? descripcion : "N/A"
+	        fechahorasPlan != null ? fechahorasPlan : "N/A"
+	        	
 	    );
 	}
 

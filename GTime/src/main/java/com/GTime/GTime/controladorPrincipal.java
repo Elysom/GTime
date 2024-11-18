@@ -3,6 +3,9 @@ import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -11,6 +14,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import modelo.PlanAcademico;
 import utilidades.CalendarioDias;
 import utilidades.CalendarioMetodos;
@@ -47,11 +51,18 @@ public class controladorPrincipal implements Initializable{
     @FXML
     private Button btnCrearCurso;
     
+    @FXML
+    private TextField txtBuscar;
+    
     CalendarioDias calendarioDias;
 
     private CalendarioMetodos calendarioMetodos;
     
     public List<String> colores = new ArrayList<>();
+    
+    public List<String> listaTareas;
+    
+    public static String infoSeleccionada;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -60,10 +71,39 @@ public class controladorPrincipal implements Initializable{
 
         updateCalendar();
         
-        List<String> listaTareas = agregarPlanesLista();
+        listaTareas = agregarPlanesLista();
         
         taskList.setItems(FXCollections.observableArrayList(listaTareas));
        
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            
+        buscarElemento(); // Llama a buscarElemento con el nuevo texto
+        	
+        });
+        
+        // mostrar mas informacion
+        
+        taskList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        
+        infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
+  
+    	 taskList.getSelectionModel().clearSelection();
+        	
+           	
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
+        	
+        try {
+        	Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
+        });
         
 	}
 
@@ -195,6 +235,35 @@ public class controladorPrincipal implements Initializable{
     	
     }
     
+    @FXML
+    private void buscarElemento() {
+    	
+    	System.out.println("Método buscarElemento invocado");
+    	
+    	String palabra_busqueda = txtBuscar.getText();
+    	
+    	List<PlanAcademico> ejecutarBusqueda = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
+    	
+    	List<String> resultadoBusqueda = new ArrayList();
+    	
+    	for (PlanAcademico aux: ejecutarBusqueda) {
+			
+    		if (aux.getNombrePlan().toLowerCase().contains(palabra_busqueda) || aux.getNombrePlan().contains(palabra_busqueda)) {
+				
+    			resultadoBusqueda.add(aux.toString());
+				
+			}
+		}
+    	
+        taskList.setItems(FXCollections.observableArrayList(resultadoBusqueda));
+    	
+    }
+    /*
+    @FXML
+    private String infoDetalles() {
+    	
+    }
+    */
     // lanzar formulario
     
     @FXML 

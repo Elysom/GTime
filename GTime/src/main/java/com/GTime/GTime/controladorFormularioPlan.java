@@ -20,6 +20,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import utilidades.SCRUDusuarios;
@@ -55,7 +56,7 @@ public class controladorFormularioPlan implements Initializable{
 	   private Button btnCrear;            // Botón para crear el plan
 
 	   @FXML
-	   private TextField txtDescripcion;
+	   private TextArea txtDescripcion;
 	   
 	   @FXML
 	   private Label txtValidacion;
@@ -143,6 +144,9 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		return colorHex;
 
 	}
+	
+	
+	
 
 }
 

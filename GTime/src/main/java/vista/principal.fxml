@@ -37,7 +37,7 @@
                 <!-- HBox para el cuadro de búsqueda y botón de crear curso centrados -->
                 <HBox alignment="CENTER" spacing="5.0">
                     <children>
-                        <TextField fx:id="searchBox" alignment="CENTER" prefWidth="100.0" promptText="Buscar..." />
+                        <TextField fx:id="txtBuscar" alignment="CENTER" onInputMethodTextChanged="#buscarElemento" prefWidth="100.0" promptText="Buscar..." />
                     </children>
                 </HBox>
 

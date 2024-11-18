@@ -1,6 +1,7 @@
 package com.GTime.GTime;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -106,10 +107,11 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	
 }
 	@FXML
-	public void crearPlan(ActionEvent event)  {
+	public void crearPlan(ActionEvent event) throws IOException  {
 		
 		SCRUDusuarios.agregarPlan(controladorLoggin.nombreUsuGlobal, txtPlan.getText(), obtenerFechaHoraSQL(), txtTipo.getValue(), txtCurso.getValue(), txtAsignatura.getValue(), transformarColor(), txtDescripcion.getText());
 		
+		Main.setRoot("/vista/principal");
 	}
 	
 	@FXML

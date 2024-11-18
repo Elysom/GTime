@@ -1,6 +1,7 @@
 package modelo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PlanAcademico {
     private int idPlan;           // ID único para el plan académico
@@ -106,16 +107,22 @@ public class PlanAcademico {
 		this.descripcion = descripcion;
 	}
 
-	@Override
 	
+	
+	@Override
 	public String toString() {
+	    DateTimeFormatter fechaFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    DateTimeFormatter horaFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+	    String fecha = fechahorasPlan != null ? fechahorasPlan.format(fechaFormatter) : "N/A";
+	    String hora = fechahorasPlan != null ? fechahorasPlan.format(horaFormatter) : "N/A";
+
 	    return String.format(
-	        
-	        "- Nombre: %s\n- Fecha y Hora: %s\n" +
+	        "%s, %s - %s",
+	        fecha,
+	        hora,
+	        nombrePlan != null ? nombrePlan : "N/A"
 	       
-	        nombrePlan != null ? nombrePlan : "N/A",
-	        fechahorasPlan != null ? fechahorasPlan : "N/A"
-	        	
 	    );
 	}
 

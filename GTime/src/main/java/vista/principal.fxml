@@ -38,7 +38,6 @@
                 <HBox alignment="CENTER" spacing="5.0">
                     <children>
                         <TextField fx:id="searchBox" alignment="CENTER" prefWidth="100.0" promptText="Buscar..." />
-                        <Button fx:id="btnCrearCurso" mnemonicParsing="false" onAction="#lanzarVentanaCrearPlan" prefHeight="26.0" prefWidth="88.0" text="Crear Curso" />
                     </children>
                 </HBox>
 
@@ -55,7 +54,7 @@
                 <!-- Botones de añadir y eliminar tareas, alineados en la esquina inferior derecha de la lista -->
                 <HBox alignment="CENTER_RIGHT" layoutY="300.0" spacing="10.0">
                     <children>
-                        <Button text="+" />
+                        <Button fx:id="btnCrearCurso" onAction="#lanzarVentanaCrearPlan" text="+" />
                         <Button text="-" />
                     </children>
                 </HBox>

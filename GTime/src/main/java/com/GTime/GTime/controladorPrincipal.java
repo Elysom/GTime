@@ -268,7 +268,18 @@ public class controladorPrincipal implements Initializable{
     
     @FXML 
 	private void lanzarVentanaCrearPlan(ActionEvent event) throws IOException {
-	Main.setRoot("/vista/formularioCurso");
+    	FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/formularioCurso.fxml"));
+    	
+        try {
+        	Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
 
 }
 

@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="201.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorLoggin">
    <children>
-      <Pane layoutX="-10.0" prefHeight="292.0" prefWidth="378.0">
+      <Pane fx:id="pane" layoutX="-10.0" prefHeight="249.0" prefWidth="378.0">
          <children>
             <Text layoutX="153.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GTime" wrappingWidth="71.7366943359375">
                <font>
@@ -29,14 +29,12 @@
                </font>
             </Text>
             <TextField fx:id="txtUsuario" layoutX="148.0" layoutY="77.0" />
-            <Button fx:id="btnLogin" layoutX="189.0" layoutY="146.0" mnemonicParsing="false" onAction="#loggin" prefHeight="24.0" prefWidth="72.0" text="Login" />
-            <Text layoutX="110.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No estas?" wrappingWidth="56.68359375" />
-            <Button fx:id="btnRegistrar" layoutX="177.0" layoutY="234.0" mnemonicParsing="false" onAction="#lanzarVentanaRegistro" prefHeight="25.0" prefWidth="72.0" text="Registrate" />
-            <Label fx:id="txtayuda" layoutX="94.0" layoutY="180.0" prefHeight="46.0" prefWidth="203.0">
-               <font>
-                  <Font size="9.0" />
-               </font></Label>
+            <Button fx:id="btnLogin" layoutX="177.0" layoutY="146.0" mnemonicParsing="false" onAction="#loggin" prefHeight="24.0" prefWidth="72.0" text="Login" />
+            <Text layoutX="108.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No estas?" wrappingWidth="56.68359375" />
+            <Button fx:id="btnRegistrar" layoutX="177.0" layoutY="195.0" mnemonicParsing="false" onAction="#lanzarVentanaRegistro" prefHeight="25.0" prefWidth="72.0" text="Registrate" />
+            <Label fx:id="txtayuda" layoutX="14.0" layoutY="146.0" prefHeight="46.0" prefWidth="159.0" />
             <PasswordField fx:id="txtContrasenia" layoutX="148.0" layoutY="109.0" />
+            <Button layoutX="315.0" layoutY="109.0" mnemonicParsing="false" onAction="#mostrarContrasenia" prefHeight="25.0" prefWidth="31.0" text="👁" />
          </children>
       </Pane>
    </children>

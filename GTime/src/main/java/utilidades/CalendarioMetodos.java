@@ -74,9 +74,6 @@ public class CalendarioMetodos {
 
 	    
 
-	    public void addTask(LocalDate date, String task) {
-	        diasCalendario.computeIfAbsent(date, CalendarioDias::new).addTask(task);
-	    }
 	
   
 }

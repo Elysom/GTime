@@ -183,11 +183,17 @@ public class controladorPrincipal implements Initializable{
                 dayGrid.add(dayLabel, 0, 0);
 
                 // Añadir las tareas del día
-                List<String> tasks = day.getTasks();
-                int rowTask = 1;
-                for (String task : tasks) {
-                    Label taskLabel = new Label(task);
-                    dayGrid.add(taskLabel, 0, rowTask++);
+                List<PlanAcademico> listaplanes=rellenarObjetoPlanes();
+                int colPlan = 1;
+               int contador=1;
+                for (PlanAcademico pa : listaplanes) {
+                	//Si el mes y el año y dia es el mismo al que esta dibujando se añade una label con el plan
+                	if (pa.getFechahorasPlan().getDayOfMonth()==Integer.parseInt(day.getDisplayText())&&pa.getFechahorasPlan().getMonthValue()==currentMonth.getMonthValue()&&pa.getFechahorasPlan().getYear()==currentMonth.getYear()) {
+                		Label nplanLabel = new Label(contador+"."+pa.getNombrePlan());
+                        dayGrid.add(nplanLabel, 0, colPlan++);
+                        contador++;
+                	}
+                    
                 }
 
                 // Añadir el GridPane del día al calendario
@@ -207,7 +213,7 @@ public class controladorPrincipal implements Initializable{
         // Establecer las restricciones de las columnas (7 columnas para los días de la semana)
         for (int i = 0; i < 7; i++) {
             ColumnConstraints column = new ColumnConstraints();
-            column.setPercentWidth(100.0 / 7);  // Cada columna ocupa el 14.29% del espacio disponible
+            column.setPercentWidth(100.0 / 7);  // Cada columna ocupa el 15% aprox del espacio disponible
             calendarGrid.getColumnConstraints().add(column);
         }
 

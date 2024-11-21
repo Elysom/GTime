@@ -37,7 +37,7 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 	
 	Connection cn= utilidades.DatabaseConnector.dameConexion();
 	
-	String sql = "SELECT nombreUsuario,contrasenia FROM usuarioslista WHERE nombreUsuario = ? && contrasenia = ?";
+	String sql = "SELECT nombreUsuario,contrasenia,tipo FROM usuarioslista WHERE nombreUsuario = ? && contrasenia = ?";
 	
 	try (PreparedStatement StatementInicio = cn.prepareStatement(sql)){
 		
@@ -49,10 +49,14 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 		
 		while (rs.next()) {
 			
-			if (rs.getString("nombreUsuario").equals(usuario) && rs.getString("contrasenia").equals(contrasenia)) {
+			if (rs.getString("nombreUsuario").equals(usuario) && rs.getString("contrasenia").equals(contrasenia) && rs.getString("tipo").equals("Administrador")) {
 				
-				return "Inicio de sesión exitoso";
+				return "Inicio de sesión exitoso, modo Administrador";
 				
+			} else if (rs.getString("nombreUsuario").equals(usuario) && rs.getString("contrasenia").equals(contrasenia) && rs.getString("tipo").equals("Usuario")) {
+				
+				return "Inicio de sesión exitoso, modo Usuario";
+ 
 			}
 			
 		}
@@ -70,7 +74,7 @@ public static void registerSCRUD(String nombre,String apellidos,String mail,Stri
 	
 	Connection cn= utilidades.DatabaseConnector.dameConexion();
 	//Logica para la insercion del usuario  en la base de datos. (como solo vamos a crear usuarios alumno se le pone por defecto usuario)
-	String sql = "INSERT INTO usuarioslista (nombreUsuario, apellidos, mail, nombreReal, contrasenia,curso,tipo) VALUES (?, ?, ?, ?, ?, ?,'usuario')";
+	String sql = "INSERT INTO usuarioslista (nombreUsuario, apellidos, mail, nombreReal, contrasenia,curso,tipo) VALUES (?, ?, ?, ?, ?, ?,'Usuario')";
 	
 	try (PreparedStatement StatementRegister = cn.prepareStatement(sql)){
 		

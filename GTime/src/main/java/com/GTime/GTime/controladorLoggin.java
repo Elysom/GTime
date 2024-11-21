@@ -60,7 +60,9 @@ private void loggin(ActionEvent event) throws IOException {
 	
 	System.out.println(resultado);
 	
-	if (resultado.equals("Inicio de sesión exitoso")) {
+	// loggin para administradores
+	
+	if (resultado.equals("Inicio de sesión exitoso, modo Administrador")) {
 		
 		txtayuda.setText(resultado);
 		
@@ -76,6 +78,10 @@ private void loggin(ActionEvent event) throws IOException {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	// loggin para usuarios normales
+		
+		
 		
 		
 	} else {

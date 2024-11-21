@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SpinnerValueFactory?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          alignment="CENTER" hgap="10" vgap="15" prefWidth="400" prefHeight="500"
+          style="-fx-background-color: #A3CEC5; -fx-padding: 20;">
+    
+    <!-- Título de la pantalla -->
+    <Label text="Agregar Actividad" style="-fx-font-size: 24; -fx-font-weight: bold;" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+    
+    <!-- Campo de Nombre del Plan -->
+    <Label text="Nombre del Plan:" style="-fx-font-size: 16; -fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+    <TextField fx:id="nombrePlanTextField" promptText="Nombre del Plan" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+    
+    <!-- Campo de Fecha -->
+    <Label text="Fecha de Plan:" style="-fx-font-size: 16; -fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+    <DatePicker fx:id="fechaPlanDatePicker" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Seleccione la fecha" />
+    
+    <!-- Campo de Hora con dos Spinners para Hora y Minutos -->
+    <Label text="Hora de Plan:" style="-fx-font-size: 16; -fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+    <HBox spacing="5" GridPane.rowIndex="3" GridPane.columnIndex="1">
+        <!-- Spinner para hora (0 a 23) -->
+        <Spinner fx:id="horaSpinner" prefWidth="80"/>
+        <Label text=":" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+        <!-- Spinner para minutos (0 a 59) -->
+        <Spinner fx:id="minutosSpinner" prefWidth="80"/>
+    </HBox>
+    
+    <!-- Campo de Tipo con ComboBox -->
+    <Label text="Tipo de Actividad:" style="-fx-font-size: 16; -fx-font-weight: bold;" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+    <ComboBox fx:id="tipoComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1" promptText="Seleccione Tipo">
+        <!-- Se eliminan los elementos FXCollections -->
+        <items>
+            <ComboBoxItem text="Rutina" />
+            <ComboBoxItem text="Tarea" />
+            <ComboBoxItem text="Proyecto" />
+        </items>
+    </ComboBox>
+
+    <!-- Campo de Curso con ComboBox -->
+    <Label text="Curso:" style="-fx-font-size: 16; -fx-font-weight: bold;" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+    <ComboBox fx:id="cursoComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1" promptText="Seleccione Curso">
+        <!-- Se eliminan los elementos FXCollections -->
+        <items>
+            <ComboBoxItem text="Matemáticas" />
+            <ComboBoxItem text="Física" />
+            <ComboBoxItem text="Literatura" />
+        </items>
+    </ComboBox>
+
+    <!-- Campo de Asignatura con TextField -->
+    <Label text="Asignatura:" style="-fx-font-size: 16; -fx-font-weight: bold;" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+    <TextField fx:id="asignaturaTextField" promptText="Nombre de la Asignatura" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+    
+    <!-- Campo de Color con ColorPicker -->
+    <Label text="Color de la Actividad:" style="-fx-font-size: 16; -fx-font-weight: bold;" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+    <ColorPicker fx:id="colorPicker" GridPane.rowIndex="7" GridPane.columnIndex="1" style="-fx-color-label-visible: false;" />
+
+    <!-- Botón Guardar -->
+    <Button text="Guardar" style="-fx-background-color: #333333; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;" GridPane.rowIndex="8" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+</GridPane>

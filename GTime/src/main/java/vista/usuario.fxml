@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.GTime.GTime.controladorUsuario">
+   <children>
+      <AnchorPane layoutX="53.0" layoutY="47.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="-13.0" layoutY="47.0" prefHeight="21.0" prefWidth="287.0" text="Has iniciado como usuario" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

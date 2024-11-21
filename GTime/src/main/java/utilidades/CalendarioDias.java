@@ -16,6 +16,7 @@ public class CalendarioDias {
     public LocalDate getDate() {
         return date;
     }
+    
 
     public String getDisplayText() {
         return String.valueOf(date.getDayOfMonth());

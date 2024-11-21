@@ -81,7 +81,13 @@ private void loggin(ActionEvent event) throws IOException {
 		
 	// loggin para usuarios normales
 		
+	resultado = SCRUDusuarios.loginSCRUD(nombreUsuGlobal, pass);
 		
+	} else if (resultado.equals("Inicio de sesión exitoso, modo Usuario")){	
+		
+		txtayuda.setText(resultado);
+		
+		txtayuda.setStyle("-fx-text-fill: green;");
 		
 		
 	} else {

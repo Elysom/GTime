@@ -47,7 +47,7 @@ public class controladorPrincipal implements Initializable{
     private TextField searchBox;
     @FXML
     private ListView<String> taskList;
-    
+   
     @FXML
     private Button btnCrearCurso;
     
@@ -224,11 +224,11 @@ public class controladorPrincipal implements Initializable{
     private List<String> agregarPlanesLista() {
     	
     	
-    	List<PlanAcademico> listaAlumnos = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
+    	List<PlanAcademico> listadePlanesAcademico = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
     	
     	List<String> listaTareas = new ArrayList<>();
     	
-    	for (PlanAcademico planAcademico : listaAlumnos) {
+    	for (PlanAcademico planAcademico : listadePlanesAcademico) {
 			
 			listaTareas.add(planAcademico.toString());
 			
@@ -306,6 +306,16 @@ public class controladorPrincipal implements Initializable{
     	
     	taskList.setItems(FXCollections.observableArrayList(actualizarLista));
     	 
+    }
+    
+    // funcion de objetos de planes academicos para rellenar la informacion
+    
+    public static List<PlanAcademico> rellenarObjetoPlanes() {
+    	
+    	List<PlanAcademico> rellenarLista = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
+
+    	return rellenarLista;
+    	
     }
 
 

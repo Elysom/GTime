@@ -310,7 +310,7 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 
 public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsuGlobal) {
 	
-	List<PlanAcademico> listaAlumnos = new ArrayList<>();
+	List<PlanAcademico> listaDePlanesAcademico = new ArrayList<>();
 
 	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
 	
@@ -327,7 +327,7 @@ public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsu
 			
 			 PlanAcademico objetoPlan = new PlanAcademico(rs.getInt("IDPlan"), rs.getInt("IDUsuario") , rs.getString("nombrePlan"), rs.getTimestamp("fecha").toLocalDateTime(), rs.getString("color"), rs.getString("tipo"), rs.getString("asignatura"), rs.getString("curso"), rs.getString("descripcion"));
 			
-			listaAlumnos.add(objetoPlan);
+			listaDePlanesAcademico.add(objetoPlan);
 			
 		}
 		
@@ -336,7 +336,7 @@ public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsu
 		System.out.println(e.getLocalizedMessage());
 	}
 	
-	return listaAlumnos;
+	return listaDePlanesAcademico;
 }
 
 public static void eliminarPlan(String ItemList) {

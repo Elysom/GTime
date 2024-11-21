@@ -184,8 +184,10 @@ public class controladorPrincipal implements Initializable{
 
                 // Añadir las tareas del día
                 List<PlanAcademico> listaplanes=rellenarObjetoPlanes();
+                
                 int colPlan = 1;
                int contador=1;
+               
                 for (PlanAcademico pa : listaplanes) {
                 	//Si el mes y el año y dia es el mismo al que esta dibujando se añade una label con el plan
                 	if (pa.getFechahorasPlan().getDayOfMonth()==Integer.parseInt(day.getDisplayText())&&pa.getFechahorasPlan().getMonthValue()==currentMonth.getMonthValue()&&pa.getFechahorasPlan().getYear()==currentMonth.getYear()) {
@@ -195,7 +197,8 @@ public class controladorPrincipal implements Initializable{
                 	}
                     
                 }
-
+                
+                
                 // Añadir el GridPane del día al calendario
                 calendarGrid.add(dayGrid, col, row);
 

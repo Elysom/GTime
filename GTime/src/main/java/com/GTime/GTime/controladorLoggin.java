@@ -89,12 +89,24 @@ private void loggin(ActionEvent event) throws IOException {
 		
 		txtayuda.setStyle("-fx-text-fill: green;");
 		
+		try {
+			Thread.sleep(1000);
+			
+			Main.setRoot("/vista/usuario");
+			
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	} else {
 		
 		txtayuda.setStyle("-fx-text-fill: red;");
 		
 		txtayuda.setText(resultado);
+		
 		
 	}
 	

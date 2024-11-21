@@ -23,7 +23,7 @@ public class controladorLoggin implements Initializable {
 private static final String pwdVerify = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
 private static final int MAX_INPUT = 20;
 
-static String nombreUsuGlobal;//Se puede llamar desde cualquier clase para obtener el nombre de usuario
+public static String nombreUsuGlobal;//Se puede llamar desde cualquier clase para obtener el nombre de usuario
 
 @FXML
 private TextField txtUsuario;

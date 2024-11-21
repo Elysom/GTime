@@ -52,6 +52,9 @@ public class controladorPrincipal implements Initializable{
     private Button btnCrearCurso;
     
     @FXML
+    private Button eliminarPlan;
+    
+    @FXML
     private TextField txtBuscar;
     
     CalendarioDias calendarioDias;
@@ -83,25 +86,26 @@ public class controladorPrincipal implements Initializable{
         
         // mostrar mas informacion
         
-        taskList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        
-        infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
-  
-    	 taskList.getSelectionModel().clearSelection();
+        taskList.setOnMouseClicked(event -> {
         	
-           	
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
-        	
-        try {
-        	Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+        	if (event.getClickCount() == 2) { 
+        		 infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
+        		  
+            	 taskList.getSelectionModel().clearSelection();
+                	
+                   	
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
+                	
+                try {
+                	Parent root = fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+        		} catch (IOException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+        	}
         
         });
         
@@ -282,6 +286,27 @@ public class controladorPrincipal implements Initializable{
         
 
 }
+    
+    @FXML
+    private void eliminarPlan(ActionEvent event) throws IOException {
+    	 
+    	String infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
+    	
+    	SCRUDusuarios.eliminarPlan(infoSeleccionada);
+    	
+    	List<PlanAcademico> rellenarLista = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
+
+    	List<String> actualizarLista = new ArrayList();
+    	
+    	for (PlanAcademico a : rellenarLista) {
+    		
+			actualizarLista.add(a.toString());
+			
+		}
+    	
+    	taskList.setItems(FXCollections.observableArrayList(actualizarLista));
+    	 
+    }
 
 
 

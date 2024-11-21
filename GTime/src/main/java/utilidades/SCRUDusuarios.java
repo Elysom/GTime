@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -331,6 +333,44 @@ public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsu
 	}
 	
 	return listaAlumnos;
+}
+
+public static void eliminarPlan(String ItemList) {
+	
+	String nombre = obtenerNombre(ItemList);
+	
+	Timestamp fecha = obtenerFechaHora(ItemList);
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(com.GTime.GTime.controladorLoggin.nombreUsuGlobal);
+	
+	String sql = "DELETE FROM plan_academico where nombrePlan = ? and fecha = ?";
+	
+	try (PreparedStatement eliminarRegistro = cn.prepareStatement(sql)){
+		eliminarRegistro.setString(1, nombre);
+		eliminarRegistro.setTimestamp(2, fecha);
+		eliminarRegistro.executeUpdate();
+		
+		System.out.println("Eliminacion con exito");
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+	}
+	
+	
+}
+
+//Función para obtener la fecha y hora
+public static Timestamp obtenerFechaHora(String input) {
+    String fechaHoraStr = input.substring(0, input.indexOf(" - ")).replace(",", "").trim(); // "2024-11-27 09:10"
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	LocalDateTime fechaHora = LocalDateTime.parse(fechaHoraStr, formatter);
+	return Timestamp.valueOf(fechaHora);
+}
+
+//Función para obtener el nombre
+public static String obtenerNombre(String input) {
+ return input.substring(input.indexOf(" - ") + 3).trim();
 }
 
 }

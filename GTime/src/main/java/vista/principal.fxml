@@ -55,7 +55,7 @@
                 <HBox alignment="CENTER_RIGHT" layoutY="300.0" spacing="10.0">
                     <children>
                         <Button fx:id="btnCrearCurso" onAction="#lanzarVentanaCrearPlan" text="+" />
-                        <Button text="-" />
+                        <Button fx:id="btnEliminar" onAction="#eliminarPlan" text="-" />
                     </children>
                 </HBox>
             </children>

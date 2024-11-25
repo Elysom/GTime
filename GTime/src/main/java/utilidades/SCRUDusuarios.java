@@ -200,7 +200,7 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 		        "  tipo VARCHAR(20) DEFAULT NULL," +
 		        "  asignatura VARCHAR(20) NOT NULL," +
 		        "  curso VARCHAR(20) NOT NULL," +
-		        "  descripcion VARCHAR(20)" +
+		        "  descripcion VARCHAR(20)," +
 		        "  CONSTRAINT fk_PLANACADEMICO_USUARIO FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
 		        ");";
 		
@@ -375,6 +375,71 @@ public static Timestamp obtenerFechaHora(String input) {
 //Función para obtener el nombre
 public static String obtenerNombre(String input) {
  return input.substring(input.indexOf(" - ") + 3).trim();
+}
+
+// Funcion para obtener el curso especifico de un usuario
+
+public static String obtenerCursoAlumno(String nombreUsuGlobal) {
+	
+	// Creamos la Connection
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
+	
+	String sql = "select curso from usuario";
+	
+	String nombreCurso = null;
+	
+	try (PreparedStatement st = cn.prepareStatement(sql)){
+		
+		ResultSet rs = st.executeQuery();
+		
+		while (rs.next()) {
+			nombreCurso = rs.getString("curso");
+		}
+		
+		return nombreCurso;
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+		return nombreCurso;
+	}
+}
+
+// Funcion para obtener un listado plan academico filtrado por el curso
+
+public static List<PlanAcademico> ObtenerPlanDeCursoEspecifico (String curso) {
+	
+	// creamos connection
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
+	
+	String sql = "Select * from plan_academico where curso = ?";
+	
+	List<PlanAcademico> ObjetosPlanesAcademicos = new ArrayList();
+	
+	try (PreparedStatement st = cn.prepareStatement(sql)){
+		
+		st.setString(1, curso);
+		
+		ResultSet rs = st.executeQuery();
+		
+		while (rs.next()) {
+			
+			PlanAcademico objetoPlan = new PlanAcademico(rs.getInt("IDPlan"), 1 , rs.getString("nombrePlan"), rs.getTimestamp("fecha").toLocalDateTime(), rs.getString("color"), rs.getString("tipo"), rs.getString("asignatura"), rs.getString("curso"), rs.getString("descripcion"));
+			
+			System.out.println(objetoPlan.toString());
+			
+			ObjetosPlanesAcademicos.add(objetoPlan);
+			
+		}
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+	}
+	
+	return ObjetosPlanesAcademicos;
 }
 
 }

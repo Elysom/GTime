@@ -104,7 +104,7 @@ private void loggin(ActionEvent event) throws IOException {
 		try {
 			Thread.sleep(1000);
 			
-			Main.setRoot("/vista/usuario");
+			Main.setRoot("/vista/usuarioPrincipal");
 			
 			
 		} catch (InterruptedException e) {

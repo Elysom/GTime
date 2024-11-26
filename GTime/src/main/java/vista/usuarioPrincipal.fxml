@@ -33,12 +33,12 @@
                         <ListView fx:id="taskList" prefHeight="300.0" prefWidth="180.0" />
                         <HBox alignment="CENTER_RIGHT" layoutY="300.0" spacing="10.0">
                            <children>
-                              <Button fx:id="btnCrearCurso" text="+" />
+                              <Button fx:id="btnCrearTarea" onAction="#lanzarVentanaFormularioTarea" text="+" />
                               <Button fx:id="btnEliminar" text="-" />
                            </children>
                         </HBox>
                         <CheckBox fx:id="chbPlanAcademico" mnemonicParsing="false" text="Plan Academico" />
-                        <CheckBox fx:id="chbRutinas" mnemonicParsing="false" text="Rutinas" />
+                        <CheckBox fx:id="chbTareas" mnemonicParsing="false" text="Rutinas" />
                      </children>
                   </VBox>
                   <VBox prefWidth="500.0" spacing="10.0">
@@ -84,4 +84,3 @@
       </Label>
    </children>
 </AnchorPane>
-

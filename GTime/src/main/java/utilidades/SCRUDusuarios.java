@@ -9,16 +9,20 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.RegexValidator;
 
+import com.GTime.GTime.controladorLoggin;
 import com.GTime.GTime.controladorRegister;
 
 import modelo.PlanAcademico;
+import modelo.Tarea;
 import modelo.Usuarios;
 //import src.sql.alumnos;
 
@@ -211,6 +215,7 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 		        "  nombreTarea VARCHAR(100) NOT NULL," +
 		        "  fecha DATETIME NOT NULL," +
 		        "  color VARCHAR(20)," +
+		        " descripcion VARCHAR(200)," +
 		        "  CONSTRAINT fk_tarea_usuario FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
 		        ");";
 		// ejecutar el statement
@@ -440,6 +445,76 @@ public static List<PlanAcademico> ObtenerPlanDeCursoEspecifico (String curso) {
 	}
 	
 	return ObjetosPlanesAcademicos;
+}
+
+public static void agregarTareaUsuario(String nombreTarea, Timestamp fecha_hora,String color, String descripcion) {
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	
+	String sql = "INSERT INTO tarea (IDUsuario,nombreTarea,fecha,color,descripcion) VALUES (1, ?, ?, ?, ?)";
+	
+	try (PreparedStatement stm = cn.prepareStatement(sql)){
+		
+		stm.setString(1, nombreTarea);
+		stm.setTimestamp(2, fecha_hora);
+		stm.setString(3, color);
+		stm.setString(4, descripcion);
+		
+		
+		if (stm.executeUpdate() > 0) {
+			System.out.println("Datos Actualizados");
+		} else {
+			System.out.println("No se actualizo ningun dato");
+		}
+		
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+	}
+	
+}
+
+public static Timestamp obtenerFechaHoraSQL(LocalDate fecha, int horas, int minutos) {
+	
+	LocalDateTime fechaHorayMinutos = LocalDateTime.of(fecha, LocalTime.of(horas, minutos));
+	
+	return Timestamp.valueOf(fechaHorayMinutos);
+	
+}
+
+// rellenar lista de tareas de usuario especifico
+
+public static List<Tarea> rellenarTareaUsuEspecifico() {
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	
+	String sql = "SELECT * FROM tarea";
+	
+	List<Tarea> listaTarea = new ArrayList();
+	
+	try (PreparedStatement stm = cn.prepareStatement(sql)) {
+		
+		ResultSet rs = stm.executeQuery();
+		
+		while (rs.next()) {
+			
+			Tarea introducirTarea = new Tarea(rs.getInt("IDTarea"), rs.getInt("IDUsuario"),rs.getString("nombreTarea"),rs.getTimestamp("fecha").toLocalDateTime(),rs.getString("color"),rs.getString("descripcion"));
+			
+			listaTarea.add(introducirTarea);
+			
+			}
+		
+		for (Tarea tarea : listaTarea) {
+			System.out.println(tarea.toString());
+		}
+		
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+	}
+	return listaTarea;
 }
 
 }

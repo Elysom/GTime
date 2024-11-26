@@ -45,6 +45,8 @@ public class controladorRegister implements Initializable {
 	@FXML
 	Button btnRegister;
 	@FXML
+	Button btnVolver;
+	@FXML
 	TextField txtNombre;
 	@FXML
 	TextField txtMail;
@@ -139,8 +141,8 @@ public class controladorRegister implements Initializable {
 	//SEPARAR LOS METODOS DE LA VALIDACION POR CAMPOS(UN METODO PARA EL NOMBRE, OTRO PARA EL APELLIDO ETC)
 	
 
-
-	private void volverLogin() throws IOException {
+	@FXML
+	private void volverLogin(ActionEvent event) throws IOException {
 		
 		
 		Main.setRoot("/vista/loggin");

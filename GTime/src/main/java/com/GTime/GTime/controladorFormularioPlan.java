@@ -110,27 +110,12 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	@FXML
 	public void crearPlan(ActionEvent event) throws IOException  {
 		
-		SCRUDusuarios.agregarPlan(controladorLoggin.nombreUsuGlobal, txtPlan.getText(), obtenerFechaHoraSQL(), txtTipo.getValue(), txtCurso.getValue(), txtAsignatura.getValue(), transformarColor(), txtDescripcion.getText());
+		SCRUDusuarios.agregarPlan(controladorLoggin.nombreUsuGlobal, txtPlan.getText(), SCRUDusuarios.obtenerFechaHoraSQL(txtFecha.getValue(),txtHoras.getValue(),txtMinutos.getValue()), txtTipo.getValue(), txtCurso.getValue(), txtAsignatura.getValue(), transformarColor(), txtDescripcion.getText());
 		
 		Main.setRoot("/vista/principal");
 	}
-	
-	@FXML
-	public Timestamp obtenerFechaHoraSQL() {
-		
-		// Obtenemos la fecha y hora y lo convertimos en LocalDataTime
-		
-				LocalDate fecha = txtFecha.getValue();
-				
-				int horas = txtHoras.getValue();
-				
-				int minutos = txtMinutos.getValue();
-				
-				LocalDateTime fechaHorayMinutos = LocalDateTime.of(fecha, LocalTime.of(horas, minutos));
-				
-				return Timestamp.valueOf(fechaHorayMinutos);
-				
-	}
+
+
 	
 	@FXML
 	public String transformarColor() {

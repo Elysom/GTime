@@ -57,6 +57,8 @@ public class controladorPrincipal implements Initializable{
     @FXML
     private TextField txtBuscar;
     
+    public static String tipoDeUsuario="";
+    
     CalendarioDias calendarioDias;
 
     private CalendarioMetodos calendarioMetodos;

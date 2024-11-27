@@ -19,6 +19,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.RegexValidator;
 
 import com.GTime.GTime.controladorLoggin;
+import com.GTime.GTime.controladorPrincipal;
 import com.GTime.GTime.controladorRegister;
 
 import modelo.PlanAcademico;
@@ -54,11 +55,11 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 		while (rs.next()) {
 			
 			if (rs.getString("nombreUsuario").equals(usuario) && rs.getString("contrasenia").equals(contrasenia) && rs.getString("tipo").equals("Administrador")) {
-				
+				controladorPrincipal.tipoDeUsuario="Administrador";
 				return "Inicio de sesión exitoso, modo Administrador";
 				
 			} else if (rs.getString("nombreUsuario").equals(usuario) && rs.getString("contrasenia").equals(contrasenia) && rs.getString("tipo").equals("Usuario")) {
-				
+				controladorPrincipal.tipoDeUsuario="Usuario";
 				return "Inicio de sesión exitoso, modo Usuario";
  
 			}
@@ -218,6 +219,18 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 		        " descripcion VARCHAR(200)," +
 		        "  CONSTRAINT fk_tarea_usuario FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
 		        ");";
+		
+		String crearTablaRutina = 
+                "CREATE TABLE Rutina (" +
+                "  IDTarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                "  IDUsuario INT NOT NULL," +
+                "  nombreTarea VARCHAR(100) NOT NULL," +
+                "  diaSemana VARCHAR(20) NOT NULL," +
+                "  color VARCHAR(20)," +
+                "  descripcion VARCHAR(200)," +
+                "  CONSTRAINT fk_tarea_usuario FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
+                ");";
+
 		// ejecutar el statement
 		
 		st.executeUpdate(crearTablaUsuario);
@@ -225,6 +238,8 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 		st.executeUpdate(crearTablaPlanAcademico);
 		
 		st.executeUpdate(crearTablaTarea);
+		
+		st.executeUpdate(crearTablaRutina);
 		
 		// Insertar los datos del usuario en la tabla USUARIO
         String insertUsuario = 

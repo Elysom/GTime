@@ -178,13 +178,10 @@ public class controladorUsuario implements Initializable {
 		List<String> ambasOpciones = new ArrayList();
 		
 		List<Tarea> listaPooTarea = SCRUDusuarios.rellenarTareaUsuEspecifico();
-		
-		List<LocalDateTime> listaFechas = new ArrayList();
-		
 		List<PlanAcademico> objetosPlanesAcademico = SCRUDusuarios.ObtenerPlanDeCursoEspecifico(cursoAlumnado);
     
-		
-    	LocalDateTime fechaAux;
+		List<LocalDateTime> listaFechas = new ArrayList();
+
     	
     	// Metemos todas las fechas y horas de tareas
     	

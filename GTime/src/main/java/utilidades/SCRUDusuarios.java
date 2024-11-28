@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ import com.GTime.GTime.controladorPrincipal;
 import com.GTime.GTime.controladorRegister;
 
 import modelo.PlanAcademico;
+import modelo.Rutina;
 import modelo.Tarea;
 import modelo.Usuarios;
 //import src.sql.alumnos;
@@ -226,9 +228,12 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
                 "  IDUsuario INT NOT NULL," +
                 "  nombreTarea VARCHAR(100) NOT NULL," +
                 "  diaSemana VARCHAR(20) NOT NULL," +
+                "	hora TIME not null," +
                 "  color VARCHAR(20)," +
                 "  descripcion VARCHAR(200)," +
-                "  CONSTRAINT fk_tarea_usuario FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
+                "  fechaExcepcion DATE," +
+                "  motivoExcepcion VARCHAR(200)," +
+                "  CONSTRAINT fk_rutina_usuario FOREIGN KEY (IDUsuario) REFERENCES USUARIO(IDusuario)" +
                 ");";
 
 		// ejecutar el statement
@@ -530,6 +535,62 @@ public static List<Tarea> rellenarTareaUsuEspecifico() {
 		System.out.println(e.getLocalizedMessage());
 	}
 	return listaTarea;
+}
+
+public static void creacionRutina(String nombreTarea,String diaSemana, LocalTime hora, String color, String descripcion, Timestamp fechaExcepcion, String motivoExcepcion) {
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	
+	String sql = "INSERT INTO rutina (IDUsuario,nombreTarea,diaSemana,hora,color,descripcion,fechaExcepcion,motivoExcepcion) VALUES (1,? , ?, ?, ?, ?, ?, ?)";
+	
+	try (PreparedStatement stm = cn.prepareStatement(sql)){
+		
+		stm.setString(1, nombreTarea);
+		stm.setString(2, diaSemana);
+		stm.setTime(3, Time.valueOf(hora));
+		stm.setString(4, color);
+		stm.setString(5, descripcion);
+		stm.setTimestamp(6, fechaExcepcion);
+		stm.setString(7, motivoExcepcion);
+		
+		stm.executeUpdate();
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+	}
+	
+}
+
+// Rellenar Lista Rutinas de Usu Especifico
+
+public static List<Rutina> rellenarRutinaUsuEspecifico() {
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	
+	String sql = "SELECT IDUsuario,nombreTarea,diaSemana,hora,color,descripcion,fechaExcepcion,motivoExcepcion from rutina";
+	
+	List<Rutina> rutinaPoo = new ArrayList<Rutina>();
+	
+	try (PreparedStatement stm = cn.prepareStatement(sql)){
+		
+		ResultSet rs = stm.executeQuery();
+		
+		while (rs.next()) {
+			
+			Rutina agregarRutina = new Rutina(rs.getInt("IDUsuario"),rs.getString("nombreTarea"), rs.getString("diaSemana"), rs.getTime("hora").toLocalTime() , rs.getString("color"),rs.getString("descripcion"), rs.getTimestamp("fechaExcepcion"), rs.getString("motivoExcepcion"));
+			
+			rutinaPoo.add(agregarRutina);
+			
+			System.out.println(agregarRutina.toString()); 
+		}
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+		
+	}
+	
+	return rutinaPoo;
 }
 
 }

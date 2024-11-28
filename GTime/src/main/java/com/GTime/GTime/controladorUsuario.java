@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import modelo.PlanAcademico;
+import modelo.Rutina;
 import modelo.Tarea;
 import utilidades.SCRUDusuarios;
 
@@ -156,9 +158,16 @@ public class controladorUsuario implements Initializable {
 	@FXML 
 	public static List<String> rellenarListaTareaString() {
 		
+		List<Rutina> listaPooRutina = SCRUDusuarios.rellenarRutinaUsuEspecifico();
+		
 		List<Tarea> listaPooTarea = SCRUDusuarios.rellenarTareaUsuEspecifico();
 		
 		List<String> listaTareaString = new ArrayList();
+		
+		for (Rutina a : listaPooRutina) {
+			
+			listaTareaString.add(a.toString());
+		}
 		
 		for (Tarea a : listaPooTarea) {
 			
@@ -180,6 +189,8 @@ public class controladorUsuario implements Initializable {
 		List<Tarea> listaPooTarea = SCRUDusuarios.rellenarTareaUsuEspecifico();
 		List<PlanAcademico> objetosPlanesAcademico = SCRUDusuarios.ObtenerPlanDeCursoEspecifico(cursoAlumnado);
     
+		List<Rutina> listaPooRutina = SCRUDusuarios.rellenarRutinaUsuEspecifico();
+		
 		List<LocalDateTime> listaFechas = new ArrayList();
 
     	
@@ -202,6 +213,14 @@ public class controladorUsuario implements Initializable {
     	// 3 Ordenamos la fechas de manera descendente en nuestra lista auxiliar
     	
     	 listaFechas.sort(Comparator.reverseOrder());
+    	 
+    	 // Primero añadimos la rutinas de los usuarios
+    	 
+    	 for (Rutina a : listaPooRutina) {
+			
+    		 ambasOpciones.add(a.toString());
+    		 
+		}
     	 
     	 // foreach anidado
     	 for (LocalDateTime a : listaFechas) {

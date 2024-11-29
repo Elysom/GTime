@@ -125,13 +125,13 @@ public static String validacionFormulario(String nombreUsuario, String apellidos
 			} else if (!contrasenia.equals(confContrasenia)) {
 	            return "Las contraseñas no coinciden.";
 	        } else if (!mayusculaValidator.isValid(confContrasenia)) { // Verificar si la contraseña tiene una mayúscula
-	            return "La contraseña debe contener al menos una letra mayúscula, además de una minúscula, un número y un carácter especial.";
+	            return "La contraseña debe contener al menos una letra mayúscula,\n además de una minúscula, un número y un carácter especial.";
 	        } else if (!minusculaValidator.isValid(confContrasenia)) { // Verificar si tiene al menos una minúscula
-	            return "La contraseña debe contener al menos una letra minúscula, además de una mayúscula, un número y un carácter especial.";
+	            return "La contraseña debe contener al menos una letra minúscula,\n además de una mayúscula, un número y un carácter especial.";
 	        } else if (!numeroValidator.isValid(confContrasenia)) {
-	            return "La contraseña debe contener al menos un número, además de una mayúscula, una minúscula y un carácter especial.";
+	            return "La contraseña debe contener al menos un número, además de\n una mayúscula, una minúscula y un carácter especial.";
 	        } else if (!especialValidator.isValid(confContrasenia)) {
-	            return "La contraseña debe contener al menos un carácter especial, además de una mayúscula, una minúscula y un número.";
+	            return "La contraseña debe contener al menos un carácter especial,\n además de una mayúscula, una minúscula y un número.";
 	        } else if (curso == null) {
 				return "Debes seleccionar un curso";
 			}

@@ -12,8 +12,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import modelo.PlanAcademico;
+import modelo.Rutina;
+import modelo.Tarea;
 import utilidades.SCRUDusuarios;
-
+//Controlador para la ventana de añadir plan al admin
 public class controladorInfoPlanAdmin implements Initializable  {
 
 	@FXML
@@ -21,9 +23,6 @@ public class controladorInfoPlanAdmin implements Initializable  {
 	
 	@FXML
 	private Label txtFecha;
-	
-	@FXML
-	private Label txtHora;
 	
 	@FXML
 	private Label txtModulo;
@@ -46,58 +45,109 @@ public class controladorInfoPlanAdmin implements Initializable  {
 	
 	public void rellenarInformacion() {
 		
-		List<PlanAcademico> listaPlan = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
 		
-		System.out.println(1);
+		List<PlanAcademico> listaPlan = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
 		
 		String input = null;
 		
-		for (PlanAcademico a : listaPlan) {
+		
+		if (controladorUsuario.infoSeleccionada != null) {
 			
-			// La cadena original
+			input = controladorUsuario.infoSeleccionada;
 			
-			if (com.GTime.GTime.controladorPrincipal.infoSeleccionada != null) {
-				input = com.GTime.GTime.controladorPrincipal.infoSeleccionada;
-			} else if (com.GTime.GTime.controladorUsuario.infoSeleccionada != null) {
-				input = com.GTime.GTime.controladorUsuario.infoSeleccionada;
-				
-				listaPlan = null;
-				listaPlan = SCRUDusuarios.obtenerPlanDeCursoEspecifico(controladorLoggin.nombreUsuGlobal);
+			String cursoNombre = SCRUDusuarios.obtenerCursoAlumno(controladorLoggin.nombreUsuGlobal);
+			
+			listaPlan = SCRUDusuarios.obtenerPlanDeCursoEspecifico(cursoNombre);
+			
+			for (PlanAcademico b : listaPlan) {
+
+				if (b.toString().equals(input)) {
+					
+					txtTitulo.setText(b.getNombrePlan());
+					
+					txtFecha.setText(b.getFechahorasPlan().toString());
+					
+					txtCurso.setText(b.getCurso());
+					
+					txtModulo.setText(b.getAsignatura());
+					
+					txtDescripcion.setText(b.getDescripcion());
+					
+				}
 				
 			}
-	        
-
-	        // Encontrar las partes usando substring
-	        String fechaHoraStr = input.substring(0, input.indexOf(" - ")).replace(",", "").trim(); // "2024-11-27 09:10"
-	        String nombre = input.substring(input.indexOf(" - ") + 3).trim(); // "gimnasia"
-
-	        // Convertir la fecha y hora a LocalDateTime
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	        LocalDateTime fechaHora = LocalDateTime.parse(fechaHoraStr, formatter);
-	        
-	        if (a.getNombrePlan().equals(nombre) && a.getFechahorasPlan().equals(fechaHora)) {
+			
+			List <Tarea> listaTarea = SCRUDusuarios.rellenarTareaUsuEspecifico();
+			
+			for (Tarea a : listaTarea) {
 				
-	        	System.out.println(2);
-	        	
-	        	txtTitulo.setText(a.getNombrePlan()+ " - " +a.getTipo());
-	        	
-	        	txtFecha.setText(fechaHora.getDayOfMonth()+ " - " +fechaHora.getMonthValue()+ " - " +fechaHora.getYear());
-	        	
-	        	txtHora.setText(fechaHora.getHour()+ " - " +fechaHora.getMinute());
-	        	
-	        	txtModulo.setText(a.getAsignatura());
-	        	
-	        	txtCurso.setText(a.getCurso());
-	        	
-	        	txtDescripcion.setText(a.getDescripcion());
-	        	
-	        	System.out.println("Entro en el if");
-	        	
+				if (a.toString().equals(input)) {
+					
+					txtTitulo.setText(a.getNombreTarea());
+					
+					txtFecha.setText(a.getFecha().toString());
+					
+					txtCurso.setText("Tarea");
+					
+					txtModulo.setText(controladorLoggin.nombreUsuGlobal);
+					
+					txtDescripcion.setText(a.getDescripcion());
+					
+				}
 			}
-
+			
+			List<Rutina> listaRutina = SCRUDusuarios.rellenarRutinaUsuEspecifico();
+			
+			for (Rutina a : listaRutina) {
+				
+				if (a.toString().equals(input)) {
+					
+					txtTitulo.setText(a.getNombreTarea());
+					
+					txtFecha.setText(a.getDiaSemana() + " - " + a.getHora().toString());
+					
+					txtCurso.setText("Rutina");
+					
+					txtModulo.setText(controladorLoggin.nombreUsuGlobal);
+					
+					txtDescripcion.setText(a.getDescripcion());
+				}
+			}
+		} else {
+			System.out.println("No encontro nada " +input);
 		}
+		
+		
+		if (controladorPrincipal.infoSeleccionada != null) {
+			
+			input = controladorPrincipal.infoSeleccionada;
+			
+			for (PlanAcademico b : listaPlan) {
+				
+				if (b.toString().equals(input)) {
+					
+					txtTitulo.setText(b.getNombrePlan());
+					
+					txtFecha.setText(b.getFechahorasPlan().toString());
+					
+					txtCurso.setText(b.getCurso());
+					
+					txtModulo.setText(b.getAsignatura());
+					
+					txtDescripcion.setText(b.getDescripcion());
+					
+				}
+			}
+		} else {
+			System.out.println("No encontro nada " +input);
+		}
+				
+			
+		}
+		
+		
 	}
 
 
 
-}
+

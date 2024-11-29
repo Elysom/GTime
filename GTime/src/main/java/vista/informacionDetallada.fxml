@@ -21,7 +21,6 @@
               </rowConstraints>
                <children>
                   <Label fx:id="txtFecha" text="Fecha" />
-                  <Label fx:id="txtHora" text="hora" GridPane.columnIndex="1" />
                   <Label fx:id="txtModulo" text="Modulo" GridPane.rowIndex="1" />
                   <Label fx:id="txtCurso" text="Curso" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>

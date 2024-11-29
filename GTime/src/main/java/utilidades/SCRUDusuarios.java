@@ -28,13 +28,8 @@ import modelo.Rutina;
 import modelo.Tarea;
 import modelo.Usuarios;
 //import src.sql.alumnos;
+public class SCRUDusuarios {
 
-
-
-
-
-public class SCRUDusuarios {	
-	
 
 //Método para loggear a un usario a partir del usuarfio y password
 
@@ -42,11 +37,11 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 	
 	String resultado = "";
 	
-	Connection cn= utilidades.DatabaseConnector.dameConexion();
+	Connection cnn= utilidades.DatabaseConnector.dameConexion();
 	
 	String sql = "SELECT nombreUsuario,contrasenia,tipo FROM usuarioslista WHERE nombreUsuario = ? && contrasenia = ?";
 	
-	try (PreparedStatement StatementInicio = cn.prepareStatement(sql)){
+	try (PreparedStatement StatementInicio = cnn.prepareStatement(sql)){
 		
 		StatementInicio.setString(1, usuario);
 		
@@ -67,6 +62,9 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 			}
 			
 		}
+		StatementInicio.close();
+		rs.close();
+		cnn.close();
 		
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -79,11 +77,11 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 }
 public static void registerSCRUD(String nombre,String apellidos,String mail,String nombreReal,String contrasenia,String curso){
 	
-	Connection cn= utilidades.DatabaseConnector.dameConexion();
+	Connection cnn= utilidades.DatabaseConnector.dameConexion();
 	//Logica para la insercion del usuario  en la base de datos. (como solo vamos a crear usuarios alumno se le pone por defecto usuario)
 	String sql = "INSERT INTO usuarioslista (nombreUsuario, apellidos, mail, nombreReal, contrasenia,curso,tipo) VALUES (?, ?, ?, ?, ?, ?,'Usuario')";
 	
-	try (PreparedStatement StatementRegister = cn.prepareStatement(sql)){
+	try (PreparedStatement StatementRegister = cnn.prepareStatement(sql)){
 		
 		StatementRegister.setString(1, nombre);
 		StatementRegister.setString(2, apellidos);
@@ -94,6 +92,7 @@ public static void registerSCRUD(String nombre,String apellidos,String mail,Stri
 		StatementRegister.executeUpdate();
 		System.out.println("Usuario  registrado");
 		StatementRegister.close();
+		cnn.close();
 	} catch (Exception e) {
 		// TODO: handle exception
         System.out.println("Error al registrarse: " + e.getMessage());
@@ -142,23 +141,27 @@ public static String validacionFormulario(String nombreUsuario, String apellidos
 
 public static String verificarNombreUsusario(String NombreUsuario) {
 	
-	Connection cn = DatabaseConnector.dameConexion();
+	Connection cnn = DatabaseConnector.dameConexion();
 	
 	String sql = "SELECT nombreUsuario FROM usuarioslista";
 	
-	try (PreparedStatement StatementInicio = cn.prepareStatement(sql)) {
+	try (PreparedStatement StatementInicio = cnn.prepareStatement(sql)) {
 		
 		ResultSet rs = StatementInicio.executeQuery();
 		
 		while (rs.next()) {
 			if (rs.getString("nombreUsuario").equals(NombreUsuario)) {
-				
-				utilidades.DatabaseConnector.cerrarConexion(cn);
+				StatementInicio.close();
+				rs.close();
+				cnn.close();
 				
 				return("El Usuario ya existe, ingrese otro distinto");
 				
 			} 
 		}
+		StatementInicio.close();
+		rs.close();
+		cnn.close();
 		
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -171,8 +174,8 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 	
 	// Iniciamos conexion 
 	
-	try (Connection cn = DatabaseConnector.dameConexionRamaPrincipal()){ // connectate a la rama principal no a listausuari0){
-		Statement st = cn.createStatement();
+	try (Connection cnn = DatabaseConnector.dameConexionRamaPrincipal()){ // connectate a la rama principal no a listausuari0){
+		Statement st = cnn.createStatement();
 		
 		// Crear la Database y guardar cambios
 		String sql = "CREATE DATABASE " +nombre_usuario+ ";";
@@ -245,13 +248,13 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
 		st.executeUpdate(crearTablaTarea);
 		
 		st.executeUpdate(crearTablaRutina);
-		
+		st.close();
 		// Insertar los datos del usuario en la tabla USUARIO
         String insertUsuario = 
             "INSERT INTO USUARIO (mail, nombreReal, apellidos, contrasenia, curso, nombreUsuario) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
         
-        try (PreparedStatement pst = cn.prepareStatement(insertUsuario)) {
+        try (PreparedStatement pst = cnn.prepareStatement(insertUsuario)) {
             pst.setString(1, mail);
             pst.setString(2, nombreReal);
             pst.setString(3, apellidos);
@@ -260,7 +263,7 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
             pst.setString(6, nombre_usuario);
             
             pst.executeUpdate();
-            
+            cnn.close();
         } catch (SQLException e) {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
@@ -282,11 +285,11 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 
 	// nos conectamos a la esquema de datos del usuario admin que nos hayamos loggeado
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(usuActual);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(usuActual);
 	
 	String introducirPlan = "INSERT INTO plan_academico (IDUsuario,nombrePlan,fecha,color,tipo,curso,asignatura,descripcion) VALUES (1, ?, ?, ?, ?, ?, ?, ?)";
 	
-	try (PreparedStatement stm = cn.prepareStatement(introducirPlan) ){
+	try (PreparedStatement stm = cnn.prepareStatement(introducirPlan) ){
 		
 		stm.setString(1, nombrePlan);
 		stm.setTimestamp(2,fechaHoraMinutos);
@@ -299,8 +302,7 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 		stm.executeUpdate();
 			
 		System.out.println("Se agrego con exito");
-		
-		DatabaseConnector.cerrarConexion(cn);
+
 		
 	} catch (SQLException e) {
 		// TODO: handle exception
@@ -309,7 +311,7 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 	
 	// Ahora agregaremos el plan a la tabla general de todos los planes
 	
-	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
+	cnn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
 	
 	introducirPlan = "INSERT INTO plan_academico (nombrePlan,fecha,color,tipo,curso,asignatura,descripcion) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	try (PreparedStatement stm = cnn.prepareStatement(introducirPlan) ){
@@ -323,7 +325,7 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 		stm.setString(7, descripcion);
 		
 		stm.executeUpdate();
-				
+		cnn.close();
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
@@ -337,14 +339,14 @@ public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsu
 	
 	List<PlanAcademico> listaDePlanesAcademico = new ArrayList<>();
 
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
 	
     String sql = "Select IDPlan,IDUsuario,nombrePlan,fecha,color,tipo,asignatura,curso,descripcion from plan_academico WHERE fecha >= NOW() order by fecha asc";
 
 	
 	// preparamos el statement
 	
-	try (PreparedStatement stm = cn.prepareStatement(sql)) {
+	try (PreparedStatement stm = cnn.prepareStatement(sql)) {
 		
 		ResultSet rs = stm.executeQuery(sql);
 		
@@ -355,7 +357,9 @@ public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsu
 			listaDePlanesAcademico.add(objetoPlan);
 			
 		}
-		
+		stm.close();
+		rs.close();
+		cnn.close();
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
@@ -370,17 +374,18 @@ public static void eliminarPlan(String ItemList) {
 	
 	Timestamp fecha = obtenerFechaHora(ItemList);
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(com.GTime.GTime.controladorLoggin.nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(com.GTime.GTime.controladorLoggin.nombreUsuGlobal);
 	
 	String sql = "DELETE FROM plan_academico where nombrePlan = ? and fecha = ?";
 	
-	try (PreparedStatement eliminarRegistro = cn.prepareStatement(sql)){
+	try (PreparedStatement eliminarRegistro = cnn.prepareStatement(sql)){
 		eliminarRegistro.setString(1, nombre);
 		eliminarRegistro.setTimestamp(2, fecha);
 		eliminarRegistro.executeUpdate();
 		
 		System.out.println("Eliminacion con exito");
-		
+		eliminarRegistro.close();
+		cnn.close();
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
@@ -408,20 +413,22 @@ public static String obtenerCursoAlumno(String nombreUsuGlobal) {
 	
 	// Creamos la Connection
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
 	
 	String sql = "select curso from usuario";
 	
 	String nombreCurso = null;
 	
-	try (PreparedStatement st = cn.prepareStatement(sql)){
+	try (PreparedStatement st = cnn.prepareStatement(sql)){
 		
 		ResultSet rs = st.executeQuery();
 		
 		while (rs.next()) {
 			nombreCurso = rs.getString("curso");
 		}
-		
+		st.close();
+		rs.close();
+		cnn.close();
 		return nombreCurso;
 		
 	} catch (SQLException e) {
@@ -433,17 +440,17 @@ public static String obtenerCursoAlumno(String nombreUsuGlobal) {
 
 // Funcion para obtener un listado plan academico filtrado por el curso
 
-public static List<PlanAcademico> ObtenerPlanDeCursoEspecifico (String curso) {
+public static List<PlanAcademico> obtenerPlanDeCursoEspecifico (String curso) {
 	
 	// creamos connection
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
 	
 	String sql = "Select * from plan_academico where curso = ?";
 	
 	List<PlanAcademico> ObjetosPlanesAcademicos = new ArrayList();
 	
-	try (PreparedStatement st = cn.prepareStatement(sql)){
+	try (PreparedStatement st = cnn.prepareStatement(sql)){
 		
 		st.setString(1, curso);
 		
@@ -453,11 +460,13 @@ public static List<PlanAcademico> ObtenerPlanDeCursoEspecifico (String curso) {
 			
 			PlanAcademico objetoPlan = new PlanAcademico(rs.getInt("IDPlan"), 1 , rs.getString("nombrePlan"), rs.getTimestamp("fecha").toLocalDateTime(), rs.getString("color"), rs.getString("tipo"), rs.getString("asignatura"), rs.getString("curso"), rs.getString("descripcion"));
 			
-			System.out.println(objetoPlan.toString());
 			
 			ObjetosPlanesAcademicos.add(objetoPlan);
 			
 		}
+		st.close();
+		rs.close();
+		cnn.close();
 		
 	} catch (SQLException e) {
 		// TODO: handle exception
@@ -469,11 +478,11 @@ public static List<PlanAcademico> ObtenerPlanDeCursoEspecifico (String curso) {
 
 public static void agregarTareaUsuario(String nombreTarea, Timestamp fecha_hora,String color, String descripcion) {
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
 	
 	String sql = "INSERT INTO tarea (IDUsuario,nombreTarea,fecha,color,descripcion) VALUES (1, ?, ?, ?, ?)";
 	
-	try (PreparedStatement stm = cn.prepareStatement(sql)){
+	try (PreparedStatement stm = cnn.prepareStatement(sql)){
 		
 		stm.setString(1, nombreTarea);
 		stm.setTimestamp(2, fecha_hora);
@@ -486,6 +495,8 @@ public static void agregarTareaUsuario(String nombreTarea, Timestamp fecha_hora,
 		} else {
 			System.out.println("No se actualizo ningun dato");
 		}
+		stm.close();
+		cnn.close();
 		
 		
 	} catch (SQLException e) {
@@ -507,13 +518,13 @@ public static Timestamp obtenerFechaHoraSQL(LocalDate fecha, int horas, int minu
 
 public static List<Tarea> rellenarTareaUsuEspecifico() {
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
 	
 	String sql = "SELECT * FROM tarea";
 	
 	List<Tarea> listaTarea = new ArrayList();
 	
-	try (PreparedStatement stm = cn.prepareStatement(sql)) {
+	try (PreparedStatement stm = cnn.prepareStatement(sql)) {
 		
 		ResultSet rs = stm.executeQuery();
 		
@@ -525,10 +536,9 @@ public static List<Tarea> rellenarTareaUsuEspecifico() {
 			
 			}
 		
-		for (Tarea tarea : listaTarea) {
-			System.out.println(tarea.toString());
-		}
-		
+		stm.close();
+		rs.close();
+		cnn.close();
 		
 	} catch (SQLException e) {
 		// TODO: handle exception
@@ -539,11 +549,11 @@ public static List<Tarea> rellenarTareaUsuEspecifico() {
 
 public static void creacionRutina(String nombreTarea,String diaSemana, LocalTime hora, String color, String descripcion, Timestamp fechaExcepcion, String motivoExcepcion) {
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
 	
 	String sql = "INSERT INTO rutina (IDUsuario,nombreTarea,diaSemana,hora,color,descripcion,fechaExcepcion,motivoExcepcion) VALUES (1,? , ?, ?, ?, ?, ?, ?)";
 	
-	try (PreparedStatement stm = cn.prepareStatement(sql)){
+	try (PreparedStatement stm = cnn.prepareStatement(sql)){
 		
 		stm.setString(1, nombreTarea);
 		stm.setString(2, diaSemana);
@@ -554,7 +564,8 @@ public static void creacionRutina(String nombreTarea,String diaSemana, LocalTime
 		stm.setString(7, motivoExcepcion);
 		
 		stm.executeUpdate();
-		
+		stm.close();
+		cnn.close();
 	} catch (SQLException e) {
 		// TODO: handle exception
 	}
@@ -565,13 +576,13 @@ public static void creacionRutina(String nombreTarea,String diaSemana, LocalTime
 
 public static List<Rutina> rellenarRutinaUsuEspecifico() {
 	
-	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
 	
 	String sql = "SELECT IDUsuario,nombreTarea,diaSemana,hora,color,descripcion,fechaExcepcion,motivoExcepcion from rutina";
 	
 	List<Rutina> rutinaPoo = new ArrayList<Rutina>();
 	
-	try (PreparedStatement stm = cn.prepareStatement(sql)){
+	try (PreparedStatement stm = cnn.prepareStatement(sql)){
 		
 		ResultSet rs = stm.executeQuery();
 		
@@ -581,8 +592,10 @@ public static List<Rutina> rellenarRutinaUsuEspecifico() {
 			
 			rutinaPoo.add(agregarRutina);
 			
-			System.out.println(agregarRutina.toString()); 
 		}
+		stm.close();
+		rs.close();
+		cnn.close();
 		
 	} catch (SQLException e) {
 		// TODO: handle exception

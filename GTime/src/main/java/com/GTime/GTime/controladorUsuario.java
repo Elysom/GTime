@@ -73,7 +73,7 @@ public class controladorUsuario implements Initializable {
     @FXML
     private CheckBox chbPlanAcademico; 
     
-    public static String infoSeleccionada = "";
+    public static String infoSeleccionada;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -149,12 +149,13 @@ public class controladorUsuario implements Initializable {
 		 // Listener para mostrar la info plan academico
 		 
 		 taskList.setOnMouseClicked(event -> {
+			 
+     		infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
+
 	        	
 	        	if (event.getClickCount() == 2) {
-	        		
-	        		 infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
-	        		  
-	            	 taskList.getSelectionModel().clearSelection();
+	        			        		  
+	            	taskList.getSelectionModel().clearSelection();
 	                
 	                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
 	                	

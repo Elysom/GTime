@@ -27,6 +27,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -136,6 +137,7 @@ public class controladorUsuario implements Initializable {
 				List<String> AmbasOpciones = rellenarYordenarAmbasListas();
 
 				taskList.setItems(FXCollections.observableArrayList(AmbasOpciones));
+				updateCalendar();
 
 			} else if (newValue) {
 
@@ -777,5 +779,10 @@ public class controladorUsuario implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+	@FXML
+	private void volverLogin(MouseEvent event) throws IOException {
+		
+		
+		Main.setRoot("/vista/loggin");
+	}
 }

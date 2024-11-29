@@ -106,7 +106,7 @@ public class controladorUsuario implements Initializable {
 		});
 
 		// mostrar mas informacion
-
+		
 		taskList.setOnMouseClicked(event -> {
 
 			if (event.getClickCount() == 2) {
@@ -336,7 +336,11 @@ public class controladorUsuario implements Initializable {
 						for (Rutina ru : listaRutinas) {
 							if (CalendarioDias.getDiaSemana(day.getDate()).equals(ru.getDiaSemana())) {
 								Label nLabel = new Label("R-" + ru.getNombreTarea());
-								//nlabel.setOnMouseClicked(event -> rellenarInformacion(nlabel));
+								
+								nLabel.setOnMouseClicked(event -> {
+									infoSeleccionada = ru.toString();
+									lanzarVentanaInformacionDetallada();
+								});
 								
 								dayGrid.add(nLabel, 0, colPlan++);
 
@@ -355,6 +359,10 @@ public class controladorUsuario implements Initializable {
 									&& pa.getFechahorasPlan().getMonthValue() == currentMonth.getMonthValue()
 									&& pa.getFechahorasPlan().getYear() == currentMonth.getYear()) {
 								Label nplanLabel = new Label(contador + "." + pa.getNombrePlan());
+								nplanLabel.setOnMouseClicked(event -> {
+									infoSeleccionada = pa.toString();
+									lanzarVentanaInformacionDetallada();
+								});
 								dayGrid.add(nplanLabel, 0, colPlan++);
 								contador++;
 							}
@@ -369,8 +377,12 @@ public class controladorUsuario implements Initializable {
 							if (ta.getFecha().getDayOfMonth() == Integer.parseInt(day.getDisplayText())
 									&& ta.getFecha().getMonthValue() == currentMonth.getMonthValue()
 									&& ta.getFecha().getYear() == currentMonth.getYear()) {
-								Label nplanLabel = new Label(contador + "." + ta.getNombreTarea());
-								dayGrid.add(nplanLabel, 0, colPlan++);
+								Label ntareaLabel = new Label(contador + "." + ta.getNombreTarea());
+								ntareaLabel.setOnMouseClicked(event -> {
+									infoSeleccionada = ta.toString();
+									lanzarVentanaInformacionDetallada();
+								});
+								dayGrid.add(ntareaLabel, 0, colPlan++);
 								contador++;
 							}
 
@@ -752,5 +764,18 @@ public class controladorUsuario implements Initializable {
         taskList.setItems(FXCollections.observableArrayList(resultadoBusqueda));
     	
     }
+	public void lanzarVentanaInformacionDetallada() {
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
+
+		try {
+			Parent root = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

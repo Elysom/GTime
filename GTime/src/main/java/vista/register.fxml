@@ -11,14 +11,14 @@
 
 <AnchorPane prefHeight="425.0" prefWidth="434.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorRegister">
    <children>
-      <AnchorPane fx:id="pane" layoutY="-13.0" prefHeight="499.0" prefWidth="434.0">
+      <AnchorPane fx:id="pane" layoutY="-13.0" prefHeight="554.0" prefWidth="434.0">
          <children>
             <TextField fx:id="txtNombre" layoutX="189.0" layoutY="98.0" />
             <TextField fx:id="txtMail" layoutX="189.0" layoutY="133.0" />
             <TextField fx:id="txtNombreReal" layoutX="189.0" layoutY="174.0" />
             <TextField fx:id="txtApellidos" layoutX="189.0" layoutY="210.0" />
             <Button fx:id="btnRegister" layoutX="173.0" layoutY="387.0" mnemonicParsing="false" onAction="#registrer" prefHeight="26.0" prefWidth="89.0" text="Registrarse" />
-            <Label fx:id="txtValidation" layoutX="98.0" layoutY="452.0" text="  " textFill="#00ff10" />
+            <Label fx:id="txtValidation" layoutX="208.0" layoutY="513.0" text="  " textFill="#00ff10" />
             <PasswordField fx:id="txtContrasenia" layoutX="189.0" layoutY="249.0" />
             <PasswordField fx:id="txtConfContrasenia" layoutX="189.0" layoutY="290.0" />
             <ComboBox fx:id="txtCurso" layoutX="188.0" layoutY="327.0" prefWidth="150.0" promptText="(curso)" />

@@ -8,13 +8,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -83,8 +83,8 @@ public class controladorUsuario implements Initializable {
 	public List<String> colores = new ArrayList<>();
 
 	public List<String> listaTareas;
-
-	public static String infoSeleccionada;
+    
+    public static String infoSeleccionada = "";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -189,6 +189,39 @@ public class controladorUsuario implements Initializable {
 			}
 
 		});
+		// Listener pa buscar
+		
+		 txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+	            
+		        buscarElemento(); // Llama a buscarElemento con el nuevo texto
+		        	
+		        });
+		 
+		 // Listener para mostrar la info plan academico
+		 
+		 taskList.setOnMouseClicked(event -> {
+	        	
+	        	if (event.getClickCount() == 2) {
+	        		
+	        		 infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
+	        		  
+	            	 taskList.getSelectionModel().clearSelection();
+	                
+	                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
+	                	
+	                try {
+	                	Parent root = fxmlLoader.load();
+	                    Stage stage = new Stage();
+	                    stage.setScene(new Scene(root));
+	                    stage.show();
+	        		} catch (IOException e) {
+	        			// TODO Auto-generated catch block
+	        			e.printStackTrace();
+	        		}
+	        	}
+	        
+	        });
+
 
 	}
 
@@ -374,31 +407,6 @@ public class controladorUsuario implements Initializable {
 		}
 	}
 
-	@FXML
-	private void buscarElemento() {
-
-		System.out.println("Método buscarElemento invocado");
-
-		String palabra_busqueda = txtBuscar.getText();
-
-		List<PlanAcademico> ejecutarBusqueda = SCRUDusuarios
-				.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
-
-		List<String> resultadoBusqueda = new ArrayList();
-
-		for (PlanAcademico aux : ejecutarBusqueda) {
-
-			if (aux.getNombrePlan().toLowerCase().contains(palabra_busqueda)
-					|| aux.getNombrePlan().contains(palabra_busqueda)) {
-
-				resultadoBusqueda.add(aux.toString());
-
-			}
-		}
-
-		taskList.setItems(FXCollections.observableArrayList(resultadoBusqueda));
-
-	}
 
 	@FXML
 	private List<String> agregarPlanesLista() {
@@ -441,9 +449,9 @@ public class controladorUsuario implements Initializable {
 
 	}
 
+
 	@FXML
 	public void lanzarVentanaFormularioTarea(ActionEvent event) {
-
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/formularioTareas.fxml"));
 
 		try {
@@ -458,7 +466,11 @@ public class controladorUsuario implements Initializable {
 
 	}
 
-	@FXML
+
+
+	
+	// Devuelve una lista String los objetos de lista toString
+	@FXML 
 	public static List<String> rellenarListaTareaString() {
 
 		List<Rutina> listaPooRutina = SCRUDusuarios.rellenarRutinaUsuEspecifico();
@@ -566,4 +578,165 @@ public class controladorUsuario implements Initializable {
 
 	}
 
+	
+	
+	public void botonEliminar(ActionEvent event) {
+		
+		// Cogemos el objeto a eliminar
+		
+		String elemento = taskList.getSelectionModel().getSelectedItem();
+		
+		// Lo desoglamos
+		
+		//RUTINA - explotar el corte ingles _ J _ 10:00
+		
+		
+
+		List<Rutina> listaRutina = utilidades.SCRUDusuarios.rellenarRutinaUsuEspecifico();
+		
+		List<Tarea> listaTarea = utilidades.SCRUDusuarios.rellenarTareaUsuEspecifico();
+		
+		
+		// Buscar con foreach el elemento entre los 3 objetos
+		
+		for (Rutina a : listaRutina) {
+			
+			if (a.toString().equals(elemento)) {
+				
+				SCRUDusuarios.eliminarRutinas(a.getNombreTarea(), a.getDiaSemana(), a.getHora());
+			
+				
+			}
+			
+		}
+		
+		// Buscar con foreach si es un elemento tares
+		
+		for (Tarea a : listaTarea) {
+			
+			if (a.toString().equals(elemento)) {
+				
+				SCRUDusuarios.eliminarTareas(a.getFecha(), a.getNombreTarea());
+				
+			}
+		}
+		
+		// Actualizamos la tabla 
+		
+		List<String> tareaYrutinas = rellenarListaTareaString();
+		
+		taskList.setItems(FXCollections.observableArrayList(tareaYrutinas));
+	}
+	
+	
+	@FXML
+    private void buscarElemento() {
+    	
+    	System.out.println("Método buscarElemento invocado");
+    	
+    	String palabra_busqueda = txtBuscar.getText();
+    	
+    	List<String> resultadoBusqueda = new ArrayList();
+    	
+    	
+    	if (chbPlanAcademico.isSelected() && !chbTareas.isSelected()) {
+    		
+    		String cursoAlumno = SCRUDusuarios.obtenerCursoAlumno(controladorLoggin.nombreUsuGlobal);
+			
+    		List<PlanAcademico> ejecutarBusqueda = SCRUDusuarios.obtenerPlanDeCursoEspecifico(cursoAlumno);
+        	 	
+        	for (PlanAcademico aux: ejecutarBusqueda) {
+    			
+        		if (aux.getNombrePlan().toLowerCase().contains(palabra_busqueda) || aux.getNombrePlan().contains(palabra_busqueda)) {
+    				
+        			resultadoBusqueda.add(aux.toString());
+    				
+    			}
+    		
+		}	
+    	
+		}
+    	
+    	if (!chbPlanAcademico.isSelected() && chbTareas.isSelected()) {
+    		
+    		List<Rutina> ejecutarBusqueda1 = SCRUDusuarios.rellenarRutinaUsuEspecifico();
+    					
+    		List<Tarea> ejecutarBusqueda2 = SCRUDusuarios.rellenarTareaUsuEspecifico();
+    		
+        	 	
+        	for (Rutina aux: ejecutarBusqueda1) {
+    			
+        		if (aux.getNombreTarea().toLowerCase().contains(palabra_busqueda) || aux.getNombreTarea().contains(palabra_busqueda)) {
+    				
+        			resultadoBusqueda.add(aux.toString());
+    				
+    			}
+    		
+		}
+        	
+        	for (Tarea aux : ejecutarBusqueda2) {
+				
+        		if (aux.getNombreTarea().toLowerCase().contains(palabra_busqueda) || aux.getNombreTarea().contains(palabra_busqueda)) {
+    				
+        			resultadoBusqueda.add(aux.toString());
+    				
+    			}
+			}
+        	
+        	
+    	
+		}
+    	
+    	if (chbPlanAcademico.isSelected() && chbTareas.isSelected()) {
+			
+    		List<Rutina> ejecutarBusqueda1 = SCRUDusuarios.rellenarRutinaUsuEspecifico();
+			
+    		List<Tarea> ejecutarBusqueda2 = SCRUDusuarios.rellenarTareaUsuEspecifico();
+    		
+    		String cursoAlumno = SCRUDusuarios.obtenerCursoAlumno(controladorLoggin.nombreUsuGlobal);
+			
+    		List<PlanAcademico> ejecutarBusqueda = SCRUDusuarios.obtenerPlanDeCursoEspecifico(cursoAlumno);
+    		
+        	 	
+        	for (Rutina aux: ejecutarBusqueda1) {
+    			
+        		if (aux.getNombreTarea().toLowerCase().contains(palabra_busqueda) || aux.getNombreTarea().contains(palabra_busqueda)) {
+    				
+        			resultadoBusqueda.add(aux.toString());
+    				
+    			}
+    		
+		}
+        	
+        	for (Tarea aux : ejecutarBusqueda2) {
+				
+        		if (aux.getNombreTarea().toLowerCase().contains(palabra_busqueda) || aux.getNombreTarea().contains(palabra_busqueda)) {
+    				
+        			resultadoBusqueda.add(aux.toString());
+    				
+    			}
+			}
+        	
+        	 	
+        	for (PlanAcademico aux: ejecutarBusqueda) {
+    			
+        		if (aux.getNombrePlan().toLowerCase().contains(palabra_busqueda) || aux.getNombrePlan().contains(palabra_busqueda)) {
+    				
+        			resultadoBusqueda.add(aux.toString());
+    				
+    			}
+    		
+		}
+        	
+        	
+    		
+		}
+    	
+    	
+    	
+    	
+        taskList.setItems(FXCollections.observableArrayList(resultadoBusqueda));
+    	
+    }
+	
 }

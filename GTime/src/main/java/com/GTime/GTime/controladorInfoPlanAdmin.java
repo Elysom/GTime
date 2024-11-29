@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 import modelo.PlanAcademico;
 import utilidades.SCRUDusuarios;
 
-public class controladorInfoPlan implements Initializable  {
+public class controladorInfoPlanAdmin implements Initializable  {
 
 	@FXML
 	private Label txtTitulo;
@@ -49,10 +49,23 @@ public class controladorInfoPlan implements Initializable  {
 		List<PlanAcademico> listaPlan = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
 		
 		System.out.println(1);
+		
+		String input = null;
+		
 		for (PlanAcademico a : listaPlan) {
 			
 			// La cadena original
-	        String input = com.GTime.GTime.controladorPrincipal.infoSeleccionada;
+			
+			if (com.GTime.GTime.controladorPrincipal.infoSeleccionada != null) {
+				input = com.GTime.GTime.controladorPrincipal.infoSeleccionada;
+			} else if (com.GTime.GTime.controladorUsuario.infoSeleccionada != null) {
+				input = com.GTime.GTime.controladorUsuario.infoSeleccionada;
+				
+				listaPlan = null;
+				listaPlan = SCRUDusuarios.ObtenerPlanDeCursoEspecifico(controladorLoggin.nombreUsuGlobal);
+				
+			}
+	        
 
 	        // Encontrar las partes usando substring
 	        String fechaHoraStr = input.substring(0, input.indexOf(" - ")).replace(",", "").trim(); // "2024-11-27 09:10"

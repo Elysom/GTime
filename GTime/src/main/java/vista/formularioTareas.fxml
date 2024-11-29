@@ -14,7 +14,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioTarea">
    <children>
-      <AnchorPane prefHeight="568.0" prefWidth="238.0">
+      <AnchorPane layoutX="14.0" prefHeight="568.0" prefWidth="254.0">
          <children>
             <Label layoutX="66.0" layoutY="22.0" text="Crear Tareas">
                <font>
@@ -40,12 +40,7 @@
             <Label fx:id="txtValidacion" layoutX="47.0" layoutY="533.0" text="Rellena la informacion" />
             <Label layoutX="87.0" layoutY="347.0" text="Descripcion" />
             <TextArea fx:id="txtDescripcion" layoutX="35.0" layoutY="379.0" prefHeight="97.0" prefWidth="165.0" />
-            <HBox layoutX="19.0" layoutY="70.0" prefHeight="31.0" prefWidth="215.0">
-               <children>
-                  <CheckBox fx:id="chbTareas" mnemonicParsing="false" text="Tareas           " />
-                  <CheckBox fx:id="chbRutinas" mnemonicParsing="false" onAction="#abrirFormularioRutina" text="Rutinas" />
-               </children>
-            </HBox>
+            <CheckBox fx:id="chbRutinas" layoutX="79.0" layoutY="71.0" mnemonicParsing="false" onAction="#abrirFormularioRutina" text="Rutinas" />
          </children>
       </AnchorPane>
    </children>

@@ -568,6 +568,8 @@ public static void creacionRutina(String nombreTarea,String diaSemana, LocalTime
 		cnn.close();
 	} catch (SQLException e) {
 		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+		System.out.println(e.getMessage());
 	}
 	
 }

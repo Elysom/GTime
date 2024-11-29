@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import modelo.PlanAcademico;
 import modelo.Rutina;
@@ -31,7 +32,7 @@ public class controladorInfoPlanAdmin implements Initializable  {
 	private Label txtCurso;
 	
 	@FXML
-	private Label txtDescripcion;
+	private TextArea txtDescripcion;
 	
 	
 	@Override
@@ -67,9 +68,9 @@ public class controladorInfoPlanAdmin implements Initializable  {
 					
 					txtFecha.setText(b.getFechahorasPlan().toString());
 					
-					txtCurso.setText(b.getCurso());
+					txtCurso.setText("Curso: " +b.getCurso());
 					
-					txtModulo.setText(b.getAsignatura());
+					txtModulo.setText("Modulo: " +b.getAsignatura());
 					
 					txtDescripcion.setText(b.getDescripcion());
 					

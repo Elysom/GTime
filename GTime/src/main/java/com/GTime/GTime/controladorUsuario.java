@@ -610,6 +610,8 @@ public class controladorUsuario implements Initializable {
 	
 	public void botonEliminar(ActionEvent event) {
 		
+		boolean verificacion = false;
+		
 		// Cogemos el objeto a eliminar
 		
 		String elemento = taskList.getSelectionModel().getSelectedItem();
@@ -633,6 +635,7 @@ public class controladorUsuario implements Initializable {
 				
 				SCRUDusuarios.eliminarRutinas(a.getNombreTarea(), a.getDiaSemana(), a.getHora());
 			
+				verificacion = true;
 				
 			}
 			
@@ -646,14 +649,20 @@ public class controladorUsuario implements Initializable {
 				
 				SCRUDusuarios.eliminarTareas(a.getFecha(), a.getNombreTarea());
 				
+				verificacion = true;
+				
 			}
 		}
 		
-		// Actualizamos la tabla 
+		if (verificacion) {
+			// Actualizamos la tabla 
+			
+			List<String> tareaYrutinas = rellenarListaTareaString();
+			
+			taskList.setItems(FXCollections.observableArrayList(tareaYrutinas));
+		}
 		
-		List<String> tareaYrutinas = rellenarListaTareaString();
 		
-		taskList.setItems(FXCollections.observableArrayList(tareaYrutinas));
 	}
 	
 	

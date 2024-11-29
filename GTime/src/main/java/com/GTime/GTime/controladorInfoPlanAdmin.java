@@ -62,7 +62,7 @@ public class controladorInfoPlanAdmin implements Initializable  {
 				input = com.GTime.GTime.controladorUsuario.infoSeleccionada;
 				
 				listaPlan = null;
-				listaPlan = SCRUDusuarios.ObtenerPlanDeCursoEspecifico(controladorLoggin.nombreUsuGlobal);
+				listaPlan = SCRUDusuarios.obtenerPlanDeCursoEspecifico(controladorLoggin.nombreUsuGlobal);
 				
 			}
 	        

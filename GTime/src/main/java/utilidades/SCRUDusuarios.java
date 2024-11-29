@@ -593,4 +593,56 @@ public static List<Rutina> rellenarRutinaUsuEspecifico() {
 	return rutinaPoo;
 }
 
+// Desglosar el string y eliminar el elemento - Rutinas
+
+public static void eliminarRutinas(String nombreTarea, String diaSemana, LocalTime hora ) {
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	
+	String sql = "DELETE FROM rutina where nombreTarea = ? and diaSemana = ? and hora = ?";
+	
+	try {
+		PreparedStatement stm = cn.prepareStatement(sql);
+		
+		stm.setString(1, nombreTarea);
+		stm.setString(2, diaSemana);
+		stm.setTime(3, Time.valueOf(hora));
+		
+		stm.executeUpdate();
+		
+		System.out.println("Se elimino con exito");
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+// Eliminar funcion tarea  2024-11-29, 11:00 - Explotar Hogwats
+
+public static void eliminarTareas(LocalDateTime fechaHora, String nombreTarea) {
+	
+	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
+	
+	String sql = "DELETE FROM tarea WHERE fecha = ? and nombreTarea = ?";
+	
+	Timestamp timestamp = Timestamp.valueOf(fechaHora);
+	
+	try (PreparedStatement stm = cn.prepareStatement(sql)){
+		
+		stm.setTimestamp(1, timestamp);
+		stm.setString(2, nombreTarea);
+		
+		stm.executeUpdate();
+		
+		
+		
+	} catch (SQLException e) {
+		// TODO: handle exception
+		System.out.println(e.getLocalizedMessage());
+	}
+	
+}
+
+
 }

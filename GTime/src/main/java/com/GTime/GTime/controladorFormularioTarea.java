@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -43,16 +44,12 @@ public class controladorFormularioTarea implements Initializable {
 	@FXML 
 	private Label txtValidacion;
 	
-	@FXML
-	private CheckBox chbTareas;
-	
 	@FXML 
 	private CheckBox chbRutinas;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
 		// Confiurar las horas del spinner tipo de 00 a 23
 		
 		SpinnerValueFactory<Integer> horas = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23);
@@ -62,8 +59,6 @@ public class controladorFormularioTarea implements Initializable {
 		
 		SpinnerValueFactory<Integer> minutos = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
 		txtMinutos.setValueFactory(minutos);
-		
-		chbTareas.setSelected(true);
 		
 	}
 	
@@ -91,13 +86,22 @@ public class controladorFormularioTarea implements Initializable {
 	
 	@FXML
 	public void abrirFormularioRutina(ActionEvent event) {
-		
+        // Cargar el nuevo contenido
+		Scene scene= btnCrear.getScene();
+        Parent newRoot;
 		try {
-			Main.setRoot("/vista/formularioRutinas");
+			newRoot = FXMLLoader.load(getClass().getResource("/vista/formularioRutinas.fxml"));
+	        scene.setRoot(newRoot);
+	        
+	        // Ajustar el tamaño de la escena al contenido
+	        Stage stage = (Stage) scene.getWindow();
+	        stage.sizeToScene();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+
         
 	}
 

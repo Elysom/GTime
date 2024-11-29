@@ -1,5 +1,6 @@
 package com.GTime.GTime;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -7,7 +8,10 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
@@ -18,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import utilidades.SCRUDusuarios;
 
 public class controladorFormularioRutina implements Initializable {
@@ -67,9 +72,6 @@ public class controladorFormularioRutina implements Initializable {
 
     @FXML
     private HBox hboxSpinners; // Contenedor para los Spinners de hora y minutos.
-
-    @FXML
-    private CheckBox chbTareas;
     
     @FXML
     private CheckBox chbRutinas;
@@ -88,6 +90,8 @@ public class controladorFormularioRutina implements Initializable {
 		
 		SpinnerValueFactory<Integer> minutos = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59);
 		txtMinutos.setValueFactory(minutos);
+		
+		chbRutinas.setSelected(true);
 		
 	}
     
@@ -154,5 +158,26 @@ public class controladorFormularioRutina implements Initializable {
 		
 		return colorHex;
 
+	}
+	
+	@FXML
+	public void abrirFormularioTarea(ActionEvent event) {
+        // Cargar el nuevo contenido
+		Scene scene= btnCrear.getScene();
+        Parent newRoot;
+		try {
+			newRoot = FXMLLoader.load(getClass().getResource("/vista/formularioTareas.fxml"));
+	        scene.setRoot(newRoot);
+	        
+	        // Ajustar el tamaño de la escena al contenido
+	        Stage stage = (Stage) scene.getWindow();
+	        stage.sizeToScene();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+        
 	}
 }

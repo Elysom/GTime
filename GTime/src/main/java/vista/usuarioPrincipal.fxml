@@ -22,7 +22,7 @@
                      <children>
                         <HBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <TextField fx:id="txtBuscar" alignment="CENTER" prefWidth="100.0" promptText="Buscar..." />
+                              <TextField fx:id="txtBuscar" alignment="CENTER" onInputMethodTextChanged="#buscarElemento" prefWidth="100.0" promptText="Buscar..." />
                            </children>
                         </HBox>
                         <Text text="Lista de Tareas">
@@ -34,7 +34,7 @@
                         <HBox alignment="CENTER_RIGHT" layoutY="300.0" spacing="10.0">
                            <children>
                               <Button fx:id="btnCrearTarea" onAction="#lanzarVentanaFormularioTarea" text="+" />
-                              <Button fx:id="btnEliminar" text="-" />
+                              <Button fx:id="btnEliminar" onAction="#botonEliminar" text="-" />
                            </children>
                         </HBox>
                         <CheckBox fx:id="chbPlanAcademico" mnemonicParsing="false" text="Plan Academico" />

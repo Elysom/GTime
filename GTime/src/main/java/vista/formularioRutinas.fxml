@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioRutina">
+<AnchorPane prefHeight="225.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioRutina">
    <children>
-      <AnchorPane prefHeight="605.0" prefWidth="287.0">
+      <AnchorPane layoutX="-21.0" prefHeight="538.0" prefWidth="277.0">
          <children>
             <Label layoutX="90.0" layoutY="14.0" text="Crear Rutinas">
                <font>
@@ -34,7 +34,7 @@
                </children>
             </HBox>
             <ColorPicker fx:id="txtColor" layoutX="64.0" layoutY="315.0" prefHeight="31.0" prefWidth="165.0" />
-            <Button fx:id="btnCrear" layoutX="119.0" layoutY="509.0" mnemonicParsing="false" onAction="#repeticionRutinas" text="Crear" />
+            <Button fx:id="btnCrear" layoutX="119.0" layoutY="509.0" mnemonicParsing="false" text="Crear" />
             <Label fx:id="txtValidacion" layoutX="74.0" layoutY="551.0" text="Rellena la informacion" />
             <Label layoutX="105.0" layoutY="361.0" text="Descripcion" />
             <TextArea fx:id="txtDescripcion" layoutX="61.0" layoutY="393.0" prefHeight="97.0" prefWidth="165.0" />
@@ -58,12 +58,7 @@
                   <CheckBox fx:id="chbDomingo" mnemonicParsing="false" />
                </children>
             </HBox>
-            <HBox layoutX="46.0" layoutY="62.0" prefHeight="31.0" prefWidth="215.0">
-               <children>
-                  <CheckBox fx:id="chbRutinas" mnemonicParsing="false" text="Rutinas       " />
-                  <CheckBox fx:id="chbTareas" mnemonicParsing="false" text="Tareas" />
-               </children>
-            </HBox>
+            <CheckBox fx:id="chbRutinas" layoutX="105.0" layoutY="63.0" mnemonicParsing="false" onAction="#abrirFormularioTarea" text="Rutinas" />
          </children>
       </AnchorPane>
    </children>

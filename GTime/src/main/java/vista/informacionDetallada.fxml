@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="302.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorInfoPlanAdmin">
+<AnchorPane prefHeight="332.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorInfoPlanAdmin">
    <children>
       <AnchorPane layoutX="74.0" prefHeight="200.0" prefWidth="216.0">
          <children>
-            <GridPane layoutX="-10.0" layoutY="55.0">
+            <GridPane layoutX="-20.0" layoutY="96.0" prefHeight="30.0" prefWidth="222.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="101.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.0" minWidth="10.0" prefWidth="99.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="118.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="104.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="txtFecha" text="Fecha" />
-                  <Label fx:id="txtModulo" text="Modulo" GridPane.rowIndex="1" />
-                  <Label fx:id="txtCurso" text="Curso" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="txtModulo" text="Modulo" />
+                  <Label fx:id="txtCurso" text="Curso" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <Label fx:id="txtTitulo" alignment="CENTER" layoutX="-46.0" layoutY="14.0" prefHeight="21.0" prefWidth="222.0" text="txtTitulo" textAlignment="JUSTIFY" />
-            <Label fx:id="txtDescripcion" alignment="CENTER" layoutX="-46.0" layoutY="137.0" prefHeight="114.0" prefWidth="222.0" text="txtDescripcion" textAlignment="JUSTIFY" />
+            <Label fx:id="txtTitulo" alignment="CENTER" layoutX="-46.0" layoutY="14.0" prefHeight="21.0" prefWidth="222.0" text="txtTitulo" textAlignment="JUSTIFY">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="txtFecha" layoutX="13.0" layoutY="53.0" prefHeight="21.0" prefWidth="108.0" text="Fecha">
+               <font>
+                  <Font size="12.0" />
+               </font></Label>
+            <Line endX="100.0" layoutX="67.0" layoutY="159.0" startX="-100.0" />
+            <Label layoutX="24.0" layoutY="176.0" prefHeight="21.0" prefWidth="87.0" text="Descripción" />
          </children>
       </AnchorPane>
+      <TextArea fx:id="txtDescripcion" layoutX="34.0" layoutY="208.0" prefHeight="99.0" prefWidth="222.0" />
    </children>
 </AnchorPane>

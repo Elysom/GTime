@@ -320,7 +320,9 @@ public class controladorUsuario implements Initializable {
 				Label dayLabel = new Label(day.getDisplayText());
 				dayLabel.setStyle("-fx-font-weight: bold;");
 				dayGrid.add(dayLabel, 0, 0);
-
+				
+				
+				
 				// Añadir las tareas del día
 				int colPlan = 1;
 				int contador = 1;
@@ -332,6 +334,8 @@ public class controladorUsuario implements Initializable {
 						for (Rutina ru : listaRutinas) {
 							if (CalendarioDias.getDiaSemana(day.getDate()).equals(ru.getDiaSemana())) {
 								Label nLabel = new Label("R-" + ru.getNombreTarea());
+								//nlabel.setOnMouseClicked(event -> rellenarInformacion(nlabel));
+								
 								dayGrid.add(nLabel, 0, colPlan++);
 
 							}
@@ -370,8 +374,16 @@ public class controladorUsuario implements Initializable {
 
 						}
 					}
+
 				}
-				if(items>4) {
+				 // Verificar si el día es hoy
+				// Obtener la fecha actual
+			    LocalDate today = LocalDate.now();
+	            LocalDate dayDate = day.getDate();
+				if (dayDate.equals(today)) {
+	                dayGrid.setStyle("-fx-border-color: green; -fx-padding: 5;"); // Cambiar el estilo a verde
+	            }
+				if(items>=4) {
 					Label nplanLabel = new Label("...");
 					dayGrid.add(nplanLabel, 0, colPlan++);
 				}
@@ -394,7 +406,7 @@ public class controladorUsuario implements Initializable {
 		// semana)
 		for (int i = 0; i < 7; i++) {
 			ColumnConstraints column = new ColumnConstraints();
-			column.setPercentWidth(100.0 / 7); // Cada columna ocupa el 15% aprox del espacio disponible
+			column.setPercentWidth(100.0 / 6); // Cada columna ocupa el 15% aprox del espacio disponible
 			calendarGrid.getColumnConstraints().add(column);
 		}
 
@@ -402,7 +414,7 @@ public class controladorUsuario implements Initializable {
 		// Hay un máximo de 6 filas por mes
 		for (int i = 0; i < 6; i++) {
 			RowConstraints row = new RowConstraints();
-			row.setPercentHeight(100.0 / 6); // Cada fila ocupa el 16.67% del espacio disponible
+			row.setPercentHeight(100.0 / 7); // Cada fila ocupa el 16.67% del espacio disponible
 			calendarGrid.getRowConstraints().add(row);
 		}
 	}

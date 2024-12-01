@@ -254,24 +254,7 @@ public class controladorPrincipal implements Initializable {
 				int items = 0;
 
 				if (items < 4) {
-					List<Rutina> listaRutinas = SCRUDusuarios.rellenarRutinaUsuEspecifico();
-					for (Rutina ru : listaRutinas) {
-						if (CalendarioDias.getDiaSemana(day.getDate()).equals(ru.getDiaSemana())) {
-							Label nLabel = new Label("R-" + ru.getNombreTarea());
-
-							nLabel.setOnMouseClicked(event -> {
-								infoSeleccionada = ru.toString();
-								lanzarVentanaInformacionDetallada();
-							});
-
-							dayGrid.add(nLabel, 0, colPlan++);
-
-						}
-					}
-				}
-
-				if (items < 4) {
-					List<PlanAcademico> listaplanes = SCRUDusuarios.obtenerPlanDeCursoEspecifico(
+					List<PlanAcademico> listaplanes = SCRUDusuarios.rellanarListaAdminEspecifico(
 							SCRUDusuarios.obtenerCursoAlumno(controladorLoggin.nombreUsuGlobal));
 					for (PlanAcademico pa : listaplanes) {
 						// Si el mes y el año y dia es el mismo al que esta dibujando se añade una label

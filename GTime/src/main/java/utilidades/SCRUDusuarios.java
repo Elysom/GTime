@@ -341,7 +341,7 @@ public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsu
 	
 	List<PlanAcademico> listaDePlanesAcademico = new ArrayList<>();
 
-	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(nombreUsuGlobal);
+	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
 	
     String sql = "Select IDPlan,IDUsuario,nombrePlan,fecha,color,tipo,asignatura,curso,descripcion from plan_academico WHERE fecha >= NOW() order by fecha asc";
 

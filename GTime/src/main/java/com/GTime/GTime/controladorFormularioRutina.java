@@ -153,6 +153,9 @@ public class controladorFormularioRutina implements Initializable {
 		
 		List<String> AmbasOpciones = controladorUsuario.rellenarYordenarAmbasListas();
 		
+		controladorUsuario.chbTareas.setSelected(true);
+		
+		controladorUsuario.chbPlanAcademico.setSelected(true);
 		
 	    controladorUsuario.taskList.getItems().setAll(AmbasOpciones);
 		

@@ -63,8 +63,6 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 private void loggin(ActionEvent event) throws IOException {
 	
 	
-	System.out.println("hola");
-	
 	nombreUsuGlobal = txtUsuario.getText();
 	
 	String pass = txtContrasenia.getText();

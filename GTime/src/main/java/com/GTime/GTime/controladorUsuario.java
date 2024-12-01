@@ -75,10 +75,10 @@ public class controladorUsuario implements Initializable {
 	private Label lblNUsuario;
 
 	@FXML
-	private CheckBox chbTareas;
+	CheckBox chbTareas;
 
 	@FXML
-	private CheckBox chbPlanAcademico;
+	CheckBox chbPlanAcademico;
 	CalendarioDias calendarioDias;
 
 	private CalendarioMetodos calendarioMetodos;
@@ -86,7 +86,6 @@ public class controladorUsuario implements Initializable {
 	public List<String> colores = new ArrayList<>();
 
 	public List<String> listaTareas;
-    
 
     public static String infoSeleccionada;
     
@@ -905,7 +904,7 @@ public class controladorUsuario implements Initializable {
 			}
 		}
 	    
-	    return "white";
+	    return "";
 	}
 	
     public void actualizarLista() {

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioPlan">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioPlan">
    <children>
       <AnchorPane prefHeight="657.0" prefWidth="238.0">
          <children>
@@ -21,14 +21,14 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="72.0" layoutY="51.0" text="nombre Plan" />
+            <Label layoutX="79.0" layoutY="51.0" text="Nombre Plan" />
             <Label layoutX="62.0" layoutY="103.0" text="Fecha y hora del Plan">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
             <DatePicker fx:id="txtFecha" layoutX="25.0" layoutY="131.0" prefHeight="31.0" prefWidth="187.0" />
-            <TextField fx:id="txtPlan" layoutX="24.0" layoutY="72.0" />
+            <TextField fx:id="txtPlan" layoutX="43.0" layoutY="68.0" />
             <HBox fx:id="hboxSpinners" layoutX="16.0" layoutY="182.0" prefHeight="31.0" prefWidth="203.0">
                <children>
                   <Spinner fx:id="txtHoras" />
@@ -46,6 +46,8 @@
             <ComboBox fx:id="txtAsignatura" layoutX="44.0" layoutY="342.0" prefWidth="150.0" />
             <Label layoutX="81.0" layoutY="436.0" text="Descripcion" />
             <TextArea fx:id="txtDescripcion" layoutX="54.0" layoutY="468.0" prefHeight="97.0" prefWidth="133.0" />
+            <Label layoutX="52.0" layoutY="162.0" text="Hora" />
+            <Label layoutX="145.0" layoutY="162.0" text="Minutos" />
          </children>
       </AnchorPane>
    </children>

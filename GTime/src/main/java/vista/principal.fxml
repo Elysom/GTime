@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="618.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorPrincipal">
+<AnchorPane prefHeight="618.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorPrincipal">
    <children>
       <AnchorPane layoutX="14.0" layoutY="3.0" prefHeight="613.0" prefWidth="1082.0">
          <children>
@@ -23,17 +23,14 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="514.0" prefWidth="299.0" spacing="10.0">
                      <children>
-                        <HBox alignment="CENTER" spacing="5.0">
-                           <children>
-                              <TextField fx:id="txtBuscar" alignment="CENTER" prefHeight="25.0" prefWidth="263.0" promptText="Buscar..." />
-                           </children>
-                        </HBox>
+                        <TextField fx:id="txtBuscar" alignment="CENTER" prefHeight="25.0" prefWidth="263.0" promptText="Buscar..." />
                         <Text text="Lista de Tareas">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <ListView fx:id="taskList" prefHeight="300.0" prefWidth="180.0" />
+                        <HBox alignment="CENTER" spacing="5.0" />
+                        <ListView fx:id="taskList" prefHeight="359.0" prefWidth="279.0" />
                         <HBox alignment="CENTER_RIGHT" layoutY="300.0" spacing="10.0">
                            <children>
                               <Button fx:id="btnCrearCurso" onAction="#lanzarVentanaCrearPlan" text="+" />
@@ -44,7 +41,7 @@
                   </VBox>
                   <ScrollPane prefHeight="514.0" prefWidth="748.0">
                      <content>
-                        <VBox prefHeight="514.0" prefWidth="729.0" spacing="10.0">
+                        <VBox prefHeight="487.0" prefWidth="724.0" spacing="10.0">
                            <children>
                               <HBox alignment="CENTER" spacing="60.0">
                                  <children>
@@ -57,7 +54,7 @@
                                     <Text text="DOMINGO" />
                                  </children>
                               </HBox>
-                              <GridPane fx:id="calendarGrid" alignment="CENTER" hgap="10" prefHeight="448.0" prefWidth="583.0" vgap="10" />
+                              <GridPane fx:id="calendarGrid" alignment="CENTER" hgap="10" prefHeight="448.0" prefWidth="696.0" vgap="10" />
                            </children>
                         </VBox>
                      </content>
@@ -86,28 +83,6 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="BOTTOM_CENTER" layoutX="541.0" layoutY="73.0" prefHeight="30.0" prefWidth="221.0" spacing="5.0">
-               <children>
-                  <Button fx:id="atrasMes" mnemonicParsing="false" onAction="#previousMonth" text="&lt;" />
-                  <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Button fx:id="alanteMes" mnemonicParsing="false" onAction="#nextMonth" text="&gt;" />
-               </children>
-            </HBox>
             <ImageView fitHeight="93.0" fitWidth="117.0" layoutX="84.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resources/logo.png" />
@@ -115,5 +90,39 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <HBox alignment="BOTTOM_CENTER" layoutX="382.0" layoutY="83.0" prefHeight="30.0" prefWidth="525.0" spacing="5.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" centerShape="false" prefHeight="30.0" prefWidth="169.0" scaleShape="false">
+               <children>
+                  <Button fx:id="atrasMes" mnemonicParsing="false" onAction="#previousMonth" text="&lt;" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="229.0">
+               <children>
+                  <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" centerShape="false" prefHeight="30.0" prefWidth="197.0" scaleShape="false">
+               <children>
+                  <Button fx:id="alanteMes" mnemonicParsing="false" onAction="#nextMonth" text="&gt;" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

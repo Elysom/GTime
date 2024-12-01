@@ -232,14 +232,12 @@ public class controladorUsuario implements Initializable {
 	@FXML
 	private void previousMonth() {
 		calendarioMetodos.previousMonth();
-		System.out.println("Se ejecuta anterior");
 		updateCalendar();
 	}
 
 	@FXML
 	private void nextMonth() {
 		calendarioMetodos.nextMonth();
-		System.out.println("Se ejecuta siguiente");
 		updateCalendar();
 	}
 

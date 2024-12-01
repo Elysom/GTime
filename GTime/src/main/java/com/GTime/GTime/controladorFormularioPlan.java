@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -23,6 +24,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import utilidades.SCRUDusuarios;
 
 
@@ -112,6 +114,8 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		SCRUDusuarios.agregarPlan(controladorLoggin.nombreUsuGlobal, txtPlan.getText(), SCRUDusuarios.obtenerFechaHoraSQL(txtFecha.getValue(),txtHoras.getValue(),txtMinutos.getValue()), txtTipo.getValue(), txtCurso.getValue(), txtAsignatura.getValue(), transformarColor(), txtDescripcion.getText());
 		
+		cerrarVentana(event);
+		
 		Main.setRoot("/vista/principal");
 	}
 
@@ -130,6 +134,15 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 
 	}
 	
+	
+	public void cerrarVentana(ActionEvent event) {
+	    // Obtener el nodo de la escena (en este caso el botón que disparó el evento)
+	    Node source = (Node) event.getSource();
+	    // Obtener el Stage (ventana) de la escena
+	    Stage stage = (Stage) source.getScene().getWindow();
+	    // Cerrar la ventana
+	    stage.close();
+	}
 	
 	
 

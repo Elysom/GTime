@@ -72,11 +72,15 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 		// TODO: handle exception
         return ("Error al iniciar sesión: " + e.getMessage());
 
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 	return "Usuario o contrasenia invalido";
 	
 }
+
+
 public static void registerSCRUD(String nombre,String apellidos,String mail,String nombreReal,String contrasenia,String curso){
 	
 	Connection cn= utilidades.DatabaseConnector.dameConexion();
@@ -98,7 +102,9 @@ public static void registerSCRUD(String nombre,String apellidos,String mail,Stri
 		// TODO: handle exception
         System.out.println("Error al registrarse: " + e.getMessage());
 
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 }
 
 
@@ -162,7 +168,9 @@ public static String verificarNombreUsusario(String NombreUsuario) {
 		
 	} catch (Exception e) {
 		// TODO: handle exception
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	return "Nombre Usuario Disponible";
 	
 }
@@ -265,7 +273,9 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     		System.out.println("Error al ingresar la informacion");
-    	}        
+        } finally {
+            utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+        }       
 		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -327,7 +337,9 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 	
 }
@@ -359,7 +371,9 @@ public static List<PlanAcademico> rellanarListaAdminEspecifico (String nombreUsu
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 	return listaDePlanesAcademico;
 }
@@ -384,7 +398,9 @@ public static void eliminarPlan(String ItemList) {
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 	
 }
@@ -428,7 +444,9 @@ public static String obtenerCursoAlumno(String nombreUsuGlobal) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
 		return nombreCurso;
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 }
 
 // Funcion para obtener un listado plan academico filtrado por el curso
@@ -439,7 +457,7 @@ public static List<PlanAcademico> ObtenerPlanDeCursoEspecifico (String curso) {
 	
 	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
 	
-	String sql = "Select * from plan_academico where curso = ?";
+	String sql = "Select * from plan_academico where curso = ? and fecha >= NOW() order by fecha asc";
 	
 	List<PlanAcademico> ObjetosPlanesAcademicos = new ArrayList();
 	
@@ -462,7 +480,9 @@ public static List<PlanAcademico> ObtenerPlanDeCursoEspecifico (String curso) {
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 	return ObjetosPlanesAcademicos;
 }
@@ -491,7 +511,9 @@ public static void agregarTareaUsuario(String nombreTarea, Timestamp fecha_hora,
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 }
 
@@ -509,7 +531,7 @@ public static List<Tarea> rellenarTareaUsuEspecifico() {
 	
 	Connection cn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
 	
-	String sql = "SELECT * FROM tarea";
+	String sql = "SELECT * FROM tarea WHERE fecha >= NOW() order by fecha asc";
 	
 	List<Tarea> listaTarea = new ArrayList();
 	
@@ -533,7 +555,9 @@ public static List<Tarea> rellenarTareaUsuEspecifico() {
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	return listaTarea;
 }
 
@@ -559,7 +583,9 @@ public static void creacionRutina(String nombreTarea,String diaSemana, LocalTime
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
 		System.out.println(e.getMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 }
 
@@ -590,7 +616,9 @@ public static List<Rutina> rellenarRutinaUsuEspecifico() {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
 		
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 	return rutinaPoo;
 }
@@ -617,10 +645,11 @@ public static void eliminarRutinas(String nombreTarea, String diaSemana, LocalTi
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 }
 
-// Eliminar funcion tarea  2024-11-29, 11:00 - Explotar Hogwats
 
 public static void eliminarTareas(LocalDateTime fechaHora, String nombreTarea) {
 	
@@ -642,7 +671,9 @@ public static void eliminarTareas(LocalDateTime fechaHora, String nombreTarea) {
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 }
 

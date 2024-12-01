@@ -21,7 +21,7 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="74.0" layoutY="109.0" text="nombre Tareas" />
+            <Label layoutX="74.0" layoutY="109.0" text="Nombre Tareas" />
             <Label layoutX="64.0" layoutY="161.0" text="Fecha y hora del Plan">
                <font>
                   <Font size="12.0" />

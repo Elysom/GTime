@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -16,6 +17,8 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import modelo.PlanAcademico;
+import modelo.Rutina;
+import modelo.Tarea;
 import utilidades.CalendarioDias;
 import utilidades.CalendarioMetodos;
 import utilidades.CalendarioTareas;
@@ -79,10 +82,42 @@ public class controladorPrincipal implements Initializable{
         listaTareas = agregarPlanesLista();
         
         taskList.setItems(FXCollections.observableArrayList(listaTareas));
+        
+        taskList.setCellFactory(lv -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+            	System.out.println("entro el cell factory");
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle(""); // Estilo por defecto
+                } else {
+                    setText(item);
+
+                    // Obtener el color de fondo
+                    String color = obtenerColorParaItem(item, SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal));
+
+                    // Validar si el color es válido
+                    if (color == null || color.isEmpty()) {
+                        color = "white";  // Color por defecto
+                    }
+
+                    // Verificar que el color sea válido antes de aplicarlo
+                    System.out.println("Color para item: " + color);
+
+                    // Aplicar el estilo con el color
+                    setStyle("-fx-background-color: " + color + ";");
+                }
+            }
+        });
+        
+        
        
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             
         buscarElemento(); // Llama a buscarElemento con el nuevo texto
+        
         	
         });
         
@@ -110,6 +145,9 @@ public class controladorPrincipal implements Initializable{
         	}
         
         });
+        
+        
+        
         
 	}
 
@@ -332,6 +370,22 @@ public class controladorPrincipal implements Initializable{
 
 
 
+    private String obtenerColorParaItem(String item, List<PlanAcademico> listaAcademica) {
+	    // Ejemplo: Devuelve colores según un criterio. 
+	    // Aquí puedes usar datos de la base de datos o lógica personalizada.
+	    System.out.println("entro");
+		System.out.println(item);
+		for (PlanAcademico a : listaAcademica) {
+			if (item.equals(a.toString())) {
+				
+				
+				return a.getColor();
+				
+			}
+		}
+	    
+	    return "red";
+	}
 	
 	
 }

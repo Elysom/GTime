@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="225.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioRutina">
+<AnchorPane prefHeight="225.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GTime.GTime.controladorFormularioRutina">
    <children>
       <AnchorPane layoutX="-21.0" prefHeight="538.0" prefWidth="277.0">
          <children>
@@ -20,14 +20,14 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="97.0" layoutY="104.0" text="nombre Rutina" />
+            <Label layoutX="103.0" layoutY="105.0" text="Nombre Rutina" />
             <Label layoutX="98.0" layoutY="175.0" text="Dias de la Semana">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRutinas" layoutX="53.0" layoutY="136.0" />
-            <HBox fx:id="hboxSpinners" layoutX="42.0" layoutY="272.0" prefHeight="31.0" prefWidth="203.0">
+            <TextField fx:id="txtRutinas" layoutX="72.0" layoutY="135.0" />
+            <HBox fx:id="hboxSpinners" layoutX="45.0" layoutY="262.0" prefHeight="31.0" prefWidth="203.0">
                <children>
                   <Spinner fx:id="txtHoras" />
                   <Spinner fx:id="txtMinutos" />
@@ -38,16 +38,16 @@
             <Label fx:id="txtValidacion" layoutX="74.0" layoutY="551.0" text="Rellena la informacion" />
             <Label layoutX="105.0" layoutY="361.0" text="Descripcion" />
             <TextArea fx:id="txtDescripcion" layoutX="61.0" layoutY="393.0" prefHeight="97.0" prefWidth="165.0" />
-            <HBox alignment="CENTER" layoutX="53.0" layoutY="198.0" prefHeight="31.0" prefWidth="215.0">
+            <HBox alignment="CENTER" layoutX="56.0" layoutY="192.0" prefHeight="31.0" prefWidth="215.0">
                <children>
-                  <Label prefHeight="21.0" prefWidth="241.0" text="L  -   M   -   X   -   J  -   V   -   S   -  D">
+                  <Label prefHeight="21.0" prefWidth="222.0" text="L  -   M   -   X   -   J  -   V   -    S   -  D">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="33.0" layoutY="222.0" prefHeight="31.0" prefWidth="241.0">
+            <HBox alignment="CENTER" layoutX="45.0" layoutY="215.0" prefHeight="31.0" prefWidth="215.0" spacing="15.0">
                <children>
                   <CheckBox fx:id="chbLunes" mnemonicParsing="false" />
                   <CheckBox fx:id="chbMartes" mnemonicParsing="false" />
@@ -61,5 +61,7 @@
             <CheckBox fx:id="chbRutinas" layoutX="105.0" layoutY="63.0" mnemonicParsing="false" onAction="#abrirFormularioTarea" text="Rutinas" />
          </children>
       </AnchorPane>
+      <Label layoutX="60.0" layoutY="239.0" text="Hora" />
+      <Label layoutX="153.0" layoutY="239.0" text="Minutos" />
    </children>
 </AnchorPane>

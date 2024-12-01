@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versión del servidor:         10.4.32-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             12.8.0.6908
+-- HeidiSQL Versión:             12.6.0.6765
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -71,88 +71,6 @@ REPLACE INTO `usuario` (`IDusuario`, `mail`, `nombreReal`, `apellidos`, `contras
 	(1, 'admin@gtime.com', 'Pepita', 'Perez', 'Contrasenia12.', '2.º SMR', NULL, 'admin2');
 
 
--- Volcando estructura de base de datos para doraemon
-CREATE DATABASE IF NOT EXISTS `doraemon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `doraemon`;
-
--- Volcando estructura para tabla doraemon.plan_academico
-CREATE TABLE IF NOT EXISTS `plan_academico` (
-  `IDPlan` int(11) NOT NULL AUTO_INCREMENT,
-  `IDUsuario` int(11) NOT NULL,
-  `nombrePlan` varchar(200) DEFAULT NULL,
-  `fecha` datetime NOT NULL,
-  `color` varchar(7) NOT NULL,
-  `tipo` varchar(20) DEFAULT NULL,
-  `asignatura` varchar(20) NOT NULL,
-  `curso` varchar(20) NOT NULL,
-  `descripcion` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`IDPlan`),
-  KEY `fk_PLANACADEMICO_USUARIO` (`IDUsuario`),
-  CONSTRAINT `fk_PLANACADEMICO_USUARIO` FOREIGN KEY (`IDUsuario`) REFERENCES `usuario` (`IDusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Volcando datos para la tabla doraemon.plan_academico: ~0 rows (aproximadamente)
-
--- Volcando estructura para tabla doraemon.rutina
-CREATE TABLE IF NOT EXISTS `rutina` (
-  `IDTarea` int(11) NOT NULL AUTO_INCREMENT,
-  `IDUsuario` int(11) NOT NULL,
-  `nombreTarea` varchar(100) NOT NULL,
-  `diaSemana` varchar(20) NOT NULL,
-  `hora` time NOT NULL,
-  `color` varchar(20) DEFAULT NULL,
-  `descripcion` varchar(200) DEFAULT NULL,
-  `fechaExcepcion` date DEFAULT NULL,
-  `motivoExcepcion` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`IDTarea`),
-  KEY `fk_rutina_usuario` (`IDUsuario`),
-  CONSTRAINT `fk_rutina_usuario` FOREIGN KEY (`IDUsuario`) REFERENCES `usuario` (`IDusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Volcando datos para la tabla doraemon.rutina: ~4 rows (aproximadamente)
-REPLACE INTO `rutina` (`IDTarea`, `IDUsuario`, `nombreTarea`, `diaSemana`, `hora`, `color`, `descripcion`, `fechaExcepcion`, `motivoExcepcion`) VALUES
-	(1, 1, 'explotar el corte ingles', 'L', '10:00:00', '#663366', 'Explotar el corte ingles', NULL, NULL),
-	(2, 1, 'explotar el corte ingles', 'J', '10:00:00', '#663366', 'Explotar el corte ingles', NULL, NULL),
-	(3, 1, 'explotar el corte ingles', 'L', '10:00:00', '#663366', 'Explotar el corte ingles', NULL, NULL),
-	(4, 1, 'explotar el corte ingles', 'J', '10:00:00', '#663366', 'Explotar el corte ingles', NULL, NULL);
-
--- Volcando estructura para tabla doraemon.tarea
-CREATE TABLE IF NOT EXISTS `tarea` (
-  `IDTarea` int(11) NOT NULL AUTO_INCREMENT,
-  `IDUsuario` int(11) NOT NULL,
-  `nombreTarea` varchar(100) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `color` varchar(20) DEFAULT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`IDTarea`),
-  KEY `fk_tarea_usuario` (`IDUsuario`),
-  CONSTRAINT `fk_tarea_usuario` FOREIGN KEY (`IDUsuario`) REFERENCES `usuario` (`IDusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Volcando datos para la tabla doraemon.tarea: ~2 rows (aproximadamente)
-REPLACE INTO `tarea` (`IDTarea`, `IDUsuario`, `nombreTarea`, `fecha`, `color`, `descripcion`) VALUES
-	(1, 1, 'a', '2024-11-29 11:00:00', '#804D80', 'aaaaaaaa'),
-	(2, 1, 'Explotar Hogwats', '2024-11-29 11:00:00', '#CCCC33', 'aaaaaaaa');
-
--- Volcando estructura para tabla doraemon.usuario
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `IDusuario` int(11) NOT NULL AUTO_INCREMENT,
-  `mail` varchar(40) NOT NULL,
-  `nombreReal` varchar(40) NOT NULL,
-  `apellidos` varchar(90) NOT NULL,
-  `contrasenia` varchar(30) NOT NULL,
-  `curso` varchar(20) NOT NULL,
-  `fotoPerfil` blob DEFAULT NULL,
-  `nombreUsuario` varchar(90) NOT NULL,
-  PRIMARY KEY (`IDusuario`),
-  UNIQUE KEY `nombreUsuario` (`nombreUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Volcando datos para la tabla doraemon.usuario: ~1 rows (aproximadamente)
-REPLACE INTO `usuario` (`IDusuario`, `mail`, `nombreReal`, `apellidos`, `contrasenia`, `curso`, `fotoPerfil`, `nombreUsuario`) VALUES
-	(1, 'doraemon@gtime.com', 'doraemon', 'doraemon', 'Contrasenia12.', '2.º DAM', NULL, 'doraemon');
-
-
 -- Volcando estructura de base de datos para listausuarios
 CREATE DATABASE IF NOT EXISTS `listausuarios` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `listausuarios`;
@@ -203,9 +121,9 @@ CREATE TABLE IF NOT EXISTS `usuarioslista` (
   CONSTRAINT `chk_tipo` CHECK (`tipo` in ('Administrador','Usuario')),
   CONSTRAINT `chk_mail` CHECK (`mail` like '%@gtime.com'),
   CONSTRAINT `chk_contrasenia` CHECK (octet_length(`contrasenia`) >= 8 and `contrasenia` regexp '[A-Z]' and `contrasenia` regexp '[a-z]' and `contrasenia` regexp '[0-9]' and `contrasenia` regexp '[^A-Za-z0-9]')
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla listausuarios.usuarioslista: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla listausuarios.usuarioslista: ~11 rows (aproximadamente)
 REPLACE INTO `usuarioslista` (`IDusuario`, `mail`, `nombreReal`, `apellidos`, `contrasenia`, `nombreUsuario`, `tipo`, `curso`) VALUES
 	(7, 'pikachu@gtime.com', 'pikachu', 'pikachu', 'Pikachu12.', 'pikachu', 'Usuario', ''),
 	(11, 'a@gtime.com', 'a', 'a', 'Contrasenia12.', 'a', 'Usuario', '1.º SMR'),
@@ -213,7 +131,11 @@ REPLACE INTO `usuarioslista` (`IDusuario`, `mail`, `nombreReal`, `apellidos`, `c
 	(13, 'gonzalito@gtime.com', 'gonzalito', 'gonzalito', 'Contrasenia12.', 'gonzalito', 'Usuario', '2.º SMR'),
 	(14, 'juanito@gtime.com', 'juanito', 'juanito', 'Contrasenia12.', 'juanito', 'Usuario', '2.º SMR'),
 	(15, 'doraemon@gtime.com', 'doraemon', 'doraemon', 'Contrasenia12.', 'doraemon', 'Usuario', '2.º DAM'),
-	(16, 'jeusa@gtime.com', 'lajesusa', 'laautentica', 'Contrasenia12.', 'laJesusa', 'Usuario', '1.º DAM');
+	(16, 'jeusa@gtime.com', 'lajesusa', 'laautentica', 'Contrasenia12.', 'laJesusa', 'Usuario', '1.º DAM'),
+	(17, 'b@gtime.com', 'b', 'b', 'Contrasenia12.', 'b', 'Usuario', '1.º SMR'),
+	(18, 'maricarmen@gtime.com', 'maricarmen', 'maricarmen', 'Contrasenia12.', 'maricarmen', 'Usuario', '2.º DAM'),
+	(19, 'ASDFASF@gtime.com', 'kslafjlaks', 'asdasdf', 'Contrasenia12.', 'SALKJDFKLASJLFA', 'Usuario', '2.º SMR'),
+	(20, 'asdfas@gtime.com', 'RealNombre', 'Nombre', 'Contrasenia12.', 'hola', 'Usuario', '1.º SMR');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -32,6 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import modelo.PlanAcademico;
@@ -232,31 +233,63 @@ public class controladorUsuario implements Initializable {
 	        	}
 	        
 	        });
+		 //Cambiar el color de las celdas
 		 taskList.setCellFactory(lv -> new ListCell<String>() {
-             @Override
-             protected void updateItem(String item, boolean empty) {
-                 super.updateItem(item, empty);
+			    @Override
+			    protected void updateItem(String item, boolean empty) {
+			        super.updateItem(item, empty);
 
-                 if (empty || item == null) {
-                     setText(null);
-                     setStyle(""); // Estilo por defecto
-                 } else {
-                     setText(item);
+			        if (empty || item == null) {
+			            setText(null);
+			            setStyle(""); // Estilo por defecto
+			        } else {
+			            setText(item);
 
-                     // Obtener el color de fondo
-                     String color = obtenerColorParaItem(item, SCRUDusuarios.rellenarTareaUsuEspecifico(), SCRUDusuarios.rellenarRutinaUsuEspecifico(), SCRUDusuarios.obtenerPlanDeCursoEspecifico(SCRUDusuarios.obtenerCursoAlumno(controladorLoggin.nombreUsuGlobal)));
+			            // Obtener el color de fondo
+			            String color = obtenerColorParaItem(item, SCRUDusuarios.rellenarTareaUsuEspecifico(), SCRUDusuarios.rellenarRutinaUsuEspecifico(), SCRUDusuarios.obtenerPlanDeCursoEspecifico(SCRUDusuarios.obtenerCursoAlumno(controladorLoggin.nombreUsuGlobal)));
 
-                     // Validar si el color es válido
-                     if (color == null || color.isEmpty()) {
-                         color = "green";  // Color por defecto
-                     }
+			            // Validar si el color es válido
+			            if (color == null || color.isEmpty()) {
+			                color = "green";  // Color por defecto
+			            }
 
-                     // Aplicar el estilo con el color
-                     setStyle("-fx-background-color: " + color + ";");
-                 }
-             }
-         });
-		 
+			            // Obtener el color opuesto para el texto
+			            String textColor = obtenerColorOpuesto(color);
+
+			            // Aplicar el estilo con el color de fondo y el color opuesto para el texto
+			            setStyle("-fx-background-color: " + color + "; -fx-text-fill: " + textColor + ";");
+			        }
+			    }
+
+			    private String obtenerColorOpuesto(String color) {
+			        // Comprobamos si el color es un nombre de color estándar
+			        if (color.equalsIgnoreCase("green")) return "red"; // Ejemplo de color opuesto
+
+			        // Si el color es hexadecimal, calculamos el opuesto
+			        if (color.startsWith("#")) {
+			            try {
+			                // Convertir el color hexadecimal a RGB
+			                Color baseColor = Color.web(color);
+			                // Invertir los componentes RGB
+			                double invertedRed = 1.0 - baseColor.getRed();
+			                double invertedGreen = 1.0 - baseColor.getGreen();
+			                double invertedBlue = 1.0 - baseColor.getBlue();
+
+			                // Convertir el color invertido de vuelta a formato hexadecimal
+			                Color invertedColor = new Color(invertedRed, invertedGreen, invertedBlue, 1.0);
+			                return String.format("#%02X%02X%02X", (int)(invertedColor.getRed() * 255), (int)(invertedColor.getGreen() * 255), (int)(invertedColor.getBlue() * 255));
+			            } catch (IllegalArgumentException e) {
+			                // Si el color no es válido o no se puede convertir, devolver blanco como valor por defecto
+			                return "white";
+			            }
+			        }
+
+			        // Si no es un color reconocido, devolver un color por defecto
+			        return "white";
+			    }
+			});
+
+		
 		
 		 //controladorFormularioTarea ejemplo = new controladorFormularioTarea();
 		
@@ -547,21 +580,22 @@ public class controladorUsuario implements Initializable {
 	// Devuelve una lista String los objetos de lista toString
 	@FXML 
 	public static List<String> rellenarListaTareaString() {
-
+		LocalDate hoy=LocalDate.now();
 		List<Rutina> listaPooRutina = SCRUDusuarios.rellenarRutinaUsuEspecifico();
 
 		List<Tarea> listaPooTarea = SCRUDusuarios.rellenarTareaUsuEspecifico();
 
 		List<String> listaTareaString = new ArrayList();
-
+		
 		for (Rutina a : listaPooRutina) {
-
 			listaTareaString.add(a.toString());
 		}
-
+		
 		for (Tarea a : listaPooTarea) {
-
-			listaTareaString.add((String) a.toString());
+			
+				listaTareaString.add((String) a.toString());
+			
+			
 		}
 
 		return listaTareaString;
@@ -594,7 +628,7 @@ public class controladorUsuario implements Initializable {
 		// 2.1 Foreach para las fechas y horas plan academico
 
 		for (PlanAcademico a : objetosPlanesAcademico) {
-
+			
 			listaFechas.add(a.getFechahorasPlan());
 
 		}
@@ -950,5 +984,6 @@ public class controladorUsuario implements Initializable {
     			
     			
     }
-
+    
+    
 }

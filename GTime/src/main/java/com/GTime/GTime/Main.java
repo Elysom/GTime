@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -28,6 +29,14 @@ public class Main extends Application {
 				scene = new Scene(loadFXML("/vista/loggin"));
 				primaryStage.sizeToScene();
 		        primaryStage.setScene(scene);
+		        
+		        
+		        
+		        // Configurar el ícono
+		        Image icon = new Image(getClass().getResourceAsStream("/vista/resources/logo.png"));
+		        primaryStage.getIcons().add(icon);
+		        
+		        
 		        primaryStage.show();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

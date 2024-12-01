@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -378,6 +379,8 @@ public class controladorPrincipal implements Initializable {
 			try {
 				root = fxmlLoader.load();
 				Stage stage = new Stage();
+				Image icon = new Image(getClass().getResourceAsStream("/vista/resources/logo.png"));
+		        stage.getIcons().add(icon);
 				stage.setScene(new Scene(root));
 				stage.show();
 			} catch (IOException e) {

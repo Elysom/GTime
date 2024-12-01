@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -559,6 +560,9 @@ public class controladorUsuario implements Initializable {
         try {
         	Parent root = fxmlLoader.load();
             Stage stage = new Stage();
+         // Configurar el ícono
+	        Image icon = new Image(getClass().getResourceAsStream("/vista/resources/logo.png"));
+	        stage.getIcons().add(icon);
             stage.setScene(new Scene(root));
             
          // Obtener la instancia del controladorFormularioTarea y pasar el controladorUsuario

@@ -24,6 +24,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilidades.SCRUDusuarios;
@@ -141,6 +142,10 @@ public class controladorFormularioTarea implements Initializable {
 
 	        // Ajustar el tamaño de la ventana al contenido
 	        Stage stage = (Stage) scene.getWindow();
+	        
+	        Image icon = new Image(getClass().getResourceAsStream("/vista/resources/logo.png"));
+	        stage.getIcons().add(icon);
+	        
 	        stage.sizeToScene();
 	    } catch (IOException e) {
 	        e.printStackTrace();

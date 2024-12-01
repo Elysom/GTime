@@ -16,6 +16,8 @@ import utilidades.DatabaseConnector;
 /**
  * JavaFX App
  */
+
+// .
 public class Main extends Application {
 	  private static Scene scene;
 	  private static Parent root;

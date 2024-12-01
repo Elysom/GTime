@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -76,6 +78,15 @@ public class controladorFormularioRutina implements Initializable {
     @FXML
     private CheckBox chbRutinas;
    
+ // Referencia al controlador de usuario
+    private controladorUsuario controladorUsuario;
+
+    // Método para establecer la referencia al controladorUsuario
+    public void setControladorUsuario(controladorUsuario controlador) {
+        this.controladorUsuario = controlador;
+    }
+    
+    
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -139,11 +150,19 @@ public class controladorFormularioRutina implements Initializable {
 			agregarRutinas("D");
 			
 		}
+		
+		List<String> AmbasOpciones = controladorUsuario.rellenarYordenarAmbasListas();
+		
+		
+	    controladorUsuario.taskList.getItems().setAll(AmbasOpciones);
+		
+		cerrarVentana(event);
 	}
 	
 	public void agregarRutinas(String diaSemana) {
 		
 		SCRUDusuarios.creacionRutina(txtRutinas.getText(), diaSemana,  LocalTime.of(txtHoras.getValue(), txtMinutos.getValue()), transformarColor(), txtDescripcion.getText(), null, null);
+		
 		
 	}
 	
@@ -162,22 +181,43 @@ public class controladorFormularioRutina implements Initializable {
 	
 	@FXML
 	public void abrirFormularioTarea(ActionEvent event) {
-        // Cargar el nuevo contenido
-		Scene scene= btnCrear.getScene();
-        Parent newRoot;
 		try {
-			newRoot = FXMLLoader.load(getClass().getResource("/vista/formularioTareas.fxml"));
+	        // Crear un cargador de FXML para tener acceso al controlador
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/formularioTareas.fxml"));
+
+	        // Cargar el nuevo contenido
+	        Parent newRoot = loader.load();
+
+	        // Obtener el controlador asociado al nuevo FXML
+	        controladorFormularioTarea controladorTarea = loader.getController();
+
+	        // (Opcional) Si necesitas pasar datos al nuevo controlador, hazlo aquí
+	        controladorTarea.setControladorUsuario(this.controladorUsuario);
+
+	        // Obtener la escena actual y reemplazar su raíz con el nuevo contenido
+	        Scene scene = btnCrear.getScene();
 	        scene.setRoot(newRoot);
-	        
-	        // Ajustar el tamaño de la escena al contenido
+
+	        // Ajustar el tamaño de la ventana al contenido
 	        Stage stage = (Stage) scene.getWindow();
 	        stage.sizeToScene();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        System.err.println("Error al cargar el formulario de rutinas: " + e.getMessage());
+	    }
 
 
         
 	}
+	
+	public void cerrarVentana(ActionEvent event) {
+	    // Obtener el nodo de la escena (en este caso el botón que disparó el evento)
+	    Node source = (Node) event.getSource();
+	    // Obtener el Stage (ventana) de la escena
+	    Stage stage = (Stage) source.getScene().getWindow();
+	    // Cerrar la ventana
+	    stage.close();
+	}
+
+	
 }

@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -63,8 +64,8 @@ public class controladorUsuario implements Initializable {
 	@FXML
 	private Text month;
 
-	@FXML
-	private ListView<String> taskList;
+
+    @FXML ListView<String> taskList;
 
 	@FXML
 	private GridPane calendarGrid;
@@ -87,6 +88,10 @@ public class controladorUsuario implements Initializable {
     
 
     public static String infoSeleccionada;
+    
+    private controladorFormularioTarea controladorTarea;
+    
+    public static int contadorAux;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -107,7 +112,6 @@ public class controladorUsuario implements Initializable {
 		});
 
 		// mostrar mas informacion
-		
 		taskList.setOnMouseClicked(event -> {
 
 			if (event.getClickCount() == 2) {
@@ -192,6 +196,9 @@ public class controladorUsuario implements Initializable {
 			}
 
 		});
+
+		 actualizarLista();
+
 		// Listener pa buscar
 		
 		 txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -225,6 +232,35 @@ public class controladorUsuario implements Initializable {
 	        	}
 	        
 	        });
+		 taskList.setCellFactory(lv -> new ListCell<String>() {
+             @Override
+             protected void updateItem(String item, boolean empty) {
+                 super.updateItem(item, empty);
+
+                 if (empty || item == null) {
+                     setText(null);
+                     setStyle(""); // Estilo por defecto
+                 } else {
+                     setText(item);
+
+                     // Obtener el color de fondo
+                     String color = obtenerColorParaItem(item, SCRUDusuarios.rellenarTareaUsuEspecifico(), SCRUDusuarios.rellenarRutinaUsuEspecifico(), SCRUDusuarios.obtenerPlanDeCursoEspecifico(SCRUDusuarios.obtenerCursoAlumno(controladorLoggin.nombreUsuGlobal)));
+
+                     // Validar si el color es válido
+                     if (color == null || color.isEmpty()) {
+                         color = "green";  // Color por defecto
+                     }
+
+                     // Aplicar el estilo con el color
+                     setStyle("-fx-background-color: " + color + ";");
+                 }
+             }
+         });
+		 
+		
+		 //controladorFormularioTarea ejemplo = new controladorFormularioTarea();
+		
+		 
 
 
 	}
@@ -475,16 +511,29 @@ public class controladorUsuario implements Initializable {
 
 	}
 
+		 
+
+        
+		 
+		
+	
+	
 
 	@FXML
 	public void lanzarVentanaFormularioTarea(ActionEvent event) {
+
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/formularioTareas.fxml"));
 
-		try {
-			Parent root = fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
-			stage.show();
+        try {
+        	Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            
+         // Obtener la instancia del controladorFormularioTarea y pasar el controladorUsuario
+            controladorFormularioTarea controladorTarea = fxmlLoader.getController();
+            controladorTarea.setControladorUsuario(this);  // Establecer el controladorUsuario
+            
+            stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -773,6 +822,7 @@ public class controladorUsuario implements Initializable {
         taskList.setItems(FXCollections.observableArrayList(resultadoBusqueda));
     	
     }
+	
 	public void lanzarVentanaInformacionDetallada() {
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
 
@@ -792,4 +842,113 @@ public class controladorUsuario implements Initializable {
 		
 		Main.setRoot("/vista/loggin");
 	}
+
+	
+	
+	private String obtenerColorParaItem(String item, List<Tarea> listaTareas, List<Rutina> listaRutina, List<PlanAcademico> listaPlanAcademico) {
+	    // Ejemplo: Devuelve colores según un criterio. 
+	    // Aquí puedes usar datos de la base de datos o lógica personalizada.
+	    System.out.println("entro");
+		System.out.println(item);
+		for (Tarea a : listaTareas) {
+			if (item.equals(a.toString())) {
+				
+				
+				return a.getColor();
+				
+			}
+		}
+	    
+	    for (Rutina a : listaRutina) {
+			if (item.equals(a.toString())) {
+				return a.getColor();
+			}
+		}
+	    
+	    for (PlanAcademico a : listaPlanAcademico) {
+			if (item.equals(a.toString())) {
+				return a.getColor();
+			}
+		}
+	    
+	    return "white";
+	}
+	
+    public void actualizarLista() {
+    	
+
+    	
+    	
+    	// Listener para el CheckBox
+    			chbPlanAcademico.selectedProperty().addListener((observable, oldValue, newValue) -> {
+    	            if (newValue && chbTareas.isSelected()) {
+
+    	            List<String> AmbasOpciones = rellenarYordenarAmbasListas();
+    	            
+    	            taskList.setItems(FXCollections.observableArrayList(AmbasOpciones));
+    	            	
+    	            
+    	            } else if (newValue){
+    	                
+    	            	List<String> stringPlanesAcademico = rellenarPlanAcademicos();
+    	            	taskList.setItems(FXCollections.observableArrayList(stringPlanesAcademico));
+
+    	            	
+    	            } else if (newValue == false && chbTareas.isSelected()) {
+    	                List<String> tareaDelUsu = rellenarListaTareaString();
+    	                
+    	                taskList.setItems(FXCollections.observableArrayList(tareaDelUsu));
+
+    	                
+    	            } else {
+    	            	
+    	            	System.out.println("Rutinas desactivadas desde FXML.");
+    	                
+    	                taskList.setItems(FXCollections.observableArrayList(""));
+    	                
+    	            }
+    	            
+    	            
+    	            
+    	        });
+    			
+    			// Listener para el checkBox de Tareas
+    			chbTareas.selectedProperty().addListener((observable, oldValue, newValue) -> {
+    				
+    				List<String> tareaDelUsu = rellenarListaTareaString();
+    				
+    				if (newValue == true && chbPlanAcademico.isSelected()) {
+    					
+    		            List<String> AmbasOpciones = rellenarYordenarAmbasListas();
+    					
+    					taskList.setItems(FXCollections.observableArrayList(AmbasOpciones));
+    					
+    				} else if (newValue){
+    					
+    					taskList.setItems(FXCollections.observableArrayList(tareaDelUsu));
+    					
+    				} else if(newValue == false && chbPlanAcademico.isSelected()) {
+    					
+    					List<String> stringPlanesAcademico = rellenarPlanAcademicos();
+    	            	taskList.setItems(FXCollections.observableArrayList(stringPlanesAcademico));
+
+    				} else {
+    					taskList.setItems(FXCollections.observableArrayList(""));
+
+    				}
+    				
+    			});
+    			
+    			
+    			if (chbPlanAcademico.isSelected() && chbTareas.isSelected()) {
+					
+    				 List<String> AmbasOpciones = rellenarYordenarAmbasListas();
+     	            
+     	            taskList.setItems(FXCollections.observableArrayList(AmbasOpciones));
+     	            
+				}
+    			
+    			
+    }
+
 }

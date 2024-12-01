@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -78,42 +79,77 @@ public class controladorPrincipal implements Initializable {
 		lblNUsuario.setText(controladorLoggin.nombreUsuGlobal);
 		calendarioMetodos = new CalendarioMetodos();
 
-		updateCalendar();
+        updateCalendar();
+        
+        listaTareas = agregarPlanesLista();
+        
+        taskList.setItems(FXCollections.observableArrayList(listaTareas));
+        
+        taskList.setCellFactory(lv -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+            	System.out.println("entro el cell factory");
+                super.updateItem(item, empty);
 
-		listaTareas = agregarPlanesLista();
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle(""); // Estilo por defecto
+                } else {
+                    setText(item);
 
-		taskList.setItems(FXCollections.observableArrayList(listaTareas));
+                    // Obtener el color de fondo
+                    String color = obtenerColorParaItem(item, SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal));
 
-		txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+                    // Validar si el color es válido
+                    if (color == null || color.isEmpty()) {
+                        color = "white";  // Color por defecto
+                    }
 
-			buscarElemento(); // Llama a buscarElemento con el nuevo texto
+                    // Verificar que el color sea válido antes de aplicarlo
+                    System.out.println("Color para item: " + color);
 
-		});
-
-		// mostrar mas informacion
-
-		taskList.setOnMouseClicked(event -> {
-
-			if (event.getClickCount() == 2) {
-				infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
-
-				taskList.getSelectionModel().clearSelection();
-
-				FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
-
-				try {
-					Parent root = fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setScene(new Scene(root));
-					stage.show();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-		});
-
+                    // Aplicar el estilo con el color
+                    setStyle("-fx-background-color: " + color + ";");
+                }
+            }
+        });
+        
+        
+       
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            
+        buscarElemento(); // Llama a buscarElemento con el nuevo texto
+        
+        	
+        });
+        
+        // mostrar mas informacion
+        
+        taskList.setOnMouseClicked(event -> {
+        	
+        	if (event.getClickCount() == 2) { 
+        		 infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
+        		  
+            	 taskList.getSelectionModel().clearSelection();
+                	
+                   	
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/informacionDetallada.fxml"));
+                	
+                try {
+                	Parent root = fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+        		} catch (IOException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+        	}
+        
+        });
+        
+        
+        
 	}
 
 	@FXML
@@ -367,39 +403,6 @@ public class controladorPrincipal implements Initializable {
 	}
 
 	@FXML
-	private void eliminarPlan(ActionEvent event) throws IOException {
-
-		String infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
-
-		SCRUDusuarios.eliminarPlan(infoSeleccionada);
-
-		List<PlanAcademico> rellenarLista = SCRUDusuarios
-				.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
-
-		List<String> actualizarLista = new ArrayList();
-
-		for (PlanAcademico a : rellenarLista) {
-
-			actualizarLista.add(a.toString());
-
-		}
-
-		taskList.setItems(FXCollections.observableArrayList(actualizarLista));
-
-	}
-
-	// funcion de objetos de planes academicos para rellenar la informacion
-
-	public static List<PlanAcademico> rellenarObjetoPlanes() {
-
-		List<PlanAcademico> rellenarLista = SCRUDusuarios
-				.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
-
-		return rellenarLista;
-
-	}
-
-	@FXML
 	private void volverLogin(MouseEvent event) throws IOException {
 
 		Main.setRoot("/vista/loggin");
@@ -418,5 +421,58 @@ public class controladorPrincipal implements Initializable {
 			e.printStackTrace();
 		}
 	}
+    
+    @FXML
+    private void eliminarPlan(ActionEvent event) throws IOException {
+    	 
+    	String infoSeleccionada = taskList.getSelectionModel().getSelectedItem();
+    	
+    	SCRUDusuarios.eliminarPlan(infoSeleccionada);
+    	
+    	List<PlanAcademico> rellenarLista = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
 
+    	List<String> actualizarLista = new ArrayList();
+    	
+    	for (PlanAcademico a : rellenarLista) {
+    		
+			actualizarLista.add(a.toString());
+			
+		}
+    	
+    	taskList.setItems(FXCollections.observableArrayList(actualizarLista));
+    	 
+    }
+    
+    // funcion de objetos de planes academicos para rellenar la informacion
+    
+    public static List<PlanAcademico> rellenarObjetoPlanes() {
+    	
+    	List<PlanAcademico> rellenarLista = SCRUDusuarios.rellanarListaAdminEspecifico(controladorLoggin.nombreUsuGlobal);
+
+    	return rellenarLista;
+    	
+    }
+
+
+
+
+    private String obtenerColorParaItem(String item, List<PlanAcademico> listaAcademica) {
+	    // Ejemplo: Devuelve colores según un criterio. 
+	    // Aquí puedes usar datos de la base de datos o lógica personalizada.
+	    System.out.println("entro");
+		System.out.println(item);
+		for (PlanAcademico a : listaAcademica) {
+			if (item.equals(a.toString())) {
+				
+				
+				return a.getColor();
+				
+			}
+		}
+	    
+	    return "red";
+	}
+	
+	
 }
+

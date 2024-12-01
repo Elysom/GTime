@@ -70,11 +70,13 @@ public static String loginSCRUD(String usuario,String contrasenia) {
 		// TODO: handle exception
         return ("Error al iniciar sesión: " + e.getMessage());
 
-	}
+	} 
 	
 	return "Usuario o contrasenia invalido";
 	
 }
+
+
 public static void registerSCRUD(String nombre,String apellidos,String mail,String nombreReal,String contrasenia,String curso){
 	
 	Connection cnn= utilidades.DatabaseConnector.dameConexion();
@@ -165,7 +167,8 @@ public static String verificarNombreUsusario(String NombreUsuario) {
 		
 	} catch (Exception e) {
 		// TODO: handle exception
-	}
+		e.printStackTrace();
+	} 
 	return "Nombre Usuario Disponible";
 	
 }
@@ -268,8 +271,7 @@ public static void agregarEsquemaDatos(String nombre_usuario, String apellidos, 
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     		System.out.println("Error al ingresar la informacion");
-    	}        
-		
+        }
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -329,7 +331,7 @@ public static void agregarPlan(String usuActual, String nombrePlan, Timestamp fe
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} 
 	
 	
 }
@@ -391,7 +393,6 @@ public static void eliminarPlan(String ItemList) {
 		System.out.println(e.getLocalizedMessage());
 	}
 	
-	
 }
 
 //Función para obtener la fecha y hora
@@ -446,7 +447,7 @@ public static List<PlanAcademico> obtenerPlanDeCursoEspecifico (String curso) {
 	
 	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica("listausuarios");
 	
-	String sql = "Select * from plan_academico where curso = ?";
+	String sql = "Select * from plan_academico where curso = ? and fecha >= NOW() order by fecha asc";
 	
 	List<PlanAcademico> ObjetosPlanesAcademicos = new ArrayList();
 	
@@ -471,8 +472,7 @@ public static List<PlanAcademico> obtenerPlanDeCursoEspecifico (String curso) {
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
-	
+	} 
 	return ObjetosPlanesAcademicos;
 }
 
@@ -502,8 +502,7 @@ public static void agregarTareaUsuario(String nombreTarea, Timestamp fecha_hora,
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
-	
+	} 
 }
 
 public static Timestamp obtenerFechaHoraSQL(LocalDate fecha, int horas, int minutos) {
@@ -520,7 +519,7 @@ public static List<Tarea> rellenarTareaUsuEspecifico() {
 	
 	Connection cnn = DatabaseConnector.dameConexionDatabaseEspecifica(controladorLoggin.nombreUsuGlobal);
 	
-	String sql = "SELECT * FROM tarea";
+	String sql = "SELECT * FROM tarea WHERE fecha >= NOW() order by fecha asc";
 	
 	List<Tarea> listaTarea = new ArrayList();
 	
@@ -570,7 +569,7 @@ public static void creacionRutina(String nombreTarea,String diaSemana, LocalTime
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
 		System.out.println(e.getMessage());
-	}
+	} 
 	
 }
 
@@ -630,10 +629,11 @@ public static void eliminarRutinas(String nombreTarea, String diaSemana, LocalTi
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 }
 
-// Eliminar funcion tarea  2024-11-29, 11:00 - Explotar Hogwats
 
 public static void eliminarTareas(LocalDateTime fechaHora, String nombreTarea) {
 	
@@ -655,7 +655,9 @@ public static void eliminarTareas(LocalDateTime fechaHora, String nombreTarea) {
 	} catch (SQLException e) {
 		// TODO: handle exception
 		System.out.println(e.getLocalizedMessage());
-	}
+	} finally {
+        utilidades.DatabaseConnector.cerrarConexion(cn); // Aseguramos el cierre de la conexión
+    }
 	
 }
 

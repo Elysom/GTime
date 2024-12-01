@@ -67,11 +67,9 @@ public class controladorUsuario implements Initializable {
     @FXML
     private Label lblNUsuario;
 
-    @FXML
-    private  CheckBox chbTareas;
+    @FXML  CheckBox chbTareas;
     
-    @FXML
-    private CheckBox chbPlanAcademico; 
+    @FXML CheckBox chbPlanAcademico; 
     
     public static String infoSeleccionada;
     
@@ -485,7 +483,7 @@ public class controladorUsuario implements Initializable {
 			}
 		}
 	    
-	    return "white";
+	    return "";
 	}
 	
     public void actualizarLista() {

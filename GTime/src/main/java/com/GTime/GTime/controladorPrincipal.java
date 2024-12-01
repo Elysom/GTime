@@ -83,6 +83,8 @@ public class controladorPrincipal implements Initializable{
         
         taskList.setItems(FXCollections.observableArrayList(listaTareas));
         
+        
+        // Foreach List view
         taskList.setCellFactory(lv -> new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {

@@ -8,7 +8,7 @@ here the requirements for making the app work:<br><br><br>
 2.Import the SQL atached to the proyect to the database<br>
 3.Enjoy!.<br><br>
 I am not planning to make changes in the future for now. If i see the future then i might<br>
-continue the debelopement.<br><br>
+continue the developement.<br><br>
 If you want to modify the proyect go ahead.
 Have a nice day!
 </p>
